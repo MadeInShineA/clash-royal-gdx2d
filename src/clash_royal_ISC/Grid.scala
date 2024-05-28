@@ -1,12 +1,15 @@
 package clash_royal_ISC
 
-import com.badlogic.gdx.maps.tiled.TmxMapLoader
+import com.badlogic.gdx.maps.MapLayers
+import com.badlogic.gdx.maps.tiled.{TiledMap, TmxMapLoader}
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer
+import com.badlogic.gdx.math.Vector2
 
 class Grid {
-  val tiledMap = new TmxMapLoader().load("res/map.tmx")
-  val tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap)
-  val tiledLayer =  tiledMap.getLayers
+  var tiledMap: TiledMap = _
+  var tiledMapRenderer: OrthogonalTiledMapRenderer = _
+  var tiledLayer: MapLayers = _
 
-  tiledMapRenderer.render()
+
+
 }

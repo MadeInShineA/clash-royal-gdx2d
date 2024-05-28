@@ -6,11 +6,6 @@
    <property name="tileType" value="bridge"/>
   </properties>
  </tile>
- <tile id="21">
-  <properties>
-   <property name="tileType" value="grass"/>
-  </properties>
- </tile>
  <tile id="150">
   <properties>
    <property name="tileType" value="water"/>
