@@ -11,4 +11,14 @@
    <property name="tileType" value="water"/>
   </properties>
  </tile>
+ <tile id="205">
+  <properties>
+   <property name="tileType" value="p2_tower"/>
+  </properties>
+ </tile>
+ <tile id="206">
+  <properties>
+   <property name="tileType" value="p1_tower"/>
+  </properties>
+ </tile>
 </tileset>
