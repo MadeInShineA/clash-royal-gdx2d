@@ -9,7 +9,6 @@ class GameWindow extends PortableApplication(576, 1080) {
 
   val grid: Grid = new Grid
 
-
   override def onInit(): Unit = {
     grid.tiledMap = new TmxMapLoader().load("res/map.tmx")
     grid.tiledMapRenderer = new OrthogonalTiledMapRenderer(grid.tiledMap)
@@ -19,10 +18,8 @@ class GameWindow extends PortableApplication(576, 1080) {
   override def onGraphicRender(gdxGraphics: GdxGraphics): Unit = {
     gdxGraphics.clear()
     gdxGraphics.drawFPS()
-
     gdxGraphics.moveCamera(0, -92)
-    grid.tiledMapRenderer.setView(gdxGraphics.getCamera)
-    grid.tiledMapRenderer.render()
+    this.grid.render(gdxGraphics)
   }
 
 }
