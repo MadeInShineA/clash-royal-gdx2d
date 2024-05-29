@@ -1,5 +1,8 @@
 package clash_royal_ISC.entities.minions
 
+import clash_royal_ISC.entities.Entity
+import com.badlogic.gdx.Gdx
+
 abstract class Minion extends Entity {
   val moveSpeed: Int
   def move(target: Entity): Unit = {
