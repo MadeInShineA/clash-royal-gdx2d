@@ -4,7 +4,7 @@ import ch.hevs.gdx2d.components.bitmaps.Spritesheet
 import ch.hevs.gdx2d.lib.GdxGraphics
 import ch.hevs.gdx2d.lib.interfaces.DrawableObject
 import clash_royal_ISC.Player
-import clash_royal_ISC.entities.Entity.entitiesArray
+import clash_royal_ISC.entities.Entity.{entitiesArray, findClosestEnemy}
 import com.badlogic.gdx.math.Vector2
 
 import scala.collection.mutable.ArrayBuffer
@@ -19,7 +19,7 @@ abstract class Entity(val player: Player, var position: Vector2) extends Drawabl
   val spriteWidth: Int
   val spriteHeight: Int
 
-  var target: Entity
+  var target: Entity = findClosestEnemy(this)
 
   var currentAnimationFrame: Int = 0
 
@@ -71,21 +71,22 @@ abstract class Entity(val player: Player, var position: Vector2) extends Drawabl
 object Entity {
   val entitiesArray: ArrayBuffer[Entity] = new ArrayBuffer()
 
-  def getTarget(): Unit = {
+  def getTargets(): Unit = {
     for (entity <- entitiesArray) {
       entity.target = findClosestEnemy(entity)
     }
   }
 
-  private def findClosestEnemy(entity: Entity): Option[Entity] = {
-    val enemies = entitiesArray.filter(e => e.playerID != entity.playerID)
-    if (enemies.isEmpty) {
-      None
-    } else {
-      Some(enemies.minBy(e => entity.position.dst(e.position)))
-    }
-  }
+  private def findClosestEnemy(entity: Entity): Entity = {
 
+    val ennemiEntities = entitiesArray.filter(_.player != entity.player)
+
+    // The array shouldn't ever be empty when the function is called since each player has at least 1 Tower
+    require(ennemiEntities.nonEmpty)
+
+    ennemiEntities.minBy(_.position.dst(entity.position))
+
+  }
   def draw(gdxGraphics: GdxGraphics): Unit = {
     entitiesArray.foreach(_.draw(gdxGraphics))
   }
