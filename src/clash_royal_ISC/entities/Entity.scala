@@ -71,7 +71,7 @@ abstract class Entity(val player: Player, var position: Vector2) extends Drawabl
 object Entity {
   val entitiesArray: ArrayBuffer[Entity] = new ArrayBuffer()
 
-  def getTargets(): Unit = {
+  def setTargets(): Unit = {
     for (entity <- entitiesArray) {
       entity.target = findClosestEnemy(entity)
     }
@@ -82,7 +82,7 @@ object Entity {
     val ennemiEntities = entitiesArray.filter(_.player != entity.player)
 
     // The array shouldn't ever be empty when the function is called since each player has at least 1 Tower
-    require(ennemiEntities.nonEmpty)
+    assert(ennemiEntities.nonEmpty)
 
     ennemiEntities.minBy(_.position.dst(entity.position))
 
