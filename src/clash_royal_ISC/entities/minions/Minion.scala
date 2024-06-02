@@ -2,14 +2,13 @@ package clash_royal_ISC.entities.minions
 
 import ch.hevs.gdx2d.components.bitmaps.Spritesheet
 import clash_royal_ISC.Player
-import clash_royal_ISC.entities.Entity
+import clash_royal_ISC.entities.{Deployable, Entity}
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.math.Vector2
 
-abstract class Minion(player: Player, position: Vector2) extends Entity(player, position) {
-  val moveSpeed: Int
-  val handSpriteSheet: Spritesheet
+abstract class Minion(player: Player, position: Vector2) extends Entity(player, position) with Deployable {
 
+  val moveSpeed: Int
   def move(target: Entity): Unit = {
     val deltaTime = Gdx.graphics.getDeltaTime
 

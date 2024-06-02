@@ -5,25 +5,25 @@ import ch.hevs.gdx2d.lib.GdxGraphics
 import ch.hevs.gdx2d.lib.interfaces.DrawableObject
 import clash_royal_ISC.Player
 import clash_royal_ISC.entities.Entity.{entitiesArray, findClosestEnemy}
+import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.math.Vector2
 
 import scala.collection.mutable.ArrayBuffer
 
 abstract class Entity(val player: Player, var position: Vector2) extends DrawableObject {
 
-  val cost: Int
-  var health: Int
-  val range: Int
-
   val spriteSheet: Spritesheet
   val spriteWidth: Int
   val spriteHeight: Int
+  var textureY: Int
 
-  var target: Entity = findClosestEnemy(this)
+  var health: Int
+  val range: Int
+
+  var target: Entity = _
 
   var currentAnimationFrame: Int = 0
 
-  var textureY: Int
 
   object Direction extends Enumeration {
     val UP, DOWN, LEFT, RIGHT = Value
@@ -63,9 +63,13 @@ abstract class Entity(val player: Player, var position: Vector2) extends Drawabl
     }
   }
 
+  //  override def draw(gdxGraphics: GdxGraphics): Unit = {
+  //    gdxGraphics.draw(this.spriteSheet.sprites(this.textureY)(this.currentAnimationFrame), this.position.x, this.position.y)
+  //  }
   override def draw(gdxGraphics: GdxGraphics): Unit = {
-    gdxGraphics.draw(this.spriteSheet.sprites(this.textureY)(this.currentAnimationFrame), this.position.x, this.position.y)
+    gdxGraphics.drawCircle(this.position.x, this.position.y, 20f, Color.BLACK)
   }
+
 }
 
 object Entity {
@@ -87,9 +91,8 @@ object Entity {
     ennemiEntities.minBy(_.position.dst(entity.position))
 
   }
-  def draw(gdxGraphics: GdxGraphics): Unit = {
+
+  def drawEntities(gdxGraphics: GdxGraphics): Unit = {
     entitiesArray.foreach(_.draw(gdxGraphics))
   }
-
-
 }

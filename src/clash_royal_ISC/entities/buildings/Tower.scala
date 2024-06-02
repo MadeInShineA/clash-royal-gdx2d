@@ -6,11 +6,14 @@ import com.badlogic.gdx.math.Vector2
 
 class Tower(player: Player, position: Vector2) extends Building(player, position) {
 
-  override val cost: Int = ???
-  override var health: Int = ???
-  override val range: Int = ???
-  override val spriteSheet: Spritesheet = ???
-  override val spriteWidth: Int = ???
-  override val spriteHeight: Int = ???
-  override var textureY: Int = ???
+  override val spriteWidth: Int = 32
+  override val spriteHeight: Int = 32
+
+  override val spriteSheet: Spritesheet = new Spritesheet("res/minions/lumberjack_sheet32.png", this.spriteWidth, this.spriteHeight);
+
+  override var health: Int = 100
+  override val range: Int = 2
+  override var textureY: Int = 1
+
+  this.spawn(this.position)
 }
