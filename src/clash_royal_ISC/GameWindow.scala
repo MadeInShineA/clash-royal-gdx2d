@@ -49,5 +49,10 @@ class GameWindow extends PortableApplication(WINDOW_WIDTH, WINDOW_HEIGHT) {
 object GameWindow {
   val WINDOW_WIDTH: Int = 576
   val WINDOW_HEIGHT: Int = 1080
+
+  val CAMERA_OFFSET: Int = -92
+
+  val FRAME_TIME: Float = 0.1f
+
 }
 

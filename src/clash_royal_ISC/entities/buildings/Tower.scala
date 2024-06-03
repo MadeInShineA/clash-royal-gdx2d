@@ -4,7 +4,7 @@ import clash_royal_ISC.Player
 import com.badlogic.gdx.math.Vector2
 
 
-class Tower(player: Player, position: Vector2) extends Building(player, position) {
+class Tower(player: Player) extends Building(player) {
 
   override val spriteWidth: Int = 32
   override val spriteHeight: Int = 32
@@ -15,5 +15,4 @@ class Tower(player: Player, position: Vector2) extends Building(player, position
   override val range: Int = 2
   override var textureY: Int = 1
 
-  this.spawn(this.position)
 }

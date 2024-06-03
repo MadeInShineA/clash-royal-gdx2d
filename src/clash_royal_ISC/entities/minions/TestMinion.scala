@@ -3,7 +3,7 @@ import ch.hevs.gdx2d.components.bitmaps.Spritesheet
 import clash_royal_ISC.Player
 import com.badlogic.gdx.math.Vector2
 
-class TestMinion(player: Player, position: Vector2) extends Minion(player, position) {
+class TestMinion(player: Player) extends Minion(player) {
 
   override val moveSpeed: Int = 2
 

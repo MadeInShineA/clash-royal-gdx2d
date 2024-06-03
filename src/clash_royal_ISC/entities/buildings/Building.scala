@@ -5,6 +5,6 @@ import clash_royal_ISC.entities.Entity
 
 import com.badlogic.gdx.math.Vector2
 
-abstract class Building(player: Player, position: Vector2) extends Entity(player, position){
+abstract class Building(player: Player) extends Entity(player){
 
 }

@@ -4,18 +4,21 @@ import ch.hevs.gdx2d.components.bitmaps.Spritesheet
 import ch.hevs.gdx2d.lib.GdxGraphics
 import ch.hevs.gdx2d.lib.interfaces.DrawableObject
 import clash_royal_ISC.Player
-import clash_royal_ISC.entities.Entity.{entitiesArray, findClosestEnemy}
+import clash_royal_ISC.entities.Entity.{entitiesArray}
+import clash_royal_ISC.entities.minions.Minion
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.math.Vector2
 
 import scala.collection.mutable.ArrayBuffer
 
-abstract class Entity(val player: Player, var position: Vector2) extends DrawableObject {
+abstract class Entity(val player: Player) extends DrawableObject {
 
   val spriteSheet: Spritesheet
   val spriteWidth: Int
   val spriteHeight: Int
   var textureY: Int
+
+  var position: Vector2 = _
 
   var health: Int
   val range: Int
@@ -23,7 +26,6 @@ abstract class Entity(val player: Player, var position: Vector2) extends Drawabl
   var target: Entity = _
 
   var currentAnimationFrame: Int = 0
-
 
   object Direction extends Enumeration {
     val UP, DOWN, LEFT, RIGHT = Value
@@ -63,6 +65,17 @@ abstract class Entity(val player: Player, var position: Vector2) extends Drawabl
     }
   }
 
+  def setTarget(): Unit = {
+
+    val ennemiEntities = entitiesArray.filter(_.player != this.player)
+
+    // The array shouldn't ever be empty when the function is called since each player has at least 1 Tower
+    assert(ennemiEntities.nonEmpty)
+
+    this.target = ennemiEntities.minBy(_.position.dst(this.position))
+
+  }
+
   //  override def draw(gdxGraphics: GdxGraphics): Unit = {
   //    gdxGraphics.draw(this.spriteSheet.sprites(this.textureY)(this.currentAnimationFrame), this.position.x, this.position.y)
   //  }
@@ -77,24 +90,20 @@ abstract class Entity(val player: Player, var position: Vector2) extends Drawabl
 object Entity {
   val entitiesArray: ArrayBuffer[Entity] = new ArrayBuffer()
 
-  def setTargets(): Unit = {
-    for (entity <- entitiesArray) {
-      entity.target = findClosestEnemy(entity)
+
+  def updateEntities(gdxGraphics: GdxGraphics, deltaTime: Float): Unit = {
+    for(entity <- entitiesArray){
+      entity.setTarget()
+
+      if(entity.isInstanceOf[Minion]){
+        println("Setting path")
+        entity.asInstanceOf[Minion].setPath()
+        println("Moving")
+        entity.asInstanceOf[Minion].move(deltaTime)
+      }
+
+      // entity.turn
+      entity.draw(gdxGraphics)
     }
-  }
-
-  private def findClosestEnemy(entity: Entity): Entity = {
-
-    val ennemiEntities = entitiesArray.filter(_.player != entity.player)
-
-    // The array shouldn't ever be empty when the function is called since each player has at least 1 Tower
-    assert(ennemiEntities.nonEmpty)
-
-    ennemiEntities.minBy(_.position.dst(entity.position))
-
-  }
-
-  def drawEntities(gdxGraphics: GdxGraphics): Unit = {
-    entitiesArray.foreach(_.draw(gdxGraphics))
   }
 }

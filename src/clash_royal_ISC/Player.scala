@@ -19,7 +19,8 @@ class Player() {
 
   assert(playersArray.length <= 2)
 
-  val tower: Tower = new Tower(this, if(playersArray.length == 1) P1_TOWER_POSITION else P2_TOWER_POSITION )
+  val tower: Tower = new Tower(this)
+  tower.spawn(if(playersArray.length == 1) P1_TOWER_POSITION else P2_TOWER_POSITION)
 
   def deployEntity(entity: Entity with Deployable, position: Vector2): Unit = {
     if (entity.cost <= currentElixir) {
