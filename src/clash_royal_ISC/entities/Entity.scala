@@ -70,6 +70,8 @@ abstract class Entity(val player: Player, var position: Vector2) extends Drawabl
     gdxGraphics.drawCircle(this.position.x, this.position.y, 20f, Color.BLACK)
   }
 
+
+
 }
 
 object Entity {

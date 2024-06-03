@@ -9,20 +9,14 @@ import com.badlogic.gdx.math.Vector2
 abstract class Minion(player: Player, position: Vector2) extends Entity(player, position) with Deployable {
 
   val moveSpeed: Int
-  def move(target: Entity): Unit = {
-    val deltaTime = Gdx.graphics.getDeltaTime
 
-    // Calculer la direction vers le target
-    val directionX = target.position.x - this.position.x
-    val directionY = target.position.y - this.position.y
-    val distance = math.sqrt(directionX * directionX + directionY * directionY).toFloat
+  var path: List[(Int, Int)] = _
 
-    // Normaliser le vecteur de direction
-    val normalizedX = directionX / distance
-    val normalizedY = directionY / distance
-
-    // Mettre à jour la position en fonction de la moveSpeed
-    this.position.x += normalizedX * moveSpeed * deltaTime
-    this.position.y += normalizedY * moveSpeed * deltaTime
+  def move(deltaTime: Float): Unit = {
+    if (path.length != 0) {
+      val index: Int = (deltaTime*moveSpeed).toInt
+      val newPosition: Vector2 = new Vector2(path(index)._1, path((index))._2)
+      this.position = newPosition
+    }
   }
 }

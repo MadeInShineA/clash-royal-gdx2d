@@ -2,7 +2,8 @@ package clash_royal_ISC
 
 import ch.hevs.gdx2d.desktop.PortableApplication
 import ch.hevs.gdx2d.lib.GdxGraphics
-import clash_royal_ISC.GameWindow.{WINDOW_HEIGHT, WINDOW_WIDTH}
+import clash_royal_ISC.GameWindow.{CAMERA_OFFSET, WINDOW_HEIGHT, WINDOW_WIDTH}
+import clash_royal_ISC.Utils.AStar
 import clash_royal_ISC.entities.Entity
 import clash_royal_ISC.entities.minions.TestMinion
 import com.badlogic.gdx.maps.tiled.{TiledMap, TmxMapLoader}
@@ -18,14 +19,17 @@ class GameWindow extends PortableApplication(WINDOW_WIDTH, WINDOW_HEIGHT) {
 
   override def onInit(): Unit = {
     grid.tiledMap = new TmxMapLoader().load("res/map/map.tmx")
+    AStar.walkableArray = AStar.convertMapToBoolArray(grid.tiledMap)
     grid.tiledMapRenderer = new OrthogonalTiledMapRenderer(grid.tiledMap)
-    grid.tiledLayer =  grid.tiledMap.getLayers
+    grid.tiledLayer = grid.tiledMap.getLayers
+
 
     this.player1 = new Player()
     this.player2 = new Player()
 
-    new TestMinion(this.player1, new Vector2(10, 10))
+    val testMinion: TestMinion = new TestMinion(this.player1)
 
+    testMinion.spawn(new Vector2(30, 130))
     Gdx.input.setInputProcessor(new MouseListener)
 
   }
@@ -33,11 +37,11 @@ class GameWindow extends PortableApplication(WINDOW_WIDTH, WINDOW_HEIGHT) {
   override def onGraphicRender(gdxGraphics: GdxGraphics): Unit = {
     gdxGraphics.clear()
     gdxGraphics.drawFPS()
-//    gdxGraphics.moveCamera(0, -92)
+    gdxGraphics.moveCamera(0, CAMERA_OFFSET)
+
     this.grid.render(gdxGraphics)
 
-    Entity.setTargets()
-    Entity.drawEntities(gdxGraphics)
+    Entity.updateEntities(gdxGraphics, Gdx.graphics.getDeltaTime)
 
   }
 }
