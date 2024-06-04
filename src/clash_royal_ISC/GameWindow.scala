@@ -31,11 +31,11 @@ class GameWindow extends PortableApplication(WINDOW_WIDTH, WINDOW_HEIGHT) {
     this.player2 = new Player()
 
     val testMinion: TestMinion = new TestMinion(this.player1)
-    val testMinion2: TestMinion = new TestMinion(this.player2)
-
+//    val testMinion2: TestMinion = new TestMinion(this.player2)
+//
     testMinion.spawn(new Vector2(30, 130))
-    testMinion2.spawn(new Vector2(180, 800))
-    Gdx.input.setInputProcessor(new MouseListener)
+//    testMinion2.spawn(new Vector2(180, 800))
+//    Gdx.input.setInputProcessor(new MouseListener)
 
 
 
@@ -51,12 +51,10 @@ class GameWindow extends PortableApplication(WINDOW_WIDTH, WINDOW_HEIGHT) {
 
     implicit val ec: scala.concurrent.ExecutionContext = scala.concurrent.ExecutionContext.global
 
-    Future(Entity.setEntitiesPathAsync())
-
-    println(graphicRenderCounter)
-
-    graphicRenderCounter += 1
-
+//    if(this.graphicRenderCounter % 30 == 0) {
+//      Future(Entity.setEntitiesPathAsync())
+//    }
+//    this.graphicRenderCounter += 1
   }
 }
 
@@ -65,6 +63,8 @@ object GameWindow {
   val WINDOW_HEIGHT: Int = 1024
 
   val FRAME_TIME: Float = 0.1f
+
+  var IS_GAME_RUNNING = true
 
 }
 

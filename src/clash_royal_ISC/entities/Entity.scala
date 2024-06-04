@@ -3,7 +3,7 @@ package clash_royal_ISC.entities
 import ch.hevs.gdx2d.components.bitmaps.Spritesheet
 import ch.hevs.gdx2d.lib.GdxGraphics
 import ch.hevs.gdx2d.lib.interfaces.DrawableObject
-import clash_royal_ISC.Player
+import clash_royal_ISC.{GameWindow, Player}
 import clash_royal_ISC.entities.Entity.entitiesArray
 import clash_royal_ISC.entities.minions.Minion
 import com.badlogic.gdx.graphics.Color
@@ -102,19 +102,24 @@ object Entity {
     for(entity <- entitiesArray){
       entity.setTarget()
 
-      if(entity.isInstanceOf[Minion]){
+      entity match {
+        case minion: Minion =>
 
-        entity.setTarget()
+          entity.setTarget()
 
-        if(entity.asInstanceOf[Minion].path == null){
-          println("Setting path")
-          entity.asInstanceOf[Minion].setPath()
-        }
+          if (minion.path == null) {
+            println("Setting path")
+            minion.setPath()
+          }
 
-        for(pathPoint <- entity.asInstanceOf[Minion].path){
-          gdxGraphics.drawCircle(pathPoint._1, pathPoint._2, 10, Color.CHARTREUSE)
-        }
-        entity.asInstanceOf[Minion].move(deltaTime)
+          for (pathPoint <- minion.path) {
+            gdxGraphics.drawCircle(pathPoint._1, pathPoint._2, 10, Color.CHARTREUSE)
+          }
+
+          println(minion.position)
+
+          minion.move(deltaTime)
+        case _ =>
       }
 
       // entity.turn
@@ -123,10 +128,12 @@ object Entity {
   }
 
   def setEntitiesPathAsync(): Unit = {
-    while (true){
+    while (GameWindow.IS_GAME_RUNNING){
       for(entity: Entity <- entitiesArray){
-        if(entity.isInstanceOf[Minion]){
-          entity.asInstanceOf[Minion].setPath()
+        entity match {
+          case minion: Minion =>
+            minion.setPath()
+          case _ =>
         }
       }
     }

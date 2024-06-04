@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "map.tmx",
+    "activeFile": "tileset.tsx",
     "expandedProjectPaths": [
         "."
     ],
@@ -13,24 +13,24 @@
             "scaleInDock": 1
         },
         "map.tmx": {
-            "scale": 2,
+            "scale": 0.33,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 319.75,
-                "y": 250.75
+                "x": 289.3939393939394,
+                "y": 446.96969696969705
             }
         },
         "map2.tmx": {
-            "scale": 2.001785714285714,
-            "selectedLayer": 0,
+            "scale": 0.25,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 288.242640499554,
-                "y": 169.59857270294384
+                "x": 1816,
+                "y": -1164
             }
         },
         "tileset.tsx": {
-            "scaleInDock": 3,
-            "scaleInEditor": 4
+            "scaleInDock": 1,
+            "scaleInEditor": 2
         }
     },
     "last.imagePath": "C:/Users/luluz/Coding/clash-royal-gdx2d/res",
@@ -38,13 +38,16 @@
     "map.lastUsedFormat": "tmx",
     "map.width": 18,
     "openFiles": [
-        "tileset.tsx",
-        "map.tmx"
+        "map.tmx",
+        "map2.tmx",
+        "tileset.tsx"
     ],
     "project": "map.tiled-project",
+    "property.type": "bool",
     "recentFiles": [
-        "tileset.tsx",
-        "map.tmx"
+        "map.tmx",
+        "map2.tmx",
+        "tileset.tsx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.margin": 1,

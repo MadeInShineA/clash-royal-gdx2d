@@ -1,11 +1,10 @@
 package clash_royal_ISC.entities.minions
 import ch.hevs.gdx2d.components.bitmaps.Spritesheet
 import clash_royal_ISC.Player
-import com.badlogic.gdx.math.Vector2
 
 class TestMinion(player: Player) extends Minion(player) {
 
-  override val moveSpeed: Int = 30
+  override val moveSpeed: Int = 2
 
   override val spriteWidth: Int = 32
   override val spriteHeight: Int = 32

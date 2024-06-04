@@ -18,3 +18,7 @@ class Grid {
     tiledMapRenderer.render()
   }
 }
+
+object Grid {
+  val tileSize: Int = 32
+}

@@ -10,7 +10,7 @@ import scala.collection.mutable.ArrayBuffer
 class Player() {
 
   val P1_TOWER_POSITION: Vector2 = new Vector2(GameWindow.WINDOW_WIDTH / 2, 152)
-  val P2_TOWER_POSITION: Vector2 = new Vector2(GameWindow.WINDOW_WIDTH / 2, 912)
+  val P2_TOWER_POSITION: Vector2 = new Vector2(GameWindow.WINDOW_WIDTH / 2, 800)
 
   var hand: ArrayBuffer[Entity] = _
   var currentElixir: Double = 0.0
