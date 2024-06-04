@@ -7,7 +7,7 @@ import com.badlogic.gdx.math.{Interpolation, Vector2}
 
 abstract class Minion(player: Player) extends Entity(player) with Deployable {
 
-  val moveSpeed: Int
+  val moveSpeed: Float
   var path: List[(Int, Int)] = _
 
   var currentFrame: Int = 0
@@ -26,21 +26,22 @@ abstract class Minion(player: Player) extends Entity(player) with Deployable {
     val frameTime: Float = GameWindow.FRAME_TIME / moveSpeed
 
     println(s"Frame time $frameTime")
+    println(s"Current frame $currentFrame")
 
     this.position = this.lastPosition
     if (!this.targetIsInRange()) {
       dt += deltaTime
       val alpha: Float = (dt + frameTime * currentFrame) / (frameTime * nFrames)
+      println(s"Alpha $alpha")
 
-      println(s"Alpha : $alpha")
-      println(s"Current frame $currentFrame")
       this.position.interpolate(new Vector2(this.path.head._1, this.path.head._2), alpha, Interpolation.linear)
-      this.path = this.path.tail
+      this.newPosition = position
     } else {
       this.dt = 0
     }
 
     if (this.dt > frameTime) {
+      println("caca")
       this.dt -= frameTime
       this.currentFrame = (this.currentFrame + 1) % this.nFrames
 
@@ -64,9 +65,6 @@ abstract class Minion(player: Player) extends Entity(player) with Deployable {
 //  }
 
   def setPath(): Unit = {
-    println("Entity position : " + this.position)
-    println("Target position : " + this.target.position)
     this.path = AStar.findPath((this.position.x.toInt, this.position.y.toInt), (this.target.position.x.toInt, this.target.position.y.toInt))
-    println("Found path : " + this.path.mkString(","))
   }
 }

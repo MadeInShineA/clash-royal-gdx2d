@@ -43,9 +43,9 @@ object AStar {
 
   def findPath(start: (Int, Int), goal: (Int, Int)): List[(Int, Int)] = {
     val startInWalkableGrid: (Int, Int) = (start._1 / Grid.tileSize, start._2 / Grid.tileSize)
-    println(s"Start in grid $startInWalkableGrid")
+//    println(s"Start in grid $startInWalkableGrid")
     val goalInWalkableGrid: (Int, Int) = (goal._1 / Grid.tileSize, goal._2 / Grid.tileSize)
-    println(s"Goal in grid $goalInWalkableGrid")
+//    println(s"Goal in grid $goalInWalkableGrid")
 
     val startNode = Node(startInWalkableGrid._1, startInWalkableGrid._2, 0, heuristic(Node(startInWalkableGrid._1, startInWalkableGrid._2, 0, 0, None), Node(goalInWalkableGrid._1, goalInWalkableGrid._2, 0, 0, None)), None)
     val goalNode = Node(goalInWalkableGrid._1, goalInWalkableGrid._2, 0, 0, None)
@@ -63,7 +63,7 @@ object AStar {
           path = (node.get.x * Grid.tileSize + Grid.tileSize / 2, node.get.y * Grid.tileSize + Grid.tileSize / 2) :: path
           node = node.get.parent
         }
-        return path
+        return path.tail
       }
 
       closedSet.add((currentNode.x, currentNode.y))

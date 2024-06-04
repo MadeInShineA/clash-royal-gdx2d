@@ -87,7 +87,7 @@ abstract class Entity(val player: Player) extends DrawableObject {
   }
 
   def targetIsInRange(): Boolean = {
-    if (this.position.dst(target.position) <= range) return true else false
+    if (this.position.dst(target.position) <= range)  true else false
   }
 
 
@@ -116,8 +116,6 @@ object Entity {
             gdxGraphics.drawCircle(pathPoint._1, pathPoint._2, 10, Color.CHARTREUSE)
           }
 
-          println(minion.position)
-
           minion.move(deltaTime)
         case _ =>
       }
@@ -128,13 +126,11 @@ object Entity {
   }
 
   def setEntitiesPathAsync(): Unit = {
-    while (GameWindow.IS_GAME_RUNNING){
-      for(entity: Entity <- entitiesArray){
-        entity match {
-          case minion: Minion =>
-            minion.setPath()
-          case _ =>
-        }
+    for (entity: Entity <- entitiesArray) {
+      entity match {
+        case minion: Minion =>
+          minion.setPath()
+        case _ =>
       }
     }
   }

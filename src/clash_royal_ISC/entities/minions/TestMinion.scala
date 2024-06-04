@@ -1,10 +1,10 @@
 package clash_royal_ISC.entities.minions
 import ch.hevs.gdx2d.components.bitmaps.Spritesheet
-import clash_royal_ISC.Player
+import clash_royal_ISC.{Grid, Player}
 
 class TestMinion(player: Player) extends Minion(player) {
 
-  override val moveSpeed: Int = 2
+  override val moveSpeed: Float = 1
 
   override val spriteWidth: Int = 32
   override val spriteHeight: Int = 32
@@ -15,7 +15,7 @@ class TestMinion(player: Player) extends Minion(player) {
 
   override val cost: Int = 3
   override var health: Int = 10
-  override val range: Int = 1
+  override val range: Int = 3 * Grid.tileSize
   override var textureY: Int = 1
 
 }
