@@ -19,5 +19,4 @@ class TestMinion(player: Player) extends Minion(player) {
   override val range: Int = 1
   override var textureY: Int = 1
 
-
 }

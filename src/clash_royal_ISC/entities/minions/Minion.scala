@@ -17,10 +17,16 @@ abstract class Minion(player: Player) extends Entity(player) with Deployable {
   var newPosition: Vector2 = this.position
 
   def move(deltaTime: Float): Unit = {
-    if (path.length != 0) {
-      val index: Int = (deltaTime*moveSpeed).toInt
-      val newPosition: Vector2 = new Vector2(path(index)._1, path((index))._2)
-      this.position = newPosition
+    val frameTime: Float = GameWindow.FRAME_TIME / moveSpeed
+
+    this.position = new Vector2(this.lastPosition)
+    if (!this.targetIsInRange()) {
+      dt += deltaTime
+      val alpha: Float = (dt + frameTime * currentFrame) / (frameTime * nFrames)
+
+      this.position.interpolate(new Vector2(this.path.last._1, this.path.last._2), alpha, Interpolation.linear)
+    } else {
+      this.dt = 0
     }
 
     if (this.dt > frameTime) {
