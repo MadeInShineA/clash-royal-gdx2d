@@ -23,7 +23,6 @@ class GameWindow extends PortableApplication(WINDOW_WIDTH, WINDOW_HEIGHT) {
     grid.tiledMapRenderer = new OrthogonalTiledMapRenderer(grid.tiledMap)
     grid.tiledLayer = grid.tiledMap.getLayers
 
-
     this.player1 = new Player()
     this.player2 = new Player()
 
@@ -37,7 +36,6 @@ class GameWindow extends PortableApplication(WINDOW_WIDTH, WINDOW_HEIGHT) {
   override def onGraphicRender(gdxGraphics: GdxGraphics): Unit = {
     gdxGraphics.clear()
     gdxGraphics.drawFPS()
-    gdxGraphics.moveCamera(0, CAMERA_OFFSET)
 
     this.grid.render(gdxGraphics)
 

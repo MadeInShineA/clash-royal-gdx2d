@@ -18,6 +18,7 @@ abstract class Entity(val player: Player) extends DrawableObject {
   val spriteHeight: Int
   var textureY: Int
 
+
   var position: Vector2 = _
 
   var health: Int
@@ -83,6 +84,10 @@ abstract class Entity(val player: Player) extends DrawableObject {
     gdxGraphics.drawCircle(this.position.x, this.position.y, 20f, Color.BLACK)
   }
 
+  def targetIsInRange(): Boolean = {
+    if (this.position.dst(target.position) <= range) return true else false
+  }
+
 
 
 }
@@ -96,9 +101,17 @@ object Entity {
       entity.setTarget()
 
       if(entity.isInstanceOf[Minion]){
-        println("Setting path")
-        entity.asInstanceOf[Minion].setPath()
-        println("Moving")
+
+        entity.setTarget()
+
+        if(entity.asInstanceOf[Minion].path == null){
+          println("Setting path")
+          entity.asInstanceOf[Minion].setPath()
+        }
+
+        for(pathPoint <- entity.asInstanceOf[Minion].path){
+          gdxGraphics.drawCircle(pathPoint._1, pathPoint._2, 10, Color.CHARTREUSE)
+        }
         entity.asInstanceOf[Minion].move(deltaTime)
       }
 

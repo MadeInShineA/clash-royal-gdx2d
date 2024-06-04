@@ -5,7 +5,7 @@ import com.badlogic.gdx.math.Vector2
 
 class TestMinion(player: Player) extends Minion(player) {
 
-  override val moveSpeed: Int = 2
+  override val moveSpeed: Int = 30
 
   override val spriteWidth: Int = 32
   override val spriteHeight: Int = 32

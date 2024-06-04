@@ -5,8 +5,9 @@ import com.badlogic.gdx.math.Vector2
 
 import scala.collection.mutable
 
+
 object AStar {
-  val forbiddenTiles: Set[Int] = Set(206, 130, 169, 151)
+  val forbiddenTiles: Set[Int] = Set(206, 130, 169, 151, 13, 170, 171)
 
   def isWalkable(tile: TiledMapTile): Boolean = {
     if (tile == null) return false
@@ -14,19 +15,19 @@ object AStar {
   }
 
   def convertMapToBoolArray(tiledMap: TiledMap): Array[Array[Boolean]] = {
-    val tiledLayer = tiledMap.getLayers.get(0).asInstanceOf[TiledMapTileLayer]
-    val width: Int = (tiledLayer.getWidth * tiledLayer.getTileWidth).toInt
-    val height: Int = (tiledLayer.getHeight * tiledLayer.getTileHeight).toInt
-    val walkableArray = Array.ofDim[Boolean](width, height)
-
-    for (y <- 0 until height) {
-      for (x <- 0 until width) {
-        val tileX = x / tiledLayer.getTileWidth.toInt
-        val tileY = y / tiledLayer.getTileHeight.toInt
-        val tile = tiledLayer.getCell(tileX, tileY).getTile
-        walkableArray(x)(y) = isWalkable(tile)
-      }
-    }
+//    val tiledLayer = tiledMap.getLayers.get(0).asInstanceOf[TiledMapTileLayer]
+//    val width: Int = (tiledLayer.getWidth * tiledLayer.getTileWidth).toInt
+//    val height: Int = (tiledLayer.getHeight * tiledLayer.getTileHeight).toInt
+//    val walkableArray: Array[Array[Boolean]] = Array.ofDim(width, height)
+//
+//    for (y <- 0 until height) {
+//      for (x <- 0 until width) {
+//        val tileX = x / tiledLayer.getTileWidth.toInt
+//        val tileY = y / tiledLayer.getTileHeight.toInt
+//        val tile = tiledLayer.getCell(tileX, tileY).getTile
+//        walkableArray(x)(y) = isWalkable(tile)
+//      }
+//    }
     walkableArray
   }
 
@@ -38,7 +39,7 @@ object AStar {
   )
 
   def heuristic(start: Node, goal: Node): Double = {
-    Math.abs(start.x - goal.x) + Math.abs(start.y - goal.y) // Manhattan distance
+    Math.sqrt(Math.pow(start.x - goal.x, 2) + Math.pow(start.y - goal.y, 2))
   }
 
   def isValidPixel(x: Int, y: Int): Boolean = {
@@ -72,7 +73,7 @@ object AStar {
         val newY = currentNode.y + dy
 
         if (isValidPixel(newX, newY) && !closedSet.contains((newX, newY))) {
-          val gCost = currentNode.g + 1
+          val gCost = currentNode.g + (if (dx == 0 || dy == 0) 1 else Math.sqrt(2))
           val hCost = heuristic(Node(newX, newY, 0, 0, None), goalNode)
           val neighbor = Node(newX, newY, gCost, hCost, Some(currentNode))
 
