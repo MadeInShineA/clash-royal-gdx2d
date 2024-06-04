@@ -1,16 +1,13 @@
 package clash_royal_ISC.entities.minions
 
-import ch.hevs.gdx2d.components.bitmaps.Spritesheet
 import clash_royal_ISC.{GameWindow, Player}
 import clash_royal_ISC.Utils.AStar
 import clash_royal_ISC.entities.{Deployable, Entity}
-import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.math.Vector2
 
 abstract class Minion(player: Player) extends Entity(player) with Deployable {
 
   val moveSpeed: Int
-
   var path: List[(Int, Int)] = _
 
   def move(deltaTime: Float): Unit = {
