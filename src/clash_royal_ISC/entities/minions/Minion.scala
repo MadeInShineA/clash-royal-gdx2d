@@ -61,7 +61,7 @@ abstract class Minion(player: Player) extends Entity(player) with Deployable {
   def move(deltaTime: Float): Unit = {
     if (path == null || path.isEmpty || this.targetIsInRange()) return
 
-    val frameTime: Float = GameWindow.FRAME_TIME / moveSpeed
+    val frameTime: Float = GameWindow.FRAME_TIME / this.moveSpeed
 
     this.dt += deltaTime
 
@@ -72,10 +72,12 @@ abstract class Minion(player: Player) extends Entity(player) with Deployable {
 
       this.lastPosition = this.newPosition
       this.newPosition = nextPosition
-      path = path.tail
+      this.setPath()
     }
 
     val alpha: Float = this.dt / frameTime
+    println(s"Alpha : $alpha")
+//    val alpha: Float = 0.016f
     this.position = this.lastPosition.interpolate(this.newPosition, alpha, Interpolation.linear)
 
   }

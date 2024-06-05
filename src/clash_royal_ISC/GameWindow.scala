@@ -66,6 +66,7 @@ object GameWindow {
   val WINDOW_WIDTH: Int = 576
   val WINDOW_HEIGHT: Int = 1024
 
+//  val FRAME_TIME: Float = 1 / 60f
   val FRAME_TIME: Float = 0.1f
 
 
