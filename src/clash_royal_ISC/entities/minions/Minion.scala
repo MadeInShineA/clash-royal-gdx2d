@@ -11,7 +11,7 @@ abstract class Minion(player: Player) extends Entity(player) with Deployable {
   var path: List[(Int, Int)] = _
 
   var currentFrame: Int = 0
-  var nFrames: Int = 4
+  var nFrames: Int = 1
   var dt: Float = 0
   var lastPosition: Vector2 = _
   var newPosition: Vector2 = _
@@ -52,13 +52,35 @@ abstract class Minion(player: Player) extends Entity(player) with Deployable {
   //      this.dt -= frameTime
   //      this.currentFrame = (this.currentFrame + 1) % this.nFrames
 
-      if (this.currentFrame == 0) {
+  //      if (this.currentFrame == 0) {
+  //
+  //        this.lastPosition = new Vector2(newPosition)
+  //        this.position = new Vector2(this.newPosition)
+  //      }
+  //    }
+  def move(deltaTime: Float): Unit = {
+    if (path == null || path.isEmpty || this.targetIsInRange()) return
 
-        this.lastPosition = new Vector2(newPosition)
-        this.position = new Vector2(this.newPosition)
-      }
+    val frameTime: Float = GameWindow.FRAME_TIME / moveSpeed
+
+    this.dt += deltaTime
+
+    if (this.dt > frameTime) {
+      print("Position updated")
+      this.dt -= frameTime
+      val nextPosition = new Vector2(path.head._1, path.head._2)
+
+      this.lastPosition = this.newPosition
+      this.newPosition = nextPosition
+      path = path.tail
     }
+
+    val alpha: Float = this.dt / frameTime
+    this.position = this.lastPosition.interpolate(this.newPosition, alpha, Interpolation.linear)
+
   }
+
+
 
   //  def move(deltaTime: Float): Unit = {
   //    if (path.length > this.moveSpeed ) {

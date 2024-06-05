@@ -63,7 +63,7 @@ object AStar {
           path = (node.get.x * Grid.tileSize + Grid.tileSize / 2, node.get.y * Grid.tileSize + Grid.tileSize / 2) :: path
           node = node.get.parent
         }
-        return path
+        return path.tail
       }
 
       closedSet.add((currentNode.x, currentNode.y))

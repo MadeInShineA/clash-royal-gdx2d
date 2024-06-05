@@ -35,8 +35,8 @@ class GameWindow extends PortableApplication(WINDOW_WIDTH, WINDOW_HEIGHT) {
     val testMinion3: TestMinion = new TestMinion(this.player2)
 //
     testMinion.spawn(new Vector2(30, 130))
-    testMinion2.spawn(new Vector2(180, 800))
-    testMinion3.spawn(new Vector2(500, 800))
+//    testMinion2.spawn(new Vector2(180, 800))
+//    testMinion3.spawn(new Vector2(500, 800))
 //    Gdx.input.setInputProcessor(new MouseListener)
 
 
@@ -68,7 +68,6 @@ object GameWindow {
 
   val FRAME_TIME: Float = 0.1f
 
-  var IS_GAME_RUNNING = true
 
 }
 
