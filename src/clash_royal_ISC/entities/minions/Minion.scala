@@ -34,14 +34,20 @@ abstract class Minion(player: Player) extends Entity(player) with Deployable {
       val alpha: Float = (dt + frameTime * currentFrame) / (frameTime * nFrames)
       println(s"Alpha $alpha")
 
-      this.position.interpolate(new Vector2(this.path.head._1, this.path.head._2), alpha, Interpolation.linear)
-      this.newPosition = position
+
+      if(this.path.nonEmpty){
+        val pathHeadPosition: Vector2 = new Vector2(this.path.head._1, this.path.head._2)
+        this.position.interpolate(pathHeadPosition, alpha, Interpolation.linear)
+        this.newPosition = position
+        if(this.position.dst(this.target.position) <= pathHeadPosition.dst(this.target.position)){
+          this.path = this.path.tail
+        }
+      }
     } else {
       this.dt = 0
     }
 
     if (this.dt > frameTime) {
-      println("caca")
       this.dt -= frameTime
       this.currentFrame = (this.currentFrame + 1) % this.nFrames
 
