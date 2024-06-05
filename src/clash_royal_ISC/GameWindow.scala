@@ -51,12 +51,12 @@ class GameWindow extends PortableApplication(WINDOW_WIDTH, WINDOW_HEIGHT) {
 
     Entity.updateEntities(gdxGraphics, Gdx.graphics.getDeltaTime)
 
-    implicit val ec: scala.concurrent.ExecutionContext = scala.concurrent.ExecutionContext.global
-
-    if(this.graphicRenderCounter % 10 == 0) {
-      println("Setting path Async")
-      Future(Entity.setEntitiesPathAsync())
-    }
+//    implicit val ec: scala.concurrent.ExecutionContext = scala.concurrent.ExecutionContext.global
+//
+//    if(this.graphicRenderCounter % 5 == 0) {
+//      println("Setting path Async")
+//      Future(Entity.setEntitiesPathAsync())
+//    }
     gdxGraphics.drawFPS()
     this.graphicRenderCounter += 1
   }
