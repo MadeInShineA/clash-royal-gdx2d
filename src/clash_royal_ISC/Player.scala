@@ -37,5 +37,4 @@ class Player() {
 
 object Player {
   val playersArray: ArrayBuffer[Player] = new ArrayBuffer()
-
 }
