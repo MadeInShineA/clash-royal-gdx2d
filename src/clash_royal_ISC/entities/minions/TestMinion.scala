@@ -4,7 +4,7 @@ import clash_royal_ISC.{Grid, Player}
 
 class TestMinion(player: Player) extends Minion(player) {
 
-  override val moveSpeed: Float = 1
+  override val moveSpeed: Float = 450f
 
   override val spriteWidth: Int = 32
   override val spriteHeight: Int = 32
