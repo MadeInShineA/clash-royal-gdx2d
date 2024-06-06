@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "tileset.tsx",
+    "activeFile": "transparentRedFilter.tsx",
     "expandedProjectPaths": [
         "."
     ],
@@ -16,40 +16,59 @@
             "scale": 0.33,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 289.3939393939394,
-                "y": 446.96969696969705
+                "x": 345.45454545454544,
+                "y": 448.4848484848484
             }
         },
         "map2.tmx": {
-            "scale": 0.25,
+            "scale": 0.4016,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 1816,
-                "y": -1164
+                "x": 625,
+                "y": 341.13545816733074
             }
         },
         "tileset.tsx": {
             "scaleInDock": 1,
             "scaleInEditor": 2
+        },
+        "transparentFilter.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "transparentRedFilter.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "transparentYolan.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
         }
     },
-    "last.imagePath": "C:/Users/luluz/Coding/clash-royal-gdx2d/res",
+    "last.imagePath": "/home/madeinshinea/Downloads",
     "map.height": 32,
     "map.lastUsedFormat": "tmx",
     "map.width": 18,
     "openFiles": [
         "map.tmx",
         "map2.tmx",
-        "tileset.tsx"
+        "tileset.tsx",
+        "transparentFilter.tsx",
+        "transparentYolan.tsx",
+        "transparentFilter.tsx",
+        "transparentRedFilter.tsx"
     ],
     "project": "map.tiled-project",
     "property.type": "bool",
     "recentFiles": [
-        "map.tmx",
         "map2.tmx",
-        "tileset.tsx"
+        "map.tmx",
+        "tileset.tsx",
+        "transparentFilter.tsx",
+        "transparentYolan.tsx",
+        "transparentRedFilter.tsx"
     ],
     "tileset.lastUsedFormat": "tsx",
-    "tileset.margin": 1,
-    "tileset.spacing": 1
+    "tileset.margin": 0,
+    "tileset.spacing": 0
 }

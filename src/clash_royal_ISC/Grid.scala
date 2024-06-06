@@ -1,6 +1,7 @@
 package clash_royal_ISC
 
 import ch.hevs.gdx2d.lib.GdxGraphics
+import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.maps.MapLayers
 import com.badlogic.gdx.maps.tiled.{TiledMap, TiledMapTile, TiledMapTileLayer, TmxMapLoader}
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer
@@ -13,9 +14,14 @@ class Grid {
 
 
 
+
+
   def render(gdxGraphics: GdxGraphics): Unit = {
-    tiledMapRenderer.setView(gdxGraphics.getCamera)
-    tiledMapRenderer.render()
+    this.tiledMapRenderer.setView(gdxGraphics.getCamera)
+    this.tiledMapRenderer.render(Array(0, 1))
+    if(GameWindow.selectedEntity.isDefined){
+      this.tiledMapRenderer.render(Array(2))
+    }
   }
 }
 

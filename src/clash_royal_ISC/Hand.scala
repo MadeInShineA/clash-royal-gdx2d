@@ -9,11 +9,20 @@ import clash_royal_ISC.entities.minions.TestMinion
 import com.badlogic.gdx.math.Vector2
 
 import scala.collection.mutable.ArrayBuffer
+import scala.reflect.runtime.universe.{ClassSymbol, runtimeMirror}
 import scala.util.Random
+import scala.reflect.runtime.universe._
+import scala.reflect.runtime.{universe => ru}
 
 class Hand (player: Player) extends DrawableObject{
 
   val AVAILABLE_ENTITIES: Array[Entity with Deployable] = Array(new TestMinion(this.player))
+
+//  val AVAILABLE_ENTITIES: Array[ru.ClassSymbol] = Array(
+//    ru.symbolOf[TestMinion].asClass,
+//  )
+  val runtimeMirror = ru.runtimeMirror(getClass.getClassLoader)
+
 
   val position: Vector2 = (if(playersArray.isEmpty) P1_POSITION else P2_POSITION)
 
@@ -22,9 +31,26 @@ class Hand (player: Player) extends DrawableObject{
   def createHand(): ArrayBuffer[Entity with Deployable] = {
     val res: ArrayBuffer[Entity with Deployable] = new ArrayBuffer()
 
+//    for(i <- 0 until SIZE){
+//      val randomIndex:Int = Random.nextInt(this.AVAILABLE_ENTITIES.length)
+//
+//      val newEntitClassSymbol: ClassSymbol = this.AVAILABLE_ENTITIES(randomIndex)
+//
+//      val classMirror = runtimeMirror.reflectClass(newEntitClassSymbol)
+//      val constructor = newEntitClassSymbol.primaryConstructor.asMethod
+//      val constructorMirror = classMirror.reflectConstructor(constructor)
+//      val newEntity : Entity with Deployable = constructorMirror().asInstanceOf[Entity with Deployable]
+//
+//
+//      newEntity.position = new Vector2(i * (WIDTH / SIZE), this.position.y)
+//      res += newEntity
+//      entitiesArray += newEntity
+//    }
+//    res
+
     for(i <- 0 until SIZE){
       val randomIndex:Int = Random.nextInt(this.AVAILABLE_ENTITIES.length)
-//      res += this.AVAILABLE_ENTITIES(randomIndex).clone()
+      //      res += this.AVAILABLE_ENTITIES(randomIndex).clone()
       val newEntity: Entity with Deployable = this.AVAILABLE_ENTITIES(randomIndex).copy()
       newEntity.position = new Vector2(i * (WIDTH / SIZE), this.position.y)
       res += newEntity
@@ -35,6 +61,7 @@ class Hand (player: Player) extends DrawableObject{
 
 
   def addEntity(index: Int): Unit = {
+    assert(index < this.entities.length)
     val randomIndex:Int = Random.nextInt(this.AVAILABLE_ENTITIES.length)
     val newEntity: Entity with Deployable = this.AVAILABLE_ENTITIES(randomIndex).copy()
     newEntity.position = new Vector2(index * (WIDTH / SIZE), this.position.y)
@@ -49,7 +76,7 @@ class Hand (player: Player) extends DrawableObject{
     val index: Int = this.entities.indexOf(entity)
     this.entities -= entity
     entitiesArray -= entity
-    return index
+    index
   }
 
   override def draw(gdxGraphics: GdxGraphics): Unit = {
