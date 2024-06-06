@@ -12,7 +12,9 @@ trait Deployable {
   val cost: Int
 
   def drawHandSprite(xPosition: Float,yPosition: Float, gdxGraphics: GdxGraphics) = {
-    gdxGraphics.drawCircle(xPosition, yPosition, handSpriteHeight / 2, Color.SKY)
+    gdxGraphics.draw(handSpriteSheet.sprites(0)(0), xPosition, yPosition)
   }
+
+  def copy(): Entity with Deployable
 
 }

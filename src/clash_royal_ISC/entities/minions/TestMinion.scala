@@ -9,7 +9,7 @@ class TestMinion(player: Player) extends Minion(player) {
   override val spriteWidth: Int = 32
   override val spriteHeight: Int = 32
 
-  override val handSpriteSheet: Spritesheet = new Spritesheet("res/minions/lumberjack_sheet32.png", this.spriteWidth, this.spriteHeight);
+  override val handSpriteSheet: Spritesheet = new Spritesheet("res/minions/lumberjack_sheet32.png", this.handSpriteWidth, this.handSpriteHeight);
 
   override val spriteSheet: Spritesheet = new Spritesheet("res/minions/lumberjack_sheet32.png", this.spriteWidth, this.spriteHeight);
 
@@ -17,5 +17,9 @@ class TestMinion(player: Player) extends Minion(player) {
   override var health: Int = 10
   override val range: Int = 3 * Grid.tileSize
   override var textureY: Int = 1
+
+  def copy(): TestMinion = {
+    new TestMinion(this.player)
+  }
 
 }

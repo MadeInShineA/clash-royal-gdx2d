@@ -78,23 +78,24 @@ abstract class Entity(val player: Player) extends DrawableObject {
 
   }
 
-  //  override def draw(gdxGraphics: GdxGraphics): Unit = {
-  //    gdxGraphics.draw(this.spriteSheet.sprites(this.textureY)(this.currentAnimationFrame), this.position.x, this.position.y)
-  //  }
-  override def draw(gdxGraphics: GdxGraphics): Unit = {
-    gdxGraphics.drawCircle(this.position.x, this.position.y, 20f, Color.BLACK)
-  }
+    override def draw(gdxGraphics: GdxGraphics): Unit = {
+      gdxGraphics.draw(this.spriteSheet.sprites(this.textureY)(this.currentAnimationFrame), this.position.x, this.position.y)
+    }
+
+//  override def draw(gdxGraphics: GdxGraphics): Unit = {
+//    gdxGraphics.drawFilledCircle(this.position.x, this.position.y, 20f, Color.BLACK)
+//  }
 
   def targetIsInRange(): Boolean = {
     if (this.position.dst(target.position) <= range)  true else false
   }
 
-
-
 }
 
 object Entity {
   val entitiesArray: ArrayBuffer[Entity] = new ArrayBuffer()
+
+
 
   def updateEntities(gdxGraphics: GdxGraphics, deltaTime: Float): Unit = {
     for(entity <- entitiesArray){
@@ -111,7 +112,7 @@ object Entity {
           }
 
           for (pathPoint <- minion.path) {
-            gdxGraphics.drawCircle(pathPoint._1, pathPoint._2, 10, Color.CHARTREUSE)
+            gdxGraphics.drawFilledCircle(pathPoint._1, pathPoint._2, 10, Color.CHARTREUSE)
           }
 
           minion.move(deltaTime)

@@ -4,7 +4,7 @@ import ch.hevs.gdx2d.desktop.PortableApplication
 import ch.hevs.gdx2d.lib.GdxGraphics
 import clash_royal_ISC.GameWindow.{WINDOW_HEIGHT, WINDOW_WIDTH}
 import clash_royal_ISC.Utils.AStar
-import clash_royal_ISC.entities.Entity
+import clash_royal_ISC.entities.{Deployable, Entity}
 import clash_royal_ISC.entities.minions.TestMinion
 import com.badlogic.gdx.maps.tiled.{TiledMap, TmxMapLoader}
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer
@@ -27,21 +27,18 @@ class GameWindow extends PortableApplication(WINDOW_WIDTH, WINDOW_HEIGHT) {
     grid.tiledMapRenderer = new OrthogonalTiledMapRenderer(grid.tiledMap)
     grid.tiledLayer = grid.tiledMap.getLayers
 
-    this.player1 = new Player()
-    this.player2 = new Player()
+    this.player1 = Player.createPlayer()
+    this.player2 = Player.createPlayer()
 
     val testMinion: TestMinion = new TestMinion(this.player1)
     val testMinion2: TestMinion = new TestMinion(this.player2)
     val testMinion3: TestMinion = new TestMinion(this.player2)
     val testMinion4: TestMinion = new TestMinion(this.player1)
-//
     testMinion.spawn(new Vector2(30, 130))
     testMinion2.spawn(new Vector2(180, 800))
     testMinion3.spawn(new Vector2(500, 800))
     testMinion4.spawn(new Vector2(450, 130))
-//    Gdx.input.setInputProcessor(new MouseListener)
-
-
+    Gdx.input.setInputProcessor(new MouseListener)
 
   }
 
@@ -62,6 +59,7 @@ class GameWindow extends PortableApplication(WINDOW_WIDTH, WINDOW_HEIGHT) {
 //      println("Setting path Async")
 //      Future(Entity.setEntitiesPathAsync())
 //    }
+
     gdxGraphics.drawFPS()
     this.graphicRenderCounter += 1
   }
@@ -71,9 +69,7 @@ object GameWindow {
   val WINDOW_WIDTH: Int = 576
   val WINDOW_HEIGHT: Int = 1024
 
-//  val FRAME_TIME: Float = 1 / 60f
-  val FRAME_TIME: Float = 0.1f
-
+  var selectedEntity: Option[Entity with Deployable] = None
 
 }
 
