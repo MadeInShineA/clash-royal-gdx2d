@@ -3,14 +3,13 @@ package clash_royal_ISC.entities
 import ch.hevs.gdx2d.components.bitmaps.Spritesheet
 import ch.hevs.gdx2d.lib.GdxGraphics
 import ch.hevs.gdx2d.lib.interfaces.DrawableObject
-import clash_royal_ISC.{GameWindow, Player}
+import clash_royal_ISC.Player
 import clash_royal_ISC.entities.Entity.entitiesArray
 import clash_royal_ISC.entities.minions.Minion
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.math.Vector2
 
 import scala.collection.mutable.ArrayBuffer
-import scala.concurrent.Future
 
 abstract class Entity(val player: Player) extends DrawableObject {
 
@@ -96,7 +95,6 @@ abstract class Entity(val player: Player) extends DrawableObject {
 
 object Entity {
   val entitiesArray: ArrayBuffer[Entity] = new ArrayBuffer()
-
 
   def updateEntities(gdxGraphics: GdxGraphics, deltaTime: Float): Unit = {
     for(entity <- entitiesArray){

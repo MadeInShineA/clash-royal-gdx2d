@@ -50,6 +50,9 @@ class GameWindow extends PortableApplication(WINDOW_WIDTH, WINDOW_HEIGHT) {
     this.grid.render(gdxGraphics)
 
     Entity.updateEntities(gdxGraphics, Gdx.graphics.getDeltaTime)
+    for(player: Player <- Player.playersArray){
+      player.hand.draw(gdxGraphics)
+    }
 
 //    implicit val ec: scala.concurrent.ExecutionContext = scala.concurrent.ExecutionContext.global
 //
