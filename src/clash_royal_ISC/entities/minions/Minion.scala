@@ -21,7 +21,12 @@ abstract class Minion(player: Player) extends Entity(player) with Deployable {
   }
 
   def move(deltaTime: Float): Unit = {
-    if (path == null || path.isEmpty || this.targetIsInRange()) return
+//    if (path == null || path.isEmpty || this.targetIsInRange()) return
+    if(path.isEmpty){
+      this.setPath()
+      return
+    }
+    if (this.targetIsInRange()) return
 
     val frameTime: Float = 0.01f
     this.dt += deltaTime
