@@ -23,7 +23,7 @@ class GameWindow extends PortableApplication(WINDOW_WIDTH, WINDOW_HEIGHT) {
 
   override def onInit(): Unit = {
     grid.tiledMap = new TmxMapLoader().load("res/map/map2.tmx")
-    AStar.walkableArray = AStar.convertMapToBoolArray(grid.tiledMap)
+    Grid.setWalkableArray(grid.tiledMap)
     grid.tiledMapRenderer = new OrthogonalTiledMapRenderer(grid.tiledMap)
     grid.tiledLayer = grid.tiledMap.getLayers
 

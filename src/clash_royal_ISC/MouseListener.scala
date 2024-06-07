@@ -12,11 +12,10 @@ class MouseListener extends InputAdapter {
     clickX = screenX
     // Invert Y coordinate because the origin is at the top-left corner
     clickY = GameWindow.WINDOW_HEIGHT - screenY
-    println(s"Mouse clicked at: ($clickX, $clickY)")
     val selectedEntity: Option[Entity with Deployable] = Hand.getEntityAtPosition(clickX, clickY)
     if(selectedEntity.isDefined){
       GameWindow.selectedEntity = Hand.getEntityAtPosition(clickX, clickY)
-    }else if(GameWindow.selectedEntity.isDefined){
+    }else if(GameWindow.selectedEntity.isDefined && Grid.isPixelWalkable(clickX, clickY)){
       val entity: Entity with Deployable = GameWindow.selectedEntity.get
       entity.player.deployEntity(entity,new Vector2(clickX, clickY))
       GameWindow.selectedEntity = None

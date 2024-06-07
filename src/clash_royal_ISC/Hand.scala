@@ -61,7 +61,7 @@ class Hand (player: Player) extends DrawableObject{
 
 
   def addEntity(index: Int): Unit = {
-    assert(index < this.entities.length)
+    assert(index <= SIZE - 1)
     val randomIndex:Int = Random.nextInt(this.AVAILABLE_ENTITIES.length)
     val newEntity: Entity with Deployable = this.AVAILABLE_ENTITIES(randomIndex).copy()
     newEntity.position = new Vector2(index * (WIDTH / SIZE), this.position.y)
