@@ -67,6 +67,27 @@ abstract class Entity(val player: Player) extends DrawableObject {
     }
   }
 
+  // TODO fix
+  def setDirection(): Unit = {
+    val deltaX: Float = this.target.position.x - this.position.x
+    val deltaY: Float = this.target.position.y - this.position.x
+
+
+    if(Math.abs(deltaX) > Math.abs(deltaY)){
+      if(deltaX > 0){
+        turn(Direction.LEFT)
+      }else{
+        turn(Direction.RIGHT)
+      }
+    }else{
+      if(deltaY > 0){
+        turn(Direction.UP)
+      }else{
+        turn(Direction.DOWN)
+      }
+    }
+  }
+
   def setTarget(): Unit = {
 
     val ennemiEntities = entitiesArray.filter(_.player != this.player)
@@ -104,8 +125,6 @@ object Entity {
       entity match {
         case minion: Minion =>
 
-          entity.setTarget()
-
           if (minion.path == null) {
             println("Setting path")
             minion.setPath()
@@ -114,11 +133,9 @@ object Entity {
           for (pathPoint <- minion.path) {
             gdxGraphics.drawFilledCircle(pathPoint._1, pathPoint._2, 10, Color.CHARTREUSE)
           }
-
           minion.move(deltaTime)
         case _ =>
       }
-
       // entity.turn
       entity.draw(gdxGraphics)
     }

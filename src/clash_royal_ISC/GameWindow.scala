@@ -51,6 +51,10 @@ class GameWindow extends PortableApplication(WINDOW_WIDTH, WINDOW_HEIGHT) {
     Entity.updateEntities(gdxGraphics, Gdx.graphics.getDeltaTime)
     for(player: Player <- Player.playersArray){
       player.hand.draw(gdxGraphics)
+      if(this.graphicRenderCounter % 30 == 0){
+        player.currentElixir += 1
+      }
+      player.drawElixir(gdxGraphics)
     }
 
 //    implicit val ec: scala.concurrent.ExecutionContext = scala.concurrent.ExecutionContext.global

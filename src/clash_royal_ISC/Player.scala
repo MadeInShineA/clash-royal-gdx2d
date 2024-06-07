@@ -1,16 +1,21 @@
 package clash_royal_ISC
 
-import clash_royal_ISC.Player.{P1_TOWER_POSITION, P2_TOWER_POSITION, playersArray}
+import ch.hevs.gdx2d.lib.GdxGraphics
+import clash_royal_ISC.Player.{P1_ELIXIR_POSITION, P1_TOWER_POSITION, P2_ELIXIR_POSITION, P2_TOWER_POSITION, playersArray}
 import clash_royal_ISC.entities.{Deployable, Entity}
 import clash_royal_ISC.entities.buildings.Tower
+import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.math.Vector2
 
 import scala.collection.mutable.ArrayBuffer
 
 class Player private {
 
+  val MAX_ELIXIR: Float = 10
+  val elixirPosition: Vector2 = if(playersArray.isEmpty) P1_ELIXIR_POSITION else P2_ELIXIR_POSITION
+
   var hand: Hand = new Hand(this)
-  var currentElixir: Double = 20.0
+  var currentElixir: Float = 3
 
   val tower: Tower = new Tower(this)
   tower.spawn(if(playersArray.isEmpty) P1_TOWER_POSITION else P2_TOWER_POSITION)
@@ -25,6 +30,11 @@ class Player private {
       println("Not enough elixir")
     }
   }
+
+  def drawElixir(gdxGraphics: GdxGraphics): Unit = {
+    gdxGraphics.setColor(Color.PINK)
+    gdxGraphics.drawFilledRectangle(this.elixirPosition.x, this.elixirPosition.y, Grid.tileSize * this.currentElixir, 1 * Grid.tileSize, 0)
+  }
 }
 
 object Player {
@@ -33,6 +43,9 @@ object Player {
 
   val P1_TOWER_POSITION: Vector2 = new Vector2(GameWindow.WINDOW_WIDTH / 2, 230)
   val P2_TOWER_POSITION: Vector2 = new Vector2(GameWindow.WINDOW_WIDTH / 2, 800)
+
+  val P1_ELIXIR_POSITION: Vector2 = new Vector2(GameWindow.WINDOW_WIDTH / 2, Grid.tileSize / 2)
+  val P2_ELIXIR_POSITION: Vector2 = new Vector2(GameWindow.WINDOW_WIDTH / 2, 31 * Grid.tileSize + Grid.tileSize / 2)
 
   def createPlayer(): Player = {
     assert(playersArray.length <= 2)

@@ -5,7 +5,7 @@ import clash_royal_ISC.entities.Entity
 import scala.collection.mutable
 
 object Main extends App {
-  val w = new GameWindow
+  new GameWindow
 
 
 }

@@ -20,8 +20,6 @@ class MouseListener extends InputAdapter {
       entity.player.deployEntity(entity,new Vector2(clickX, clickY))
       GameWindow.selectedEntity = None
     }
-
-
     true
   }
 }

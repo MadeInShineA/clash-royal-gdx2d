@@ -51,6 +51,7 @@ abstract class Minion(player: Player) extends Entity(player) with Deployable {
     // Si la distance est inférieure ou égale à la distance maximale, l'entité atteint la nouvelle position
     if (distance <= maxDistancePerFrame) {
       this.position.set(this.newPosition)
+
     } else {
       // Sinon, l'entité se déplace vers la nouvelle position avec interpolation
       val alpha = Math.min(maxDistancePerFrame / distance, 1.0f)
@@ -58,6 +59,7 @@ abstract class Minion(player: Player) extends Entity(player) with Deployable {
     }
 
     setPath()
+
   }
 
   def setPath(): Unit = {
