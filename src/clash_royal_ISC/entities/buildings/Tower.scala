@@ -19,6 +19,6 @@ class Tower(player: Player) extends Building(player) {
 
   override val MAX_HEALTH: Int = 10
 
-  override val attackSpeed: Int = 2
+  override val attackSpeed: Int = 3
   override val attackDamage: Float = 2
 }

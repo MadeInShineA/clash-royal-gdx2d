@@ -26,6 +26,8 @@ abstract class Minion(player: Player) extends Entity(player) with Deployable {
       this.setPath()
       return
     }
+
+    // TODO Handle the null in a better way
     if (this.targetIsInRange()) return
 
     val frameTime: Float = 0.01f
@@ -68,6 +70,10 @@ abstract class Minion(player: Player) extends Entity(player) with Deployable {
   }
 
   def setPath(): Unit = {
-    this.path = AStar.findPath((this.position.x.toInt, this.position.y.toInt), (this.target.position.x.toInt, this.target.position.y.toInt))
+
+    // TODO Check
+    if(this.target != null){
+      this.path = AStar.findPath((this.position.x.toInt, this.position.y.toInt), (this.target.position.x.toInt, this.target.position.y.toInt))
+    }
   }
 }

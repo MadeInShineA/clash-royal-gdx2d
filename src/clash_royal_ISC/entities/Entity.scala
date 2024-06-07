@@ -116,9 +116,12 @@ abstract class Entity(val player: Player) extends DrawableObject {
     val ennemiEntities = entitiesArray.filter(_.player != this.player)
 
     // The array shouldn't ever be empty when the function is called since each player has at least 1 Tower
-    assert(ennemiEntities.nonEmpty)
+//    assert(ennemiEntities.nonEmpty)
 
-    this.target = ennemiEntities.minBy(_.position.dst(this.position))
+    if(ennemiEntities.nonEmpty){
+      this.target = ennemiEntities.minBy(_.position.dst(this.position))
+
+    }
 
   }
 
@@ -143,7 +146,12 @@ abstract class Entity(val player: Player) extends DrawableObject {
 //    gdxGraphics.drawFilledCircle(this.position.x, this.position.y, 20f, Color.BLACK)
 //  }
 
+  // TODO ugly null
   def targetIsInRange(): Boolean = {
+    if(this.target == null){
+      this.targetInRangeCounter = 0
+      return false
+    }
     if (this.position.dst(target.position) <= range)  {
 
       this.targetInRangeCounter += 1
