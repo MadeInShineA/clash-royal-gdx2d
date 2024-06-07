@@ -34,14 +34,14 @@ class GameWindow extends PortableApplication(WINDOW_WIDTH, WINDOW_HEIGHT) {
     this.player1 = Player.createPlayer()
     this.player2 = Player.createPlayer()
 
-    val testMinion: TestMinion = new TestMinion(this.player1)
-    val testMinion2: TestMinion = new TestMinion(this.player2)
-    val testMinion3: TestMinion = new TestMinion(this.player2)
-    val testMinion4: TestMinion = new TestMinion(this.player1)
-    testMinion.spawn(new Vector2(30, 130))
-    testMinion2.spawn(new Vector2(180, 800))
-    testMinion3.spawn(new Vector2(500, 800))
-    testMinion4.spawn(new Vector2(450, 130))
+//    val testMinion: TestMinion = new TestMinion(this.player1)
+//    val testMinion2: TestMinion = new TestMinion(this.player2)
+//    val testMinion3: TestMinion = new TestMinion(this.player2)
+//    val testMinion4: TestMinion = new TestMinion(this.player1)
+//    testMinion.spawn(new Vector2(30, 130))
+//    testMinion2.spawn(new Vector2(180, 800))
+//    testMinion3.spawn(new Vector2(500, 800))
+//    testMinion4.spawn(new Vector2(450, 130))
     Gdx.input.setInputProcessor(new MouseListener)
 
   }

@@ -38,6 +38,8 @@ abstract class Entity(val player: Player) extends DrawableObject {
   val animationFramesAmount: Int
   val animationFramesWaitAmount: Int
 
+  var targetInRangeCounter: Int = 0
+
   object Direction extends Enumeration {
     val UP, DOWN, LEFT, RIGHT = Value
   }
@@ -142,7 +144,20 @@ abstract class Entity(val player: Player) extends DrawableObject {
 //  }
 
   def targetIsInRange(): Boolean = {
-    if (this.position.dst(target.position) <= range)  true else false
+    if (this.position.dst(target.position) <= range)  {
+
+      this.targetInRangeCounter += 1
+      true
+    }else {
+      this.targetInRangeCounter = 0
+      false
+      }
+  }
+
+
+  // TODO Override with projectiles and other visual queues (animations ...)
+  def attack(entity: Entity): Unit = {
+    entity.takeDamage(this.attackDamage)
   }
 
 }
@@ -150,8 +165,6 @@ abstract class Entity(val player: Player) extends DrawableObject {
 object Entity {
   val entitiesArray: ArrayBuffer[Entity] = new ArrayBuffer()
 
-
-  var updateCounter: Int = 0
 
   def updateEntities(gdxGraphics: GdxGraphics, deltaTime: Float): Unit = {
     var entityCounter: Int = 0
@@ -174,18 +187,16 @@ object Entity {
           minion.move(deltaTime)
         case _ =>
       }
-      // entity.turn
       entity.setDirection()
       entity.draw(gdxGraphics)
-      if(entity.targetIsInRange() && this.updateCounter % entity.attackSpeed * 10 == 0){
-        entity.target.takeDamage(entity.attackDamage)
+
+      // TODO is there a better way than hard coding 100 ?
+      if(entity.targetIsInRange() && entity.targetInRangeCounter % 100 / entity.attackSpeed == 0){
+        entity.attack(entity)
       }
       entityCounter += 1
       }
   }
-//    for(entity <- entitiesArray){
-
-//  }
 
   def setEntitiesPathAsync(): Unit = {
     for (entity: Entity <- entitiesArray) {
