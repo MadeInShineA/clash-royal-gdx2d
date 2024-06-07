@@ -74,17 +74,16 @@ abstract class Entity(val player: Player) extends DrawableObject {
     }
   }
 
-  // TODO fix
   def setDirection(): Unit = {
     val deltaX: Float = this.target.position.x - this.position.x
-    val deltaY: Float = this.target.position.y - this.position.x
+    val deltaY: Float = this.target.position.y - this.position.y
 
 
     if(Math.abs(deltaX) > Math.abs(deltaY)){
       if(deltaX > 0){
-        turn(Direction.LEFT)
-      }else{
         turn(Direction.RIGHT)
+      }else{
+        turn(Direction.LEFT)
       }
     }else{
       if(deltaY > 0){
