@@ -1,5 +1,6 @@
 package clash_royal_ISC
 
+import ch.hevs.gdx2d.components.audio.SoundSample
 import ch.hevs.gdx2d.desktop.PortableApplication
 import ch.hevs.gdx2d.lib.GdxGraphics
 import clash_royal_ISC.GameWindow.{WINDOW_HEIGHT, WINDOW_WIDTH}
@@ -22,7 +23,10 @@ class GameWindow extends PortableApplication(WINDOW_WIDTH, WINDOW_HEIGHT) {
   var graphicRenderCounter: Int = 0
 
   override def onInit(): Unit = {
-    grid.tiledMap = new TmxMapLoader().load("res/map/map2.tmx")
+    new SoundSample("res/sounds/start.mp3").play()
+
+    Thread.sleep(3800)
+    grid.tiledMap = new TmxMapLoader().load("res/sprites/map/map2.tmx")
     Grid.setWalkableArray(grid.tiledMap)
     grid.tiledMapRenderer = new OrthogonalTiledMapRenderer(grid.tiledMap)
     grid.tiledLayer = grid.tiledMap.getLayers
@@ -47,12 +51,21 @@ class GameWindow extends PortableApplication(WINDOW_WIDTH, WINDOW_HEIGHT) {
 
 
     this.grid.render(gdxGraphics)
-
     Entity.updateEntities(gdxGraphics, Gdx.graphics.getDeltaTime)
     for(player: Player <- Player.playersArray){
+      if (player.hasLost()){
+        println(s"Player ${Player.playersArray.indexOf(player) + 1} has lost!")
+
+        new SoundSample("res/sounds/victory.mp3").play()
+        Thread.sleep(1500)
+
+
+
+        System.exit(1)
+      }
       player.hand.draw(gdxGraphics)
       if(this.graphicRenderCounter % 30 == 0){
-        player.currentElixir += 1
+        player.addElixir(0.5f)
       }
       player.drawElixir(gdxGraphics)
     }
