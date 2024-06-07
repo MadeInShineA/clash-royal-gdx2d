@@ -50,6 +50,14 @@ abstract class Entity(val player: Player) extends DrawableObject {
   def dies(): Unit = {
     new SoundSample("res/sounds/death.mp3").play()
     entitiesArray -= this
+
+
+    // TODO This null is ugly
+    for(entity: Entity <- entitiesArray){
+      if(entity.target == this){
+        entity.target = null
+      }
+    }
   }
 
   def takeDamage(damageAmount: Float): Unit = {
@@ -98,6 +106,10 @@ abstract class Entity(val player: Player) extends DrawableObject {
   }
 
   def setTarget(): Unit = {
+
+    if(this.target != null && this.targetIsInRange()){
+      return
+    }
 
     val ennemiEntities = entitiesArray.filter(_.player != this.player)
 
