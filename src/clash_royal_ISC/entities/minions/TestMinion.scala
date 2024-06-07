@@ -20,6 +20,9 @@ class TestMinion(player: Player) extends Minion(player) {
   override val attackDamage: Float = 1
 
   override var textureY: Int = 1
+  override val animationFramesAmount: Int = 4
+  override val animationFramesWaitAmount: Int = 10
+
 
   def copy(): TestMinion = {
     new TestMinion(this.player)

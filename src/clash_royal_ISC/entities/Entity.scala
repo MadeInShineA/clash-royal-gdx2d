@@ -33,7 +33,10 @@ abstract class Entity(val player: Player) extends DrawableObject {
 
   var target: Entity = _
 
+  var animationFramesCount: Int = 0
   var currentAnimationFrame: Int = 0
+  val animationFramesAmount: Int
+  val animationFramesWaitAmount: Int
 
   object Direction extends Enumeration {
     val UP, DOWN, LEFT, RIGHT = Value
@@ -106,7 +109,15 @@ abstract class Entity(val player: Player) extends DrawableObject {
   }
 
   override def draw(gdxGraphics: GdxGraphics): Unit = {
-    gdxGraphics.draw(this.spriteSheet.sprites(this.textureY)(this.currentAnimationFrame), this.position.x, this.position.y)
+    if(this.animationFramesCount % this.animationFramesWaitAmount == 0){
+      this.currentAnimationFrame = (this.currentAnimationFrame + 1) % this.animationFramesAmount
+    }
+//    println("Current animation frame : " + this.currentAnimationFrame)
+//    println("Animaiton frames count " + this.animationFramesCount)
+//    println("Animation frames wait amount " + this.animationFramesWaitAmount)
+    this.animationFramesCount += 1
+
+    gdxGraphics.draw(this.spriteSheet.sprites(this.textureY)(currentAnimationFrame), this.position.x, this.position.y)
 
     val healthPercentage: Float = this.health * 100 / this.MAX_HEALTH
 

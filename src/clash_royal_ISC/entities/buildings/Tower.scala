@@ -14,6 +14,8 @@ class Tower(player: Player) extends Building(player) {
   override var health: Float = 100
   override val range: Int = 2
   override var textureY: Int = 1
+  override val animationFramesAmount: Int = 4
+  override val animationFramesWaitAmount: Int = 10
 
   override val MAX_HEALTH: Int = 100
   override val attackSpeed: Int = 10
