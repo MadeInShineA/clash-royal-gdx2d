@@ -6,6 +6,7 @@ import clash_royal_ISC.Player.{P1_ELIXIR_POSITION, P1_TOWER_POSITION, P2_ELIXIR_
 import clash_royal_ISC.entities.{Deployable, Entity}
 import clash_royal_ISC.entities.buildings.Tower
 import com.badlogic.gdx.graphics.Color
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer
 import com.badlogic.gdx.math.Vector2
 
 import scala.collection.mutable.ArrayBuffer
@@ -15,11 +16,21 @@ class Player private {
   val MAX_ELIXIR: Float = 18
   val elixirPosition: Vector2 = if(playersArray.isEmpty) P1_ELIXIR_POSITION else P2_ELIXIR_POSITION
 
+  var deployableArray: Array[Array[Boolean]] = Array.ofDim(Grid.GRID_WIDTH, Grid.GRID_HEIGHT)
   var hand: Hand = new Hand(this)
   var currentElixir: Float = 3
 
   var tower: Tower = new Tower(this)
   tower.spawn(if(playersArray.isEmpty) P1_TOWER_POSITION else P2_TOWER_POSITION)
+
+  def setDeployableArray(tiledMapLayer: TiledMapTileLayer): Unit = {
+    for (y <- deployableArray(0).indices) {
+      for (x <- deployableArray.indices) {
+        val tile = tiledMapLayer.getCell(x, y).getTile
+        this.deployableArray(x)(y) = tile.getProperties.get("deployable").toString.toBoolean
+      }
+    }
+  }
 
   def deployEntity(entity: Entity with Deployable, position: Vector2): Unit = {
     if (entity.cost <= currentElixir) {
@@ -48,7 +59,7 @@ class Player private {
 
   def drawElixir(gdxGraphics: GdxGraphics): Unit = {
     gdxGraphics.setColor(Color.PINK)
-    gdxGraphics.drawFilledRectangle(this.elixirPosition.x, this.elixirPosition.y, Grid.tileSize * this.currentElixir, 1 * Grid.tileSize, 0)
+    gdxGraphics.drawFilledRectangle(this.elixirPosition.x, this.elixirPosition.y, Grid.TILE_SIZE * this.currentElixir, 1 * Grid.TILE_SIZE, 0)
   }
 
 }
@@ -60,8 +71,8 @@ object Player {
   val P1_TOWER_POSITION: Vector2 = new Vector2(GameWindow.WINDOW_WIDTH / 2, 230)
   val P2_TOWER_POSITION: Vector2 = new Vector2(GameWindow.WINDOW_WIDTH / 2, 800)
 
-  val P1_ELIXIR_POSITION: Vector2 = new Vector2(GameWindow.WINDOW_WIDTH / 2, Grid.tileSize / 2)
-  val P2_ELIXIR_POSITION: Vector2 = new Vector2(GameWindow.WINDOW_WIDTH / 2, 31 * Grid.tileSize + Grid.tileSize / 2)
+  val P1_ELIXIR_POSITION: Vector2 = new Vector2(GameWindow.WINDOW_WIDTH / 2, Grid.TILE_SIZE / 2)
+  val P2_ELIXIR_POSITION: Vector2 = new Vector2(GameWindow.WINDOW_WIDTH / 2, 31 * Grid.TILE_SIZE + Grid.TILE_SIZE / 2)
 
   def createPlayer(): Player = {
     assert(playersArray.length <= 2)

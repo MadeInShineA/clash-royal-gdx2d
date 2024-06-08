@@ -13,7 +13,7 @@ class Tower(player: Player) extends Building(player) {
 
   override val MAX_HEALTH: Int = 10
   override var health: Int = this.MAX_HEALTH
-  override val range: Int = 4 * Grid.tileSize
+  override val range: Int = 4 * Grid.TILE_SIZE
   override var textureY: Int = 1
   override val animationFramesAmount: Int = 4
   override val animationFramesWaitAmount: Int = 10

@@ -92,10 +92,10 @@ class Hand (player: Player) extends DrawableObject{
 object Hand {
   val SIZE: Int = 5
 
-  val P1_POSITION: Vector2 = new Vector2(0, Grid.tileSize)
-  val P2_POSITION :Vector2 = new Vector2(0, 30 * Grid.tileSize)
+  val P1_POSITION: Vector2 = new Vector2(0, Grid.TILE_SIZE)
+  val P2_POSITION :Vector2 = new Vector2(0, 30 * Grid.TILE_SIZE)
 
-  val HEIGHT: Int = 1 * Grid.tileSize
+  val HEIGHT: Int = 1 * Grid.TILE_SIZE
   val WIDTH: Int = GameWindow.WINDOW_WIDTH
 
   val entitiesArray: ArrayBuffer[Entity with Deployable] = new ArrayBuffer()

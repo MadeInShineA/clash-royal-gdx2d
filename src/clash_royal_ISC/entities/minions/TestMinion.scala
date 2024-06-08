@@ -16,7 +16,7 @@ class TestMinion(player: Player) extends Minion(player) {
 
   override var health: Int = this.MAX_HEALTH
   override val cost: Int = 4
-  override val range: Int = 3 * Grid.tileSize
+  override val range: Int = 3 * Grid.TILE_SIZE
   override val attackSpeed: Int = 1
   override val attackDamage: Int = 1
 

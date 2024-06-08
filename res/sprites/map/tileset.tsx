@@ -86,6 +86,16 @@
    <property name="walkable" type="bool" value="true"/>
   </properties>
  </tile>
+ <tile id="346">
+  <properties>
+   <property name="deployable" type="bool" value="false"/>
+  </properties>
+ </tile>
+ <tile id="347">
+  <properties>
+   <property name="deployable" type="bool" value="true"/>
+  </properties>
+ </tile>
  <tile id="363">
   <properties>
    <property name="walkable" type="bool" value="true"/>

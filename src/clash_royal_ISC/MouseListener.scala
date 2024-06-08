@@ -5,17 +5,21 @@ import com.badlogic.gdx.InputAdapter
 import com.badlogic.gdx.math.Vector2
 
 class MouseListener extends InputAdapter {
-  var clickX: Float = 0
-  var clickY: Float = 0
+
 
   override def touchDown(screenX: Int, screenY: Int, pointer: Int, button: Int): Boolean = {
-    clickX = screenX
+    val clickX: Int = screenX
     // Invert Y coordinate because the origin is at the top-left corner
-    clickY = GameWindow.WINDOW_HEIGHT - screenY
+    val clickY: Int = GameWindow.WINDOW_HEIGHT - screenY
+
+    val clickXGridCell: Int = clickX.toInt / Grid.TILE_SIZE
+    val clickYGridCell: Int = clickY.toInt / Grid.TILE_SIZE
+
     val selectedEntity: Option[Entity with Deployable] = Hand.getEntityAtPosition(clickX, clickY)
+
     if(selectedEntity.isDefined){
       GameWindow.selectedEntity = Hand.getEntityAtPosition(clickX, clickY)
-    }else if(GameWindow.selectedEntity.isDefined && Grid.isPixelWalkable(clickX, clickY)){
+    }else if(GameWindow.selectedEntity.isDefined &&  GameWindow.selectedEntity.get.player.deployableArray(clickXGridCell)(clickYGridCell) ){
       val entity: Entity with Deployable = GameWindow.selectedEntity.get
       entity.player.deployEntity(entity,new Vector2(clickX, clickY))
       GameWindow.selectedEntity = None

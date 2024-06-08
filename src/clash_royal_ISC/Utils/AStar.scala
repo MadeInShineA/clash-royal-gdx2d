@@ -19,8 +19,8 @@ object AStar {
 
 //  def findPath(start: (Int, Int), goal: (Int, Int)): List[(Int, Int)] = {
   def findPath(start: (Int, Int), goal: (Int, Int), entity: Entity): List[(Int, Int)] = {
-    val startInWalkableGrid: (Int, Int) = (start._1 / Grid.tileSize, start._2 / Grid.tileSize)
-    val goalInWalkableGrid: (Int, Int) = (goal._1 / Grid.tileSize, goal._2 / Grid.tileSize)
+    val startInWalkableGrid: (Int, Int) = (start._1 / Grid.TILE_SIZE, start._2 / Grid.TILE_SIZE)
+    val goalInWalkableGrid: (Int, Int) = (goal._1 / Grid.TILE_SIZE, goal._2 / Grid.TILE_SIZE)
 
     val startNode = Node(startInWalkableGrid._1, startInWalkableGrid._2, 0, heuristic(Node(startInWalkableGrid._1, startInWalkableGrid._2, 0, 0, None), Node(goalInWalkableGrid._1, goalInWalkableGrid._2, 0, 0, None)), None)
     val goalNode = Node(goalInWalkableGrid._1, goalInWalkableGrid._2, 0, 0, None)
@@ -35,7 +35,7 @@ object AStar {
         var path = List[(Int, Int)]()
         var node: Option[Node] = Some(currentNode)
         while (node.isDefined) {
-          path = (node.get.x * Grid.tileSize + Grid.tileSize / 2, node.get.y * Grid.tileSize + Grid.tileSize / 2) :: path
+          path = (node.get.x * Grid.TILE_SIZE + Grid.TILE_SIZE / 2, node.get.y * Grid.TILE_SIZE + Grid.TILE_SIZE / 2) :: path
           node = node.get.parent
         }
         return path.tail
@@ -47,7 +47,7 @@ object AStar {
         val newX = currentNode.x + dx
         val newY = currentNode.y + dy
 
-        if (Grid.isPixelWalkable(newX * Grid.tileSize, newY * Grid.tileSize, entity) && !closedSet.contains((newX, newY))) {
+        if (Grid.isPixelValidPath(newX * Grid.TILE_SIZE, newY * Grid.TILE_SIZE, entity) && !closedSet.contains((newX, newY))) {
           val gCost = currentNode.g + (if (dx == 0 || dy == 0) 1 else Math.sqrt(2))
           val hCost = heuristic(Node(newX, newY, 0, 0, None), goalNode)
           val neighbor = Node(newX, newY, gCost, hCost, Some(currentNode))

@@ -8,10 +8,11 @@ import clash_royal_ISC.Utils.AStar
 import clash_royal_ISC.entities.buildings.Tower
 import clash_royal_ISC.entities.{Deployable, Entity}
 import clash_royal_ISC.entities.minions.TestMinion
-import com.badlogic.gdx.maps.tiled.{TiledMap, TmxMapLoader}
+import com.badlogic.gdx.maps.tiled.{TiledMap, TiledMapTileLayer, TmxMapLoader}
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.graphics.Color
 
 import java.lang
 import scala.collection.mutable.ArrayBuffer
@@ -45,6 +46,7 @@ class GameWindow extends PortableApplication(WINDOW_WIDTH, WINDOW_HEIGHT) {
   }
 
   override def onInit(): Unit = {
+
     grid.tiledMap = new TmxMapLoader().load("res/sprites/map/map2.tmx")
     Grid.setWalkableArray(grid.tiledMap)
     grid.tiledMapRenderer = new OrthogonalTiledMapRenderer(grid.tiledMap)
@@ -53,7 +55,10 @@ class GameWindow extends PortableApplication(WINDOW_WIDTH, WINDOW_HEIGHT) {
     Gdx.input.setInputProcessor(new MouseListener)
 
     this.player1 = Player.createPlayer()
+    this.player1.setDeployableArray(grid.tiledMap.getLayers.get(2).asInstanceOf[TiledMapTileLayer])
+
     this.player2 = Player.createPlayer()
+    this.player2.setDeployableArray(grid.tiledMap.getLayers.get(3).asInstanceOf[TiledMapTileLayer])
   }
 
   override def onGraphicRender(gdxGraphics: GdxGraphics): Unit = {
