@@ -139,6 +139,8 @@ abstract class Entity(val player: Player) extends DrawableObject {
       case _ => 3
     }
 
+    gdxGraphics.drawString(this.position.x, this.position.y + 80, this.health.toString)
+
     gdxGraphics.draw(this.HEALTH_SPRITE_SHEET.sprites(healthSprite)(0), this.position.x - HEALTH_SPRITE_WIDTH / 2, this.position.y + 50)
   }
 
@@ -158,6 +160,17 @@ abstract class Entity(val player: Player) extends DrawableObject {
     entity.takeDamage(this.attackDamage)
   }
 
+  def update(): Unit = {
+    this.setTarget()
+
+    if(this.targetIsInRange() && this.targetInRangeCounter % (100 / this.attackSpeed) == 0){
+      println("Attacking")
+      this.attack(this.target)
+    }
+    this.setDirection()
+
+  }
+
 }
 
 object Entity {
@@ -168,30 +181,14 @@ object Entity {
     var entityCounter: Int = 0
     while (entityCounter < entitiesArray.length){
       val entity: Entity = entitiesArray(entityCounter)
-      entity.setTarget()
-
-      // TODO Add a function inside the Minion class instead
       entity match {
         case minion: Minion =>
-
-          if (minion.path == null) {
-            println("Setting path")
-            minion.setPath()
-          }
-
-          for (pathPoint <- minion.path) {
-            gdxGraphics.drawFilledCircle(pathPoint._1, pathPoint._2, 10, Color.CHARTREUSE)
-          }
-          minion.move(deltaTime)
-        case _ =>
+          minion.update(deltaTime)
+        case entity =>
+          entity.update()
       }
-      entity.setDirection()
+
       entity.draw(gdxGraphics)
-
-      // TODO is there a better way than hard coding 100 ?
-      if(entity.targetIsInRange() && entity.targetInRangeCounter % (100 / entity.attackSpeed) == 0){
-        entity.attack(entity.target)
-      }
       entityCounter += 1
       }
   }

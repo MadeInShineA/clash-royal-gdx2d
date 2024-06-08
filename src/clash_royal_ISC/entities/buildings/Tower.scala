@@ -19,7 +19,7 @@ class Tower(player: Player) extends Building(player) {
   override val animationFramesWaitAmount: Int = 10
 
 
-  override val attackSpeed: Int = 4
+  override val attackSpeed: Int = 1
   override val attackDamage: Int = 2
 
   override def dies(): Unit = {
