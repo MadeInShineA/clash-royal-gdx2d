@@ -24,10 +24,10 @@ abstract class Entity(val player: Player) extends DrawableObject {
   var position: Vector2 = _
 
   val MAX_HEALTH: Int
-  var health: Float
+  var health: Int
   val range: Int
   val attackSpeed: Int
-  val attackDamage: Float
+  val attackDamage: Int
 
   val healthSpriteSheet: Spritesheet = new Spritesheet("res/sprites/minions/health-bar.png", 80, 11);
 
@@ -53,16 +53,15 @@ abstract class Entity(val player: Player) extends DrawableObject {
     new SoundSample("res/sounds/death.mp3").play()
     entitiesArray -= this
 
-
-    // TODO This null is ugly
     for(entity: Entity <- entitiesArray){
       if(entity.target == this){
         entity.target = null
+        entity.setTarget()
       }
     }
   }
 
-  def takeDamage(damageAmount: Float): Unit = {
+  def takeDamage(damageAmount: Int): Unit = {
     this.health -= damageAmount
     if (this.health <= 0) {
       this.dies()
@@ -109,19 +108,15 @@ abstract class Entity(val player: Player) extends DrawableObject {
 
   def setTarget(): Unit = {
 
-    if(this.target != null && this.targetIsInRange()){
+    if(target != null && this.targetIsInRange()){
       return
     }
 
     val ennemiEntities = entitiesArray.filter(_.player != this.player)
 
-    // The array shouldn't ever be empty when the function is called since each player has at least 1 Tower
-//    assert(ennemiEntities.nonEmpty)
+    assert(ennemiEntities.nonEmpty)
 
-    if(ennemiEntities.nonEmpty){
-      this.target = ennemiEntities.minBy(_.position.dst(this.position))
-
-    }
+    this.target = ennemiEntities.minBy(_.position.dst(this.position))
 
   }
 
@@ -129,31 +124,25 @@ abstract class Entity(val player: Player) extends DrawableObject {
     if(this.animationFramesCount % this.animationFramesWaitAmount == 0){
       this.currentAnimationFrame = (this.currentAnimationFrame + 1) % this.animationFramesAmount
     }
-//    println("Current animation frame : " + this.currentAnimationFrame)
-//    println("Animaiton frames count " + this.animationFramesCount)
-//    println("Animation frames wait amount " + this.animationFramesWaitAmount)
+
     this.animationFramesCount += 1
 
     gdxGraphics.draw(this.spriteSheet.sprites(this.textureY)(currentAnimationFrame), this.position.x, this.position.y)
 
-    val healthPercentage: Float = this.health * 100 / this.MAX_HEALTH
+    val healthPercentage: Float = this.health * 100f / this.MAX_HEALTH
 
-    val healthSprite = Math.min(3, Math.max(0, healthPercentage.toInt / 25))
+    val healthSprite: Int = healthPercentage match {
+      case hp if hp <= 25 => 0
+      case hp if hp <= 50 => 1
+      case hp if hp <= 75 => 2
+      case _ => 3
+    }
+
     gdxGraphics.draw(this.healthSpriteSheet.sprites(healthSprite)(0), this.position.x - this.spriteWidth / 2, this.position.y + 50)
   }
 
-//  override def draw(gdxGraphics: GdxGraphics): Unit = {
-//    gdxGraphics.drawFilledCircle(this.position.x, this.position.y, 20f, Color.BLACK)
-//  }
-
-  // TODO ugly null
   def targetIsInRange(): Boolean = {
-    if(this.target == null){
-      this.targetInRangeCounter = 0
-      return false
-    }
     if (this.position.dst(target.position) <= range)  {
-
       this.targetInRangeCounter += 1
       true
     }else {
@@ -199,8 +188,8 @@ object Entity {
       entity.draw(gdxGraphics)
 
       // TODO is there a better way than hard coding 100 ?
-      if(entity.targetIsInRange() && entity.targetInRangeCounter % 100 / entity.attackSpeed == 0){
-        entity.attack(entity)
+      if(entity.targetIsInRange() && entity.targetInRangeCounter % (100 / entity.attackSpeed) == 0){
+        entity.attack(entity.target)
       }
       entityCounter += 1
       }

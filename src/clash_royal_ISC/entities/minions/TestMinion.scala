@@ -12,12 +12,13 @@ class TestMinion(player: Player) extends Minion(player) {
   override val handSpriteSheet: Spritesheet = new Spritesheet("res/sprites/minions/lumberjack_sheet32.png", this.handSpriteWidth, this.handSpriteHeight);
   override val spriteSheet: Spritesheet = new Spritesheet("res/sprites/minions/lumberjack_sheet32.png", this.spriteWidth, this.spriteHeight);
 
-  override val MAX_HEALTH: Int = 10
-  override var health: Float = 10
+  override val MAX_HEALTH: Int = 4
+
+  override var health: Int = this.MAX_HEALTH
   override val cost: Int = 4
   override val range: Int = 3 * Grid.tileSize
-  override val attackSpeed: Int = 3
-  override val attackDamage: Float = 1
+  override val attackSpeed: Int = 1
+  override val attackDamage: Int = 1
 
   override var textureY: Int = 1
   override val animationFramesAmount: Int = 4

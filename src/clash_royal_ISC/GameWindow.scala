@@ -3,7 +3,7 @@ package clash_royal_ISC
 import ch.hevs.gdx2d.components.audio.SoundSample
 import ch.hevs.gdx2d.desktop.PortableApplication
 import ch.hevs.gdx2d.lib.GdxGraphics
-import clash_royal_ISC.GameWindow.{ELIXIRE_CYCLE_FRAMES, WINDOW_HEIGHT, WINDOW_WIDTH, gameIsRunning}
+import clash_royal_ISC.GameWindow.{ELIXIRE_CYCLE_FRAMES, WINDOW_HEIGHT, WINDOW_WIDTH, endGame, gameIsRunning}
 import clash_royal_ISC.Utils.AStar
 import clash_royal_ISC.entities.{Deployable, Entity}
 import clash_royal_ISC.entities.minions.TestMinion
@@ -48,31 +48,23 @@ class GameWindow extends PortableApplication(WINDOW_WIDTH, WINDOW_HEIGHT) {
   }
 
   override def onGraphicRender(gdxGraphics: GdxGraphics): Unit = {
+    gdxGraphics.clear()
+    this.grid.render(gdxGraphics)
 
-    if(gameIsRunning){
-      gdxGraphics.clear()
-
-
-      this.grid.render(gdxGraphics)
-      Entity.updateEntities(gdxGraphics, Gdx.graphics.getDeltaTime)
-      for(player: Player <- Player.playersArray){
-        if (player.hasLost()){
-          println(s"Player ${Player.playersArray.indexOf(player) + 1} has lost!")
-          gameIsRunning = false
-
-          new SoundSample("res/sounds/victory.mp3").play()
-          lang.Thread.sleep(1500)
-
-
-
-          System.exit(1)
-        }
-        player.hand.draw(gdxGraphics)
-        if(this.graphicRenderCounter % ELIXIRE_CYCLE_FRAMES == 0 && this.graphicRenderCounter != 0){
-          player.addElixir(0.5f)
-        }
-        player.drawElixir(gdxGraphics)
+    for(player: Player <- Player.playersArray) {
+      player.hand.draw(gdxGraphics)
+      if(this.graphicRenderCounter % ELIXIRE_CYCLE_FRAMES == 0 && this.graphicRenderCounter != 0) {
+        player.addElixir(0.5f)
       }
+      player.drawElixir(gdxGraphics)
+      }
+
+    Entity.updateEntities(gdxGraphics, Gdx.graphics.getDeltaTime)
+
+    gdxGraphics.drawFPS()
+    this.graphicRenderCounter += 1
+
+
 
       //    implicit val ec: scala.concurrent.ExecutionContext = scala.concurrent.ExecutionContext.global
       //
@@ -80,12 +72,9 @@ class GameWindow extends PortableApplication(WINDOW_WIDTH, WINDOW_HEIGHT) {
       //      println("Setting path Async")
       //      Future(Entity.setEntitiesPathAsync())
       //    }
-
-      gdxGraphics.drawFPS()
-      this.graphicRenderCounter += 1
-    }
-
   }
+
+
 }
 
 object GameWindow {
@@ -98,6 +87,15 @@ object GameWindow {
 
   var gameIsRunning: Boolean = true
 
+  def endGame(): Unit = {
+    gameIsRunning = false
+    println(s"The game has ended")
+
+    new SoundSample("res/sounds/victory.mp3").play()
+    lang.Thread.sleep(1500)
+
+    System.exit(1)
+  }
 
 
 }
