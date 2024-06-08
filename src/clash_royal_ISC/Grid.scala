@@ -1,6 +1,7 @@
 package clash_royal_ISC
 
 import ch.hevs.gdx2d.lib.GdxGraphics
+import clash_royal_ISC.entities.Entity
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.maps.MapLayers
 import com.badlogic.gdx.maps.tiled.{TiledMap, TiledMapTile, TiledMapTileLayer, TmxMapLoader}
@@ -48,7 +49,24 @@ object Grid {
   }
 
   def isPixelWalkable(x: Float, y: Float): Boolean = {
-    this.walkableArray(x.toInt / this.tileSize)(y.toInt / this.tileSize)
+
+    val xInGridCell: Int = x.toInt / this.tileSize
+    val yInGridCell: Int = y.toInt / this.tileSize
+
+    for(entity: Entity <- Entity.entitiesArray){
+
+      val entityXInGridCell = entity.position.x.toInt / this.tileSize
+      val entityYInGridCell = entity.position.y.toInt / this.tileSize
+
+      println(s"Entity X in grid cell $entityXInGridCell")
+      println(s"Entity Y in grid cell $entityYInGridCell")
+
+      if(xInGridCell == entityXInGridCell && yInGridCell == entityYInGridCell){
+        return false
+      }
+
+    }
+    this.walkableArray(xInGridCell)(yInGridCell)
   }
 
 }

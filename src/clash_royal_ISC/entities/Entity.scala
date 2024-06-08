@@ -183,6 +183,9 @@ object Entity {
       entity match {
         case minion: Minion =>
           minion.update(deltaTime)
+          for(pathPoint: (Int, Int) <- minion.path){
+            gdxGraphics.drawFilledCircle(pathPoint._1, pathPoint._2, 20, Color.BLUE)
+          }
         case entity =>
           entity.update()
       }
