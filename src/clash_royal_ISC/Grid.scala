@@ -44,7 +44,8 @@ object Grid {
     this.walkableArray = walkableArray
   }
 
-  def isValidPixel(x: Int, y: Int): Boolean = {
+  def isValidGriSquare(x: Int, y: Int): Boolean = {
+
     x >= 0 && y >= 0 && x < Grid.walkableArray.length && y < Grid.walkableArray(0).length && Grid.walkableArray(x)(y)
   }
 
@@ -52,6 +53,10 @@ object Grid {
 
     val xInGridCell: Int = x.toInt / this.tileSize
     val yInGridCell: Int = y.toInt / this.tileSize
+
+    if(xInGridCell >= this.walkableArray.length || yInGridCell >= this.walkableArray(0).length || xInGridCell < 0 || yInGridCell < 0){
+      return false
+    }
 
     for(entity: Entity <- Entity.entitiesArray){
 
@@ -64,8 +69,33 @@ object Grid {
       if(xInGridCell == entityXInGridCell && yInGridCell == entityYInGridCell){
         return false
       }
-
     }
+
+    this.walkableArray(xInGridCell)(yInGridCell)
+  }
+
+  def isPixelWalkable(x: Float, y: Float ,entityy: Entity): Boolean = {
+
+    val xInGridCell: Int = x.toInt / this.tileSize
+    val yInGridCell: Int = y.toInt / this.tileSize
+
+    if(xInGridCell >= this.walkableArray.length || yInGridCell >= this.walkableArray(0).length || xInGridCell < 0 || yInGridCell < 0){
+      return false
+    }
+
+    for(entity: Entity <- Entity.entitiesArray){
+      if(entity == entityy || entity == entityy.target){
+
+      }else{
+        val entityXInGridCell = entity.position.x.toInt / this.tileSize
+        val entityYInGridCell = entity.position.y.toInt / this.tileSize
+
+        if(xInGridCell == entityXInGridCell && yInGridCell == entityYInGridCell){
+          return false
+        }
+      }
+    }
+
     this.walkableArray(xInGridCell)(yInGridCell)
   }
 

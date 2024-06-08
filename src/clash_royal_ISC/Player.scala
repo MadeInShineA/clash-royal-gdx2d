@@ -18,7 +18,7 @@ class Player private {
   var hand: Hand = new Hand(this)
   var currentElixir: Float = 3
 
-  val tower: Tower = new Tower(this)
+  var tower: Tower = new Tower(this)
   tower.spawn(if(playersArray.isEmpty) P1_TOWER_POSITION else P2_TOWER_POSITION)
 
   def deployEntity(entity: Entity with Deployable, position: Vector2): Unit = {
@@ -51,9 +51,6 @@ class Player private {
     gdxGraphics.drawFilledRectangle(this.elixirPosition.x, this.elixirPosition.y, Grid.tileSize * this.currentElixir, 1 * Grid.tileSize, 0)
   }
 
-  def hasLost(): Boolean = {
-    this.tower.health <= 0
-  }
 }
 
 object Player {
@@ -72,5 +69,6 @@ object Player {
     this.playersArray += player
     player
   }
+
 
 }

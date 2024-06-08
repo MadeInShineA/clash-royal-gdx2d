@@ -4,7 +4,7 @@ import ch.hevs.gdx2d.components.audio.SoundSample
 import ch.hevs.gdx2d.components.bitmaps.Spritesheet
 import ch.hevs.gdx2d.lib.GdxGraphics
 import ch.hevs.gdx2d.lib.interfaces.DrawableObject
-import clash_royal_ISC.Player
+import clash_royal_ISC.{Grid, Player}
 import clash_royal_ISC.entities.Entity.entitiesArray
 import clash_royal_ISC.entities.minions.Minion
 import com.badlogic.gdx.graphics.Color
@@ -183,9 +183,13 @@ object Entity {
       entity match {
         case minion: Minion =>
           minion.update(deltaTime)
-          for(pathPoint: (Int, Int) <- minion.path){
-            gdxGraphics.drawFilledCircle(pathPoint._1, pathPoint._2, 20, Color.BLUE)
-          }
+//          for(pathPoint: (Int, Int) <- minion.path){
+//            if(Grid.isPixelWalkable(pathPoint._1, pathPoint._2))
+//              gdxGraphics.drawFilledCircle(pathPoint._1, pathPoint._2, 20, Color.BLUE)
+//            else{
+//              gdxGraphics.drawFilledCircle(pathPoint._1, pathPoint._2, 20, Color.GOLD)
+//            }
+//          }
         case entity =>
           entity.update()
       }

@@ -3,7 +3,7 @@ package clash_royal_ISC
 import ch.hevs.gdx2d.components.audio.SoundSample
 import ch.hevs.gdx2d.desktop.PortableApplication
 import ch.hevs.gdx2d.lib.GdxGraphics
-import clash_royal_ISC.GameWindow.{ELIXIRE_CYCLE_FRAMES, WINDOW_HEIGHT, WINDOW_WIDTH, endGame, gameIsRunning}
+import clash_royal_ISC.GameWindow.{ELIXIRE_CYCLE_FRAMES, WINDOW_HEIGHT, WINDOW_WIDTH, endGame, gameIsRunning, selectedEntity}
 import clash_royal_ISC.Utils.AStar
 import clash_royal_ISC.entities.buildings.Tower
 import clash_royal_ISC.entities.{Deployable, Entity}
@@ -14,6 +14,7 @@ import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.Gdx
 
 import java.lang
+import scala.collection.mutable.ArrayBuffer
 import scala.concurrent.Future
 
 class GameWindow extends PortableApplication(WINDOW_WIDTH, WINDOW_HEIGHT) {
@@ -24,28 +25,35 @@ class GameWindow extends PortableApplication(WINDOW_WIDTH, WINDOW_HEIGHT) {
 
   var graphicRenderCounter: Int = 0
 
-  override def onInit(): Unit = {
-    new SoundSample("res/sounds/start.mp3").play()
+  def resetGame(): Unit = {
+//    new SoundSample("res/sounds/start.mp3").play()
+//
+//    Thread.sleep(3800)
 
-    Thread.sleep(3800)
+
+    selectedEntity = None
+
+    Entity.entitiesArray.clear()
+    Hand.entitiesArray.clear()
+
+    Player.playersArray.clear()
+
+    this.player1 = Player.createPlayer()
+    this.player2 = Player.createPlayer()
+
+
+  }
+
+  override def onInit(): Unit = {
     grid.tiledMap = new TmxMapLoader().load("res/sprites/map/map2.tmx")
     Grid.setWalkableArray(grid.tiledMap)
     grid.tiledMapRenderer = new OrthogonalTiledMapRenderer(grid.tiledMap)
     grid.tiledLayer = grid.tiledMap.getLayers
 
-    this.player1 = Player.createPlayer()
-    this.player2 = Player.createPlayer()
-
-//    val testMinion: TestMinion = new TestMinion(this.player1)
-//    val testMinion2: TestMinion = new TestMinion(this.player2)
-//    val testMinion3: TestMinion = new TestMinion(this.player2)
-//    val testMinion4: TestMinion = new TestMinion(this.player1)
-//    testMinion.spawn(new Vector2(30, 130))
-//    testMinion2.spawn(new Vector2(180, 800))
-//    testMinion3.spawn(new Vector2(500, 800))
-//    testMinion4.spawn(new Vector2(450, 130))
     Gdx.input.setInputProcessor(new MouseListener)
 
+    this.player1 = Player.createPlayer()
+    this.player2 = Player.createPlayer()
   }
 
   override def onGraphicRender(gdxGraphics: GdxGraphics): Unit = {
@@ -76,8 +84,13 @@ object GameWindow {
 
   var selectedEntity: Option[Entity with Deployable] = None
 
-  var gameIsRunning: Boolean = true
+  var gameIsRunning: Boolean = false
 
+  var gameWindowInstance: GameWindow = _
+
+  def createGameWindow(): Unit = {
+    this.gameWindowInstance = new GameWindow
+  }
   def endGame(): Unit = {
     gameIsRunning = false
     println(s"The game has ended")
@@ -85,7 +98,8 @@ object GameWindow {
     new SoundSample("res/sounds/victory.mp3").play()
     lang.Thread.sleep(1500)
 
-    System.exit(1)
+    this.gameWindowInstance.resetGame()
+
   }
 
 

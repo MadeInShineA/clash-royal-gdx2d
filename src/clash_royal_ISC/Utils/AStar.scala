@@ -1,6 +1,7 @@
 package clash_royal_ISC.Utils
 
 import clash_royal_ISC.Grid
+import clash_royal_ISC.entities.Entity
 
 import scala.collection.mutable
 
@@ -16,7 +17,8 @@ object AStar {
     Math.sqrt(Math.pow(start.x - goal.x, 2) + Math.pow(start.y - goal.y, 2))
   }
 
-  def findPath(start: (Int, Int), goal: (Int, Int)): List[(Int, Int)] = {
+//  def findPath(start: (Int, Int), goal: (Int, Int)): List[(Int, Int)] = {
+  def findPath(start: (Int, Int), goal: (Int, Int), entity: Entity): List[(Int, Int)] = {
     val startInWalkableGrid: (Int, Int) = (start._1 / Grid.tileSize, start._2 / Grid.tileSize)
     val goalInWalkableGrid: (Int, Int) = (goal._1 / Grid.tileSize, goal._2 / Grid.tileSize)
 
@@ -45,7 +47,7 @@ object AStar {
         val newX = currentNode.x + dx
         val newY = currentNode.y + dy
 
-        if (Grid.isValidPixel(newX, newY) && !closedSet.contains((newX, newY))) {
+        if (Grid.isPixelWalkable(newX * Grid.tileSize, newY * Grid.tileSize, entity) && !closedSet.contains((newX, newY))) {
           val gCost = currentNode.g + (if (dx == 0 || dy == 0) 1 else Math.sqrt(2))
           val hCost = heuristic(Node(newX, newY, 0, 0, None), goalNode)
           val neighbor = Node(newX, newY, gCost, hCost, Some(currentNode))

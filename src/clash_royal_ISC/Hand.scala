@@ -21,7 +21,7 @@ class Hand (player: Player) extends DrawableObject{
 //  val AVAILABLE_ENTITIES: Array[ru.ClassSymbol] = Array(
 //    ru.symbolOf[TestMinion].asClass,
 //  )
-  val runtimeMirror = ru.runtimeMirror(getClass.getClassLoader)
+//  val runtimeMirror = ru.runtimeMirror(getClass.getClassLoader)
 
 
   val position: Vector2 = (if(playersArray.isEmpty) P1_POSITION else P2_POSITION)
@@ -29,6 +29,7 @@ class Hand (player: Player) extends DrawableObject{
   val entities: ArrayBuffer[Entity with Deployable] = this.createHand()
 
   def createHand(): ArrayBuffer[Entity with Deployable] = {
+    println("Creating hand for player " + Player.playersArray.indexOf(this.player))
     val res: ArrayBuffer[Entity with Deployable] = new ArrayBuffer()
 
 //    for(i <- 0 until SIZE){

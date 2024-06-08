@@ -65,7 +65,7 @@ abstract class Minion(player: Player) extends Entity(player) with Deployable {
       this.position = this.lastPosition.lerp(this.newPosition, alpha)
     }
 
-    setPath()
+    this.setPath()
 
   }
 
@@ -73,7 +73,10 @@ abstract class Minion(player: Player) extends Entity(player) with Deployable {
 
     // TODO Check
 //    if(this.target != null){
-    this.path = AStar.findPath((this.position.x.toInt, this.position.y.toInt), (this.target.position.x.toInt, this.target.position.y.toInt))
+
+//    val foundPath: List[(Int, Int)] = AStar.findPath((this.position.x.toInt, this.position.y.toInt), (this.target.position.x.toInt, this.target.position.y.toInt))
+    val foundPath: List[(Int, Int)] = AStar.findPath((this.position.x.toInt, this.position.y.toInt), (this.target.position.x.toInt, this.target.position.y.toInt), this)
+    this.path = foundPath
 //    }
   }
 
