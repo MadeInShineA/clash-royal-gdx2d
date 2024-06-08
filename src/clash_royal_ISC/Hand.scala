@@ -29,7 +29,6 @@ class Hand (player: Player) extends DrawableObject{
   val entities: ArrayBuffer[Entity with Deployable] = this.createHand()
 
   def createHand(): ArrayBuffer[Entity with Deployable] = {
-    println("Creating hand for player " + Player.playersArray.indexOf(this.player))
     val res: ArrayBuffer[Entity with Deployable] = new ArrayBuffer()
 
 //    for(i <- 0 until SIZE){

@@ -71,10 +71,6 @@ abstract class Minion(player: Player) extends Entity(player) with Deployable {
 
   def setPath(): Unit = {
 
-    // TODO Check
-//    if(this.target != null){
-
-//    val foundPath: List[(Int, Int)] = AStar.findPath((this.position.x.toInt, this.position.y.toInt), (this.target.position.x.toInt, this.target.position.y.toInt))
     val foundPath: List[(Int, Int)] = AStar.findPath((this.position.x.toInt, this.position.y.toInt), (this.target.position.x.toInt, this.target.position.y.toInt), this)
     this.path = foundPath
 //    }

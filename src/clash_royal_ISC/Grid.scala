@@ -58,13 +58,13 @@ object Grid {
     }
 
     for(gridEntity: Entity <- Entity.entitiesArray){
-      if(gridEntity == entity.target){
+      if(gridEntity == entity || gridEntity == entity.target){
 
       }else{
-        val entityXInGridCell = entity.position.x.toInt / this.TILE_SIZE
-        val entityYInGridCell = entity.position.y.toInt / this.TILE_SIZE
+        val gridEntityXInGridCell = gridEntity.position.x.toInt / this.TILE_SIZE
+        val gridEntityYInGridCell = gridEntity.position.y.toInt / this.TILE_SIZE
 
-        if(xInGridCell == entityXInGridCell && yInGridCell == entityYInGridCell){
+        if(xInGridCell == gridEntityXInGridCell && yInGridCell == gridEntityYInGridCell){
           return false
         }
       }

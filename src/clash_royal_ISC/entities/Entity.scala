@@ -167,7 +167,6 @@ abstract class Entity(val player: Player) extends DrawableObject {
       this.attack(this.target)
     }
     this.setDirection()
-
   }
 
 }
@@ -183,13 +182,6 @@ object Entity {
       entity match {
         case minion: Minion =>
           minion.update(deltaTime)
-//          for(pathPoint: (Int, Int) <- minion.path){
-//            if(Grid.isPixelWalkable(pathPoint._1, pathPoint._2))
-//              gdxGraphics.drawFilledCircle(pathPoint._1, pathPoint._2, 20, Color.BLUE)
-//            else{
-//              gdxGraphics.drawFilledCircle(pathPoint._1, pathPoint._2, 20, Color.GOLD)
-//            }
-//          }
         case entity =>
           entity.update()
       }
