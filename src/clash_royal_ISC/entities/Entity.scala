@@ -145,13 +145,7 @@ abstract class Entity(val player: Player) extends DrawableObject {
   }
 
   def targetIsInRange(): Boolean = {
-    if (this.position.dst(target.position) <= range)  {
-      this.targetInRangeCounter += 1
-      true
-    }else {
-      this.targetInRangeCounter = 0
-      false
-      }
+    (this.position.dst(target.position) <= range)
   }
 
 
@@ -163,8 +157,13 @@ abstract class Entity(val player: Player) extends DrawableObject {
   def update(): Unit = {
     this.setTarget()
 
+    if(targetIsInRange()){
+      this.targetInRangeCounter += 1
+    }else{
+      this.targetInRangeCounter = 0
+    }
+
     if(this.targetIsInRange() && this.targetInRangeCounter % (100 / this.attackSpeed) == 0){
-      println("Attacking")
       this.attack(this.target)
     }
     this.setDirection()
