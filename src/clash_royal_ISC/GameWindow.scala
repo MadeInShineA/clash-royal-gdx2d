@@ -3,20 +3,13 @@ package clash_royal_ISC
 import ch.hevs.gdx2d.components.audio.SoundSample
 import ch.hevs.gdx2d.desktop.PortableApplication
 import ch.hevs.gdx2d.lib.GdxGraphics
-import clash_royal_ISC.GameWindow.{ELIXIRE_CYCLE_FRAMES, WINDOW_HEIGHT, WINDOW_WIDTH, endGame, gameIsRunning, selectedEntity}
-import clash_royal_ISC.Utils.AStar
-import clash_royal_ISC.entities.buildings.Tower
+import clash_royal_ISC.GameWindow.{ELIXIRE_CYCLE_FRAMES, WINDOW_HEIGHT, WINDOW_WIDTH, gameIsRunning, selectedEntity}
 import clash_royal_ISC.entities.{Deployable, Entity}
-import clash_royal_ISC.entities.minions.TestMinion
-import com.badlogic.gdx.maps.tiled.{TiledMap, TiledMapTileLayer, TmxMapLoader}
+import com.badlogic.gdx.maps.tiled.{TiledMapTileLayer, TmxMapLoader}
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer
-import com.badlogic.gdx.math.Vector2
-import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.graphics.Color
+import com.badlogic.gdx.{Gdx, Input}
 
 import java.lang
-import scala.collection.mutable.ArrayBuffer
-import scala.concurrent.Future
 
 class GameWindow extends PortableApplication(WINDOW_WIDTH, WINDOW_HEIGHT) {
 
@@ -45,6 +38,19 @@ class GameWindow extends PortableApplication(WINDOW_WIDTH, WINDOW_HEIGHT) {
 
   }
 
+  override def onKeyUp(keyCode: Int): Unit = {
+    super.onKeyUp(keyCode)
+    if(keyCode == Input.Keys.ENTER && !gameIsRunning){
+      gameIsRunning = true
+    }
+    println("Yo")
+  }
+
+  override def onKeyDown(keyCode: Int): Unit = {
+    super.onKeyDown(keyCode)
+    println("caca")
+  }
+
   override def onInit(): Unit = {
 
     grid.tiledMap = new TmxMapLoader().load("res/sprites/map/map2.tmx")
@@ -62,22 +68,27 @@ class GameWindow extends PortableApplication(WINDOW_WIDTH, WINDOW_HEIGHT) {
   }
 
   override def onGraphicRender(gdxGraphics: GdxGraphics): Unit = {
+
     gdxGraphics.clear()
-    this.grid.render(gdxGraphics)
 
-    for(player: Player <- Player.playersArray) {
-      player.hand.draw(gdxGraphics)
-      if(this.graphicRenderCounter % ELIXIRE_CYCLE_FRAMES == 0 && this.graphicRenderCounter != 0) {
-        player.addElixir(0.5f)
-      }
-      player.drawElixir(gdxGraphics)
+    if(gameIsRunning){
+      this.grid.render(gdxGraphics)
+
+      for(player: Player <- Player.playersArray) {
+        player.hand.draw(gdxGraphics)
+        if(this.graphicRenderCounter % ELIXIRE_CYCLE_FRAMES == 0 && this.graphicRenderCounter != 0) {
+          player.addElixir(0.5f)
+        }
+        player.drawElixir(gdxGraphics)
       }
 
-    Entity.updateEntities(gdxGraphics, Gdx.graphics.getDeltaTime)
-    gdxGraphics.drawFPS()
-    this.graphicRenderCounter += 1
+      Entity.updateEntities(gdxGraphics, Gdx.graphics.getDeltaTime)
+      gdxGraphics.drawFPS()
+      this.graphicRenderCounter += 1
+    }else{
+      gdxGraphics.drawString(WINDOW_WIDTH / 2f, WINDOW_HEIGHT / 2f, "Press enter to play")
+    }
   }
-
 
 }
 
@@ -91,6 +102,7 @@ object GameWindow {
 
   var gameIsRunning: Boolean = false
 
+  // TODO Is there a better way to do so ?
   var gameWindowInstance: GameWindow = _
 
   def createGameWindow(): Unit = {
@@ -99,7 +111,6 @@ object GameWindow {
   def endGame(): Unit = {
     gameIsRunning = false
     println(s"The game has ended")
-
     new SoundSample("res/sounds/victory.mp3").play()
     lang.Thread.sleep(1500)
 
