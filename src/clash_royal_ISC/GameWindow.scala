@@ -5,6 +5,7 @@ import ch.hevs.gdx2d.desktop.PortableApplication
 import ch.hevs.gdx2d.lib.GdxGraphics
 import clash_royal_ISC.GameWindow.{ELIXIRE_CYCLE_FRAMES, WINDOW_HEIGHT, WINDOW_WIDTH, endGame, gameIsRunning}
 import clash_royal_ISC.Utils.AStar
+import clash_royal_ISC.entities.buildings.Tower
 import clash_royal_ISC.entities.{Deployable, Entity}
 import clash_royal_ISC.entities.minions.TestMinion
 import com.badlogic.gdx.maps.tiled.{TiledMap, TmxMapLoader}
@@ -60,18 +61,8 @@ class GameWindow extends PortableApplication(WINDOW_WIDTH, WINDOW_HEIGHT) {
       }
 
     Entity.updateEntities(gdxGraphics, Gdx.graphics.getDeltaTime)
-
     gdxGraphics.drawFPS()
     this.graphicRenderCounter += 1
-
-
-
-      //    implicit val ec: scala.concurrent.ExecutionContext = scala.concurrent.ExecutionContext.global
-      //
-      //    if(this.graphicRenderCounter % 5 == 0) {
-      //      println("Setting path Async")
-      //      Future(Entity.setEntitiesPathAsync())
-      //    }
   }
 
 
