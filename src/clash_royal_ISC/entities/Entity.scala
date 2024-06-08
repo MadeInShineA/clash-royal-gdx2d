@@ -29,7 +29,8 @@ abstract class Entity(val player: Player) extends DrawableObject {
   val attackSpeed: Int
   val attackDamage: Int
 
-  val healthSpriteSheet: Spritesheet = new Spritesheet("res/sprites/minions/health-bar.png", 80, 11);
+  val HEALTH_SPRITE_SHEET: Spritesheet = new Spritesheet("res/sprites/minions/health-bar.png", 80, 11)
+  val HEALTH_SPRITE_WIDTH: Int = 80
 
   var target: Entity = _
 
@@ -127,7 +128,7 @@ abstract class Entity(val player: Player) extends DrawableObject {
 
     this.animationFramesCount += 1
 
-    gdxGraphics.draw(this.spriteSheet.sprites(this.textureY)(currentAnimationFrame), this.position.x, this.position.y)
+    gdxGraphics.draw(this.spriteSheet.sprites(this.textureY)(currentAnimationFrame), this.position.x - this.spriteWidth / 2, this.position.y)
 
     val healthPercentage: Float = this.health * 100f / this.MAX_HEALTH
 
@@ -138,7 +139,7 @@ abstract class Entity(val player: Player) extends DrawableObject {
       case _ => 3
     }
 
-    gdxGraphics.draw(this.healthSpriteSheet.sprites(healthSprite)(0), this.position.x - this.spriteWidth / 2, this.position.y + 50)
+    gdxGraphics.draw(this.HEALTH_SPRITE_SHEET.sprites(healthSprite)(0), this.position.x - HEALTH_SPRITE_WIDTH / 2, this.position.y + 50)
   }
 
   def targetIsInRange(): Boolean = {
