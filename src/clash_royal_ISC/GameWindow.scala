@@ -1,12 +1,14 @@
 package clash_royal_ISC
 
 import ch.hevs.gdx2d.components.audio.SoundSample
+import ch.hevs.gdx2d.components.graphics.Polygon
 import ch.hevs.gdx2d.desktop.PortableApplication
 import ch.hevs.gdx2d.lib.GdxGraphics
 import clash_royal_ISC.GameWindow.{ELIXIRE_CYCLE_FRAMES, WINDOW_HEIGHT, WINDOW_WIDTH, gameIsRunning, selectedEntity}
 import clash_royal_ISC.entities.{Deployable, Entity}
 import com.badlogic.gdx.maps.tiled.{TiledMapTileLayer, TmxMapLoader}
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer
+import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.{Gdx, Input}
 
 import java.lang
@@ -33,22 +35,38 @@ class GameWindow extends PortableApplication(WINDOW_WIDTH, WINDOW_HEIGHT) {
     Player.playersArray.clear()
 
     this.player1 = Player.createPlayer()
+    this.player1.setDeployableArray(grid.tiledMap.getLayers.get(2).asInstanceOf[TiledMapTileLayer])
+
+
     this.player2 = Player.createPlayer()
+    this.player2.setDeployableArray(grid.tiledMap.getLayers.get(3).asInstanceOf[TiledMapTileLayer])
 
 
-  }
 
-  override def onKeyUp(keyCode: Int): Unit = {
-    super.onKeyUp(keyCode)
-    if(keyCode == Input.Keys.ENTER && !gameIsRunning){
-      gameIsRunning = true
-    }
-    println("Yo")
   }
 
   override def onKeyDown(keyCode: Int): Unit = {
     super.onKeyDown(keyCode)
-    println("caca")
+    if(keyCode == Input.Keys.ENTER && !gameIsRunning){
+      gameIsRunning = true
+    }
+  }
+
+  override def onClick(x: Int, y: Int, button: Int): Unit = {
+    super.onClick(x, y, button)
+
+    val clickXGridCell: Int = x / Grid.TILE_SIZE
+    val clickYGridCell: Int = y / Grid.TILE_SIZE
+
+    val selectedEntity: Option[Entity with Deployable] = Hand.getEntityAtPosition(x, y)
+
+    if(selectedEntity.isDefined){
+      GameWindow.selectedEntity = Hand.getEntityAtPosition(x, y)
+    }else if(GameWindow.selectedEntity.isDefined &&  GameWindow.selectedEntity.get.player.deployableArray(clickXGridCell)(clickYGridCell) ){
+      val entity: Entity with Deployable = GameWindow.selectedEntity.get
+      entity.player.deployEntity(entity,new Vector2(x, y))
+      GameWindow.selectedEntity = None
+    }
   }
 
   override def onInit(): Unit = {
@@ -57,8 +75,6 @@ class GameWindow extends PortableApplication(WINDOW_WIDTH, WINDOW_HEIGHT) {
     Grid.setWalkableArray(grid.tiledMap)
     grid.tiledMapRenderer = new OrthogonalTiledMapRenderer(grid.tiledMap)
     grid.tiledLayer = grid.tiledMap.getLayers
-
-    Gdx.input.setInputProcessor(new MouseListener)
 
     this.player1 = Player.createPlayer()
     this.player1.setDeployableArray(grid.tiledMap.getLayers.get(2).asInstanceOf[TiledMapTileLayer])
@@ -85,8 +101,9 @@ class GameWindow extends PortableApplication(WINDOW_WIDTH, WINDOW_HEIGHT) {
       Entity.updateEntities(gdxGraphics, Gdx.graphics.getDeltaTime)
       gdxGraphics.drawFPS()
       this.graphicRenderCounter += 1
-    }else{
-      gdxGraphics.drawString(WINDOW_WIDTH / 2f, WINDOW_HEIGHT / 2f, "Press enter to play")
+    }
+    else{
+      gdxGraphics.drawStringCentered(WINDOW_HEIGHT / 2f,  "Press enter to play")
     }
   }
 
@@ -106,13 +123,13 @@ object GameWindow {
   var gameWindowInstance: GameWindow = _
 
   def createGameWindow(): Unit = {
+    assert(this.gameWindowInstance == null)
     this.gameWindowInstance = new GameWindow
   }
   def endGame(): Unit = {
     gameIsRunning = false
     println(s"The game has ended")
     new SoundSample("res/sounds/victory.mp3").play()
-    lang.Thread.sleep(1500)
 
     this.gameWindowInstance.resetGame()
 
