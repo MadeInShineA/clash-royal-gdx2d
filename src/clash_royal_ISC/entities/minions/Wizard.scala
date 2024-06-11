@@ -26,6 +26,6 @@ class Wizard(player: Player) extends Minion(player) {
   override val animationFramesWaitAmount: Int = 10
 
   override def attack(entity: Entity): Unit = {
-    new Fireball(this.attackDamage, this.position, entity)
+    new Fireball(this.attackDamage, this.position, entity).spawn()
   }
 }

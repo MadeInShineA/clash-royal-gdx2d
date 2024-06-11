@@ -6,6 +6,7 @@ import clash_royal_ISC.Grid
 import clash_royal_ISC.Utils.AStar
 import clash_royal_ISC.entities.Entity
 import Projectile.projectilesArray
+import ch.hevs.gdx2d.components.audio.SoundSample
 import clash_royal_ISC.entities.traits.Drawable
 import clash_royal_ISC.traits.Movable
 import com.badlogic.gdx.math.Vector2
@@ -21,8 +22,16 @@ abstract class Projectile(val attackDamage: Int, var position: Vector2, val targ
   var textureY: Int
   val range: Int = 1 * Grid.TILE_SIZE
 
-  projectilesArray += this
-  super.setPositions(position)
+  val spawnSound: SoundSample
+  val hitSound: SoundSample
+
+  def spawn(): Unit = {
+    projectilesArray += this
+    super.setPositions(position)
+    this.spawnSound.play()
+  }
+
+
 
 
   override def canMove(): Boolean = {
@@ -61,6 +70,7 @@ object Projectile {
       if(projectile.hasReachedTarget()){
         this.projectilesArray.remove(projectileCounter)
         projectile.target.takeDamage(projectile.attackDamage)
+        projectile.hitSound.play()
       }
       projectileCounter += 1
     }

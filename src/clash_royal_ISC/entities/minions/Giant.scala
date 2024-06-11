@@ -1,5 +1,6 @@
 package clash_royal_ISC.entities.minions
 
+import ch.hevs.gdx2d.components.audio.SoundSample
 import ch.hevs.gdx2d.components.bitmaps.Spritesheet
 import clash_royal_ISC.entities.traits.{Deployable, OnlyTargetBuilding}
 import clash_royal_ISC.{Grid, Player}
@@ -26,4 +27,11 @@ class Giant(player: Player) extends Minion(player) with OnlyTargetBuilding {
   override val attackDamage: Int = 3
   override val animationFramesAmount: Int = 3
   override val animationFramesWaitAmount: Int = 10
+
+  val attackSound: SoundSample = new SoundSample("res/sounds/minions/giant/attack.ogg")
+
+  override def attack(entity: Entity) = {
+    super.attack(entity)
+    attackSound.play()
+  }
 }

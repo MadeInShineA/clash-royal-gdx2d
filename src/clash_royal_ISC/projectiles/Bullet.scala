@@ -1,4 +1,5 @@
 package clash_royal_ISC.projectiles
+import ch.hevs.gdx2d.components.audio.SoundSample
 import ch.hevs.gdx2d.components.bitmaps.Spritesheet
 import clash_royal_ISC.entities.Entity
 import com.badlogic.gdx.math.Vector2
@@ -14,4 +15,8 @@ class Bullet(attackDamage: Int, position: Vector2, target: Entity) extends Proje
   override val spriteSheet: Spritesheet = new Spritesheet("res/sprites/projectiles/bullet.png", this.spriteWidth, this.spriteHeight)
 
   override val animationFramesAmount: Int = 4
-  override val animationFramesWaitAmount: Int = 10}
+  override val animationFramesWaitAmount: Int = 10
+
+  override val spawnSound: SoundSample = new SoundSample("res/sounds/projectiles/bullet/spawn.ogg")
+  override val hitSound: SoundSample = new SoundSample("res/sounds/projectiles/bullet/hit.ogg")
+}

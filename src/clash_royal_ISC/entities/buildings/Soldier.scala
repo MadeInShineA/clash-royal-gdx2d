@@ -27,7 +27,7 @@ class Soldier(player: Player) extends Building(player) with Deployable {
   override val animationFramesWaitAmount: Int = 10
 
   override def attack(entity: Entity): Unit = {
-    new Bullet(this.attackDamage, this.position, this.target)
+    new Bullet(this.attackDamage, this.position, this.target).spawn()
   }
 
 }

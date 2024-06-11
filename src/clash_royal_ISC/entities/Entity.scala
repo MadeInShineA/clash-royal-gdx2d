@@ -91,7 +91,6 @@ abstract class Entity(val player: Player) extends Drawable {
   }
 
 
-  // TODO Override with projectiles and other visual queues (animations ...)
   def attack(entity: Entity): Unit = {
     entity.takeDamage(this.attackDamage)
   }

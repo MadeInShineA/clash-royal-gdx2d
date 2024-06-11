@@ -50,7 +50,7 @@ class Player private {
       if(this.currentElixir + elixirAmount <= this.MAX_ELIXIR){
         this.currentElixir += elixirAmount
         if(this.currentElixir % 2 == 0){
-          new SoundSample("res/sounds/elixir.mp3").play()
+//          new SoundSample("res/sounds/elixir.mp3").play()
         }
       }else{
         this.currentElixir = MAX_ELIXIR
@@ -71,8 +71,8 @@ object Player {
 
   val playersArray: ArrayBuffer[Player] = new ArrayBuffer()
 
-  val P1_TOWER_POSITION: Vector2 = new Vector2(GameWindow.WINDOW_WIDTH / 2, 230)
-  val P2_TOWER_POSITION: Vector2 = new Vector2(GameWindow.WINDOW_WIDTH / 2, 800)
+  val P1_TOWER_POSITION: Vector2 = new Vector2(GameWindow.WINDOW_WIDTH / 2, 180)
+  val P2_TOWER_POSITION: Vector2 = new Vector2(GameWindow.WINDOW_WIDTH / 2, 830)
 
   val P1_ELIXIR_POSITION: Vector2 = new Vector2(GameWindow.WINDOW_WIDTH / 2, Grid.TILE_SIZE / 2)
   val P2_ELIXIR_POSITION: Vector2 = new Vector2(GameWindow.WINDOW_WIDTH / 2, 31 * Grid.TILE_SIZE + Grid.TILE_SIZE / 2)

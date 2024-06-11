@@ -1,5 +1,7 @@
 package clash_royal_ISC.entities.minions
+import ch.hevs.gdx2d.components.audio.SoundSample
 import ch.hevs.gdx2d.components.bitmaps.Spritesheet
+import clash_royal_ISC.entities.Entity
 import clash_royal_ISC.entities.Entity.entitiesArray
 import clash_royal_ISC.{Grid, Player}
 import com.badlogic.gdx.math.Vector2
@@ -25,6 +27,15 @@ class Barbarian(player: Player) extends Minion(player) {
   override var textureY: Int = 1
   override val animationFramesAmount: Int = 4
   override val animationFramesWaitAmount: Int = 10
+
+  val attackSound: SoundSample = new SoundSample("res/sounds/minions/barbarian/attack.ogg")
+
+  override def attack(entity: Entity) = {
+    super.attack(entity)
+    attackSound.play()
+  }
+
+
 
 
   def copy(): Barbarian = new Barbarian(this.player)

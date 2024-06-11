@@ -25,7 +25,7 @@ class Commander(player: Player) extends Building(player) {
   override val attackDamage: Int = 1
 
   override def attack(entity: Entity): Unit = {
-    new Typhoon(this.attackDamage, this.position, this.target)
+    new Typhoon(this.attackDamage, this.position, this.target).spawn()
   }
 
   override def dies(): Unit = {

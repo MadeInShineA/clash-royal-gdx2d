@@ -3,12 +3,20 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "map2.tmx",
+    "activeFile": "map.tmx",
     "expandedProjectPaths": [
         "."
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
+        "map.tmx": {
+            "scale": 0.8720703125,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 288.9675251959686,
+                "y": 512.5733482642778
+            }
+        },
         "map2.tmx": {
             "scale": 0.6663194444444444,
             "selectedLayer": 0,
@@ -32,11 +40,12 @@
     "map.lastUsedFormat": "tmx",
     "map.width": 18,
     "openFiles": [
-        "map2.tmx"
+        "map.tmx"
     ],
     "project": "map.tiled-project",
     "property.type": "bool",
     "recentFiles": [
+        "map.tmx",
         "map2.tmx"
     ],
     "tileset.lastUsedFormat": "tsx",
