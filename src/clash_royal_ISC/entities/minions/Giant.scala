@@ -25,7 +25,4 @@ class Giant(player: Player) extends Minion(player) with OnlyTargetBuilding {
   override val attackDamage: Int = 3
   override val animationFramesAmount: Int = 3
   override val animationFramesWaitAmount: Int = 10
-
-
-
 }
