@@ -1,8 +1,9 @@
 package clash_royal_ISC.entities.minions
 
 import ch.hevs.gdx2d.components.bitmaps.Spritesheet
+import clash_royal_ISC.entities.traits.{Deployable, OnlyTargetBuilding}
 import clash_royal_ISC.{Grid, Player}
-import clash_royal_ISC.entities.{Deployable, Entity, OnlyTargetBuilding}
+import clash_royal_ISC.entities.Entity
 
 class Giant(player: Player) extends Minion(player) with OnlyTargetBuilding {
 

@@ -1,8 +1,8 @@
-package clash_royal_ISC.entities
+package clash_royal_ISC.entities.traits
 
 import ch.hevs.gdx2d.components.bitmaps.Spritesheet
 import ch.hevs.gdx2d.lib.GdxGraphics
-import com.badlogic.gdx.graphics.Color
+import clash_royal_ISC.entities.Entity
 
 trait Deployable {
 

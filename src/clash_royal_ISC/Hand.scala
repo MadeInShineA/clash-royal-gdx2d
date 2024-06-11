@@ -4,9 +4,9 @@ import ch.hevs.gdx2d.lib.GdxGraphics
 import ch.hevs.gdx2d.lib.interfaces.DrawableObject
 import clash_royal_ISC.Hand.{HEIGHT, P1_POSITION, P2_POSITION, SIZE, WIDTH, entitiesArray}
 import clash_royal_ISC.Player.playersArray
-import clash_royal_ISC.entities.buildings.Cannon
-import clash_royal_ISC.entities.{Deployable, Entity}
-import clash_royal_ISC.entities.minions.{Barbarian, Giant, Princess, Wizard}
+import clash_royal_ISC.entities.Entity
+import clash_royal_ISC.entities.minions.{Giant, TestMinion, Wizard}
+import clash_royal_ISC.entities.traits.Deployable
 import com.badlogic.gdx.math.Vector2
 
 import scala.collection.mutable.ArrayBuffer
@@ -17,7 +17,10 @@ import scala.reflect.runtime.{universe => ru}
 
 class Hand (player: Player) extends DrawableObject{
 
-  val AVAILABLE_ENTITIES: Array[Entity with Deployable] = Array(new Barbarian(this.player), new Giant(this.player), new Princess(this.player), new Wizard(this.player), new Cannon(this.player))
+  val AVAILABLE_ENTITIES: Array[Entity with Deployable] = Array(
+//    new TestMinion(this.player),
+    new Wizard(this.player)
+  )
 
 //  val AVAILABLE_ENTITIES: Array[ru.ClassSymbol] = Array(
 //    ru.symbolOf[TestMinion].asClass,

@@ -1,9 +1,9 @@
-package clash_royal_ISC.entities
+package clash_royal_ISC.entities.traits
 
 import clash_royal_ISC.Player
+import clash_royal_ISC.entities.Entity
 import clash_royal_ISC.entities.Entity.entitiesArray
 import clash_royal_ISC.entities.buildings.Building
-import clash_royal_ISC.entities.minions.Minion
 import com.badlogic.gdx.math.Vector2
 
 import scala.collection.mutable.ArrayBuffer
