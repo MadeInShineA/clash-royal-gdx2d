@@ -12,6 +12,7 @@ import com.badlogic.gdx.math.Vector2
 
 import scala.collection.mutable.ArrayBuffer
 
+
 class Player private {
 
   val MAX_ELIXIR: Float = 18
@@ -55,14 +56,15 @@ class Player private {
         this.currentElixir = MAX_ELIXIR
       }
     }
-
   }
 
   def drawElixir(gdxGraphics: GdxGraphics): Unit = {
     gdxGraphics.setColor(Color.PINK)
-    gdxGraphics.drawFilledRectangle(this.elixirPosition.x, this.elixirPosition.y, Grid.TILE_SIZE * this.currentElixir, 1 * Grid.TILE_SIZE, 0)
+    val elixirBarWidth = Grid.TILE_SIZE * this.currentElixir
+    val elixirBarHeight = 1 * Grid.TILE_SIZE
+    val elixirBarX = this.elixirPosition.x - (MAX_ELIXIR * Grid.TILE_SIZE / 2) + (elixirBarWidth / 2)
+    gdxGraphics.drawFilledRectangle(elixirBarX, this.elixirPosition.y, elixirBarWidth, elixirBarHeight, 0)
   }
-
 }
 
 object Player {
@@ -81,6 +83,4 @@ object Player {
     this.playersArray += player
     player
   }
-
-
 }
