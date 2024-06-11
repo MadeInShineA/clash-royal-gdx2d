@@ -1,26 +1,32 @@
 package clash_royal_ISC.entities.minions
 
 import ch.hevs.gdx2d.components.bitmaps.Spritesheet
-import clash_royal_ISC.Player
-import clash_royal_ISC.entities.{Deployable, Entity}
+import clash_royal_ISC.{Grid, Player}
+import clash_royal_ISC.entities.Entity
+import clash_royal_ISC.entities.traits.{Deployable, HasProjectile}
+import clash_royal_ISC.projectiles.Fireball
 
 class Wizard(player: Player) extends Minion(player) {
 
-  override val moveSpeed: Float = ???
-  override val handSpriteSheet: Spritesheet = ???
-  override val cost: Int = ???
+  override val moveSpeed: Float = 300f
+  override val handSpriteSheet: Spritesheet = new Spritesheet("res/sprites/minions/SantaGiant.png", this.handSpriteWidth, this.handSpriteHeight)
+  override val cost: Int = 5
 
-  override def copy(): Entity with Deployable = ???
+  override def copy(): Entity with Deployable = new Wizard(this.player)
 
-  override val spriteSheet: Spritesheet = ???
-  override val spriteWidth: Int = ???
-  override val spriteHeight: Int = ???
-  override var textureY: Int = ???
-  override val MAX_HEALTH: Int = ???
-  override var health: Int = ???
-  override val range: Int = ???
-  override val attackSpeed: Int = ???
-  override val attackDamage: Int = ???
-  override val animationFramesAmount: Int = ???
-  override val animationFramesWaitAmount: Int = ???
+  override val spriteSheet: Spritesheet = new Spritesheet("res/sprites/minions/SantaGiant.png", this.handSpriteWidth, this.handSpriteHeight)
+  override val spriteWidth: Int = 32
+  override val spriteHeight: Int = 32
+  override var textureY: Int = 1
+  override val MAX_HEALTH: Int = 15
+  override var health: Int = 15
+  override val range: Int = 10 * Grid.TILE_SIZE
+  override val attackSpeed: Int = 1
+  override val attackDamage: Int = 3
+  override val animationFramesAmount: Int = 3
+  override val animationFramesWaitAmount: Int = 10
+
+  override def attack(entity: Entity): Unit = {
+    new Fireball(this.attackDamage, this.position, entity)
+  }
 }

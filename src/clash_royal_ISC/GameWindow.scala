@@ -5,7 +5,9 @@ import ch.hevs.gdx2d.components.bitmaps.BitmapImage
 import ch.hevs.gdx2d.desktop.PortableApplication
 import ch.hevs.gdx2d.lib.GdxGraphics
 import clash_royal_ISC.GameWindow.{ELIXIRE_CYCLE_FRAMES, WINDOW_HEIGHT, WINDOW_WIDTH, gameIsRunning, selectedEntity}
-import clash_royal_ISC.entities.{Deployable, Entity}
+import clash_royal_ISC.entities.Entity
+import clash_royal_ISC.entities.traits.Deployable
+import clash_royal_ISC.projectiles.Projectile
 import com.badlogic.gdx.maps.tiled.{TiledMapTileLayer, TmxMapLoader}
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer
 import com.badlogic.gdx.math.Vector2
@@ -24,6 +26,7 @@ class GameWindow extends PortableApplication(WINDOW_WIDTH, WINDOW_HEIGHT) {
     selectedEntity = None
 
     Entity.entitiesArray.clear()
+    Projectile.projectilesArray.clear()
     Hand.entitiesArray.clear()
 
     Player.playersArray.clear()
@@ -96,6 +99,7 @@ class GameWindow extends PortableApplication(WINDOW_WIDTH, WINDOW_HEIGHT) {
       }
 
       Entity.updateEntities(gdxGraphics, Gdx.graphics.getDeltaTime)
+      Projectile.updateProjectiles(gdxGraphics, Gdx.graphics.getDeltaTime )
       gdxGraphics.drawFPS()
       this.graphicRenderCounter += 1
 

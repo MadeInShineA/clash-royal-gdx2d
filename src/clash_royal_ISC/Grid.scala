@@ -48,7 +48,7 @@ object Grid {
     }
   }
 
-  def isPixelValidPath(x: Float, y: Float ,entity: Entity): Boolean = {
+  def isPixelValidPathWithoutColision(x: Float, y: Float ,entity: Entity): Boolean = {
 
     val xInGridCell: Int = x.toInt / this.TILE_SIZE
     val yInGridCell: Int = y.toInt / this.TILE_SIZE
@@ -73,4 +73,14 @@ object Grid {
     this.walkableArray(xInGridCell)(yInGridCell)
   }
 
+  def isPixelValidPath(x: Float, y: Float): Boolean = {
+    val xInGridCell: Int = x.toInt / this.TILE_SIZE
+    val yInGridCell: Int = y.toInt / this.TILE_SIZE
+
+    if(xInGridCell >= this.walkableArray.length || yInGridCell >= this.walkableArray(0).length || xInGridCell < 0 || yInGridCell < 0) {
+      return false
+    }
+
+    this.walkableArray(xInGridCell)(yInGridCell)
+  }
 }

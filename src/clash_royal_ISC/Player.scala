@@ -3,8 +3,9 @@ package clash_royal_ISC
 import ch.hevs.gdx2d.components.audio.SoundSample
 import ch.hevs.gdx2d.lib.GdxGraphics
 import clash_royal_ISC.Player.{P1_ELIXIR_POSITION, P1_TOWER_POSITION, P2_ELIXIR_POSITION, P2_TOWER_POSITION, playersArray}
-import clash_royal_ISC.entities.{Deployable, Entity}
+import clash_royal_ISC.entities.Entity
 import clash_royal_ISC.entities.buildings.Tower
+import clash_royal_ISC.entities.traits.Deployable
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer
 import com.badlogic.gdx.math.Vector2

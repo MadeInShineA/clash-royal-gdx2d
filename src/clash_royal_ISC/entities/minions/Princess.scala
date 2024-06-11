@@ -2,7 +2,8 @@ package clash_royal_ISC.entities.minions
 
 import ch.hevs.gdx2d.components.bitmaps.Spritesheet
 import clash_royal_ISC.Player
-import clash_royal_ISC.entities.{Deployable, Entity}
+import clash_royal_ISC.entities.Entity
+import clash_royal_ISC.entities.traits.Deployable
 
 class Princess(player: Player) extends Minion(player) {
 
