@@ -11,7 +11,7 @@ class Giant(player: Player) extends Minion(player) with OnlyTargetBuilding {
   override val handSpriteSheet: Spritesheet = new Spritesheet("res/sprites/minions/giant.png", this.handSpriteWidth, this.handSpriteHeight)
   override val cost: Int = 5
 
-  override def copy(): Entity with Deployable = new Giant(this.player)
+  override def copy(): Giant = new Giant(this.player)
 
   override def setTarget(): Unit = super[OnlyTargetBuilding].setTarget()
 

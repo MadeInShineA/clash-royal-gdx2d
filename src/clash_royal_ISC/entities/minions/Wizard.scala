@@ -12,7 +12,7 @@ class Wizard(player: Player) extends Minion(player) {
   override val handSpriteSheet: Spritesheet = new Spritesheet("res/sprites/minions/wizard.png", this.handSpriteWidth, this.handSpriteHeight)
   override val cost: Int = 5
 
-  override def copy(): Entity with Deployable = new Wizard(this.player)
+  override def copy(): Wizard = new Wizard(this.player)
 
   override val spriteSheet: Spritesheet = new Spritesheet("res/sprites/minions/wizard.png", this.handSpriteWidth, this.handSpriteHeight)
   override val spriteWidth: Int = 32

@@ -27,8 +27,6 @@ class Barbarian(player: Player) extends Minion(player) {
   override val animationFramesWaitAmount: Int = 10
 
 
-  def copy(): Barbarian = {
-    new Barbarian(this.player)
-  }
+  def copy(): Barbarian = new Barbarian(this.player)
 
 }

@@ -11,7 +11,7 @@ class Princess(player: Player) extends Minion(player) {
   override val handSpriteSheet: Spritesheet = ???
   override val cost: Int = ???
 
-  override def copy(): Entity with Deployable = ???
+  override def copy(): Princess = new Princess(this.player)
 
   override val spriteSheet: Spritesheet = ???
   override val spriteWidth: Int = ???
