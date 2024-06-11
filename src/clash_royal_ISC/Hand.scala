@@ -5,7 +5,8 @@ import ch.hevs.gdx2d.lib.interfaces.DrawableObject
 import clash_royal_ISC.Hand.{HEIGHT, P1_POSITION, P2_POSITION, SIZE, WIDTH, entitiesArray}
 import clash_royal_ISC.Player.playersArray
 import clash_royal_ISC.entities.Entity
-import clash_royal_ISC.entities.minions.{Giant, Wizard}
+import clash_royal_ISC.entities.buildings.Cannon
+import clash_royal_ISC.entities.minions.{Barbarian, Giant, Wizard}
 import clash_royal_ISC.entities.traits.Deployable
 import com.badlogic.gdx.math.Vector2
 
@@ -18,14 +19,11 @@ import scala.reflect.runtime.{universe => ru}
 class Hand (player: Player) extends DrawableObject{
 
   val AVAILABLE_ENTITIES: Array[Entity with Deployable] = Array(
-//    new TestMinion(this.player),
-    new Wizard(this.player)
+    new Wizard(this.player),
+    new Giant(this.player),
+    new Barbarian(this.player),
+    new Cannon(this.player)
   )
-
-//  val AVAILABLE_ENTITIES: Array[ru.ClassSymbol] = Array(
-//    ru.symbolOf[TestMinion].asClass,
-//  )
-//  val runtimeMirror = ru.runtimeMirror(getClass.getClassLoader)
 
 
   val position: Vector2 = (if(playersArray.isEmpty) P1_POSITION else P2_POSITION)
@@ -34,23 +32,6 @@ class Hand (player: Player) extends DrawableObject{
 
   def createHand(): ArrayBuffer[Entity with Deployable] = {
     val res: ArrayBuffer[Entity with Deployable] = new ArrayBuffer()
-
-//    for(i <- 0 until SIZE){
-//      val randomIndex:Int = Random.nextInt(this.AVAILABLE_ENTITIES.length)
-//
-//      val newEntitClassSymbol: ClassSymbol = this.AVAILABLE_ENTITIES(randomIndex)
-//
-//      val classMirror = runtimeMirror.reflectClass(newEntitClassSymbol)
-//      val constructor = newEntitClassSymbol.primaryConstructor.asMethod
-//      val constructorMirror = classMirror.reflectConstructor(constructor)
-//      val newEntity : Entity with Deployable = constructorMirror().asInstanceOf[Entity with Deployable]
-//
-//
-//      newEntity.position = new Vector2(i * (WIDTH / SIZE), this.position.y)
-//      res += newEntity
-//      entitiesArray += newEntity
-//    }
-//    res
 
     for(i <- 0 until SIZE){
       val randomIndex:Int = Random.nextInt(this.AVAILABLE_ENTITIES.length)

@@ -11,8 +11,8 @@ class Barbarian(player: Player) extends Minion(player) {
   override val spriteWidth: Int = 32
   override val spriteHeight: Int = 32
 
-  override val handSpriteSheet: Spritesheet = new Spritesheet("res/sprites/minions/lumberjack_sheet32.png", this.handSpriteWidth, this.handSpriteHeight)
-  override val spriteSheet: Spritesheet = new Spritesheet("res/sprites/minions/lumberjack_sheet32.png", this.spriteWidth, this.spriteHeight)
+  override val handSpriteSheet: Spritesheet = new Spritesheet("res/sprites/minions/barbarian.png", this.handSpriteWidth, this.handSpriteHeight)
+  override val spriteSheet: Spritesheet = new Spritesheet("res/sprites/minions/barbarian.png", this.spriteWidth, this.spriteHeight)
 
   override val MAX_HEALTH: Int = 4
 

@@ -8,14 +8,14 @@ import clash_royal_ISC.entities.Entity
 class Giant(player: Player) extends Minion(player) with OnlyTargetBuilding {
 
   override val moveSpeed: Float = 300f
-  override val handSpriteSheet: Spritesheet = new Spritesheet("res/sprites/minions/SantaGiant.png", this.handSpriteWidth, this.handSpriteHeight)
+  override val handSpriteSheet: Spritesheet = new Spritesheet("res/sprites/minions/giant.png", this.handSpriteWidth, this.handSpriteHeight)
   override val cost: Int = 5
 
   override def copy(): Entity with Deployable = new Giant(this.player)
 
   override def setTarget(): Unit = super[OnlyTargetBuilding].setTarget()
 
-  override val spriteSheet: Spritesheet = new Spritesheet("res/sprites/minions/SantaGiant.png", this.handSpriteWidth, this.handSpriteHeight)
+  override val spriteSheet: Spritesheet = new Spritesheet("res/sprites/minions/giant.png", this.handSpriteWidth, this.handSpriteHeight)
   override val spriteWidth: Int = 32
   override val spriteHeight: Int = 32
   override var textureY: Int = 1

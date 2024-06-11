@@ -87,7 +87,7 @@ abstract class Entity(val player: Player) extends Drawable {
   }
 
   def targetIsInRange(): Boolean = {
-    (this.position.dst(target.position) <= range)
+    this.position.dst(target.position) <= range
   }
 
 

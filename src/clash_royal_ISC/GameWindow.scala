@@ -68,8 +68,8 @@ class GameWindow extends PortableApplication(WINDOW_WIDTH, WINDOW_HEIGHT) {
 
   override def onInit(): Unit = {
 
-//    new SoundSample("res/sounds/start.mp3").play()
-//    Thread.sleep(3800)
+    new SoundSample("res/sounds/start.mp3").play()
+    Thread.sleep(3800)
 
     grid.tiledMap = new TmxMapLoader().load("res/sprites/map/map2.tmx")
     Grid.setWalkableArray(grid.tiledMap)

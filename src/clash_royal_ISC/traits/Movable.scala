@@ -1,4 +1,4 @@
-package clash_royal_ISC.entities.traits
+package clash_royal_ISC.traits
 
 import com.badlogic.gdx.math.Vector2
 
@@ -20,6 +20,8 @@ trait Movable extends {
     this.lastPosition = position
     this.newPosition = position
   }
+
+
 
 
 

@@ -9,12 +9,12 @@ import clash_royal_ISC.projectiles.Fireball
 class Wizard(player: Player) extends Minion(player) {
 
   override val moveSpeed: Float = 300f
-  override val handSpriteSheet: Spritesheet = new Spritesheet("res/sprites/minions/SantaGiant.png", this.handSpriteWidth, this.handSpriteHeight)
+  override val handSpriteSheet: Spritesheet = new Spritesheet("res/sprites/minions/wizard.png", this.handSpriteWidth, this.handSpriteHeight)
   override val cost: Int = 5
 
   override def copy(): Entity with Deployable = new Wizard(this.player)
 
-  override val spriteSheet: Spritesheet = new Spritesheet("res/sprites/minions/SantaGiant.png", this.handSpriteWidth, this.handSpriteHeight)
+  override val spriteSheet: Spritesheet = new Spritesheet("res/sprites/minions/wizard.png", this.handSpriteWidth, this.handSpriteHeight)
   override val spriteWidth: Int = 32
   override val spriteHeight: Int = 32
   override var textureY: Int = 1

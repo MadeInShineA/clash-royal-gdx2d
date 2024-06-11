@@ -6,7 +6,8 @@ import clash_royal_ISC.Grid
 import clash_royal_ISC.Utils.AStar
 import clash_royal_ISC.entities.Entity
 import Projectile.projectilesArray
-import clash_royal_ISC.entities.traits.{Drawable, Movable}
+import clash_royal_ISC.entities.traits.Drawable
+import clash_royal_ISC.traits.Movable
 import com.badlogic.gdx.math.Vector2
 
 import scala.collection.mutable.ArrayBuffer
