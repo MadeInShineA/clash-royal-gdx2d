@@ -6,17 +6,17 @@ import clash_royal_ISC.entities.Entity
 import clash_royal_ISC.projectiles.CannonBall
 import clash_royal_ISC.{Grid, Player}
 
-class Cannon(player: Player) extends Building(player) with Deployable {
+class Soldier(player: Player) extends Building(player) with Deployable {
 
   override val cost: Int = 4
-  override def copy(): Entity with Deployable = new Cannon(this.player)
+  override def copy(): Entity with Deployable = new Soldier(this.player)
 
   override val spriteWidth: Int = 32
 
   override val spriteHeight: Int = 32
-  override val spriteSheet: Spritesheet = new Spritesheet("res/sprites/minions/cannon.png", this.spriteWidth, this.spriteHeight)
+  override val spriteSheet: Spritesheet = new Spritesheet("res/sprites/buildings/soldier.png", this.spriteWidth, this.spriteHeight)
 
-  override val handSpriteSheet: Spritesheet = new Spritesheet("res/sprites/minions/cannon.png", this.spriteWidth, this.spriteHeight)
+  override val handSpriteSheet: Spritesheet = new Spritesheet("res/sprites/buildings/soldier.png", this.spriteWidth, this.spriteHeight)
   override var textureY: Int = 1
   override val MAX_HEALTH: Int = 15
   override var health: Int = this.MAX_HEALTH
