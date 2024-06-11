@@ -3,7 +3,7 @@ package clash_royal_ISC.entities.buildings
 import ch.hevs.gdx2d.components.bitmaps.Spritesheet
 import clash_royal_ISC.entities.traits.Deployable
 import clash_royal_ISC.entities.Entity
-import clash_royal_ISC.projectiles.CannonBall
+import clash_royal_ISC.projectiles.Bullet
 import clash_royal_ISC.{Grid, Player}
 
 class Soldier(player: Player) extends Building(player) with Deployable {
@@ -27,7 +27,7 @@ class Soldier(player: Player) extends Building(player) with Deployable {
   override val animationFramesWaitAmount: Int = 10
 
   override def attack(entity: Entity): Unit = {
-    new CannonBall(this.attackDamage, this.position, this.target)
+    new Bullet(this.attackDamage, this.position, this.target)
   }
 
 }
