@@ -9,14 +9,14 @@ class TestMinion(player: Player) extends Minion(player) {
   override val spriteWidth: Int = 32
   override val spriteHeight: Int = 32
 
-  override val handSpriteSheet: Spritesheet = new Spritesheet("res/sprites/minions/lumberjack_sheet32.png", this.handSpriteWidth, this.handSpriteHeight);
-  override val spriteSheet: Spritesheet = new Spritesheet("res/sprites/minions/lumberjack_sheet32.png", this.spriteWidth, this.spriteHeight);
+  override val handSpriteSheet: Spritesheet = new Spritesheet("res/sprites/minions/lumberjack_sheet32.png", this.handSpriteWidth, this.handSpriteHeight)
+  override val spriteSheet: Spritesheet = new Spritesheet("res/sprites/minions/lumberjack_sheet32.png", this.spriteWidth, this.spriteHeight)
 
   override val MAX_HEALTH: Int = 4
 
   override var health: Int = this.MAX_HEALTH
   override val cost: Int = 4
-  override val range: Int = 3 * Grid.TILE_SIZE
+  override val range: Int = 1 * Grid.TILE_SIZE
   override val attackSpeed: Int = 1
   override val attackDamage: Int = 1
 

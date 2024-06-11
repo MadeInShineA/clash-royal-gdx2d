@@ -98,14 +98,12 @@ class GameWindow extends PortableApplication(WINDOW_WIDTH, WINDOW_HEIGHT) {
       Entity.updateEntities(gdxGraphics, Gdx.graphics.getDeltaTime)
       gdxGraphics.drawFPS()
       this.graphicRenderCounter += 1
-      println(this.graphicRenderCounter)
 
     }
     else{
       gdxGraphics.drawPicture(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2, new BitmapImage("res/menu.png"))
       gdxGraphics.drawAlphaPicture(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2, 1, new BitmapImage("res/menu-text.png"))
       this.graphicRenderCounter += 1
-      println(this.graphicRenderCounter)
     }
   }
 }
