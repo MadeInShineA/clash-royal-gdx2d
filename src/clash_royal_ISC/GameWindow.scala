@@ -131,7 +131,6 @@ object GameWindow {
   }
   def endGame(): Unit = {
     gameIsRunning = false
-    println(s"The game has ended")
     new SoundSample("res/sounds/victory.mp3").play()
 
     this.gameWindowInstance.resetGame()
