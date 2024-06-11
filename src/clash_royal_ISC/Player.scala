@@ -4,7 +4,7 @@ import ch.hevs.gdx2d.components.audio.SoundSample
 import ch.hevs.gdx2d.lib.GdxGraphics
 import clash_royal_ISC.Player.{P1_ELIXIR_POSITION, P1_TOWER_POSITION, P2_ELIXIR_POSITION, P2_TOWER_POSITION, playersArray}
 import clash_royal_ISC.entities.Entity
-import clash_royal_ISC.entities.buildings.Tower
+import clash_royal_ISC.entities.buildings.Commander
 import clash_royal_ISC.entities.traits.Deployable
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer
@@ -22,7 +22,7 @@ class Player private {
   var hand: Hand = new Hand(this)
   var currentElixir: Float = 3
 
-  var tower: Tower = new Tower(this)
+  var tower: Commander = new Commander(this)
   tower.spawn(if(playersArray.isEmpty) P1_TOWER_POSITION else P2_TOWER_POSITION)
 
   def setDeployableArray(tiledMapLayer: TiledMapTileLayer): Unit = {

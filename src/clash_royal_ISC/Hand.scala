@@ -5,7 +5,7 @@ import ch.hevs.gdx2d.lib.interfaces.DrawableObject
 import clash_royal_ISC.Hand.{HEIGHT, P1_POSITION, P2_POSITION, SIZE, WIDTH, entitiesArray}
 import clash_royal_ISC.Player.playersArray
 import clash_royal_ISC.entities.Entity
-import clash_royal_ISC.entities.buildings.Cannon
+import clash_royal_ISC.entities.buildings.Soldier
 import clash_royal_ISC.entities.minions.{Barbarian, Giant, Wizard}
 import clash_royal_ISC.entities.traits.Deployable
 import com.badlogic.gdx.math.Vector2
@@ -22,7 +22,7 @@ class Hand (player: Player) extends DrawableObject{
     new Wizard(this.player),
     new Giant(this.player),
     new Barbarian(this.player),
-    new Cannon(this.player)
+    new Soldier(this.player)
   )
 
 
