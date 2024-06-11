@@ -1,7 +1,7 @@
 package clash_royal_ISC
 
 import ch.hevs.gdx2d.components.audio.SoundSample
-import ch.hevs.gdx2d.components.graphics.Polygon
+import ch.hevs.gdx2d.components.bitmaps.BitmapImage
 import ch.hevs.gdx2d.desktop.PortableApplication
 import ch.hevs.gdx2d.lib.GdxGraphics
 import clash_royal_ISC.GameWindow.{ELIXIRE_CYCLE_FRAMES, WINDOW_HEIGHT, WINDOW_WIDTH, gameIsRunning, selectedEntity}
@@ -10,8 +10,6 @@ import com.badlogic.gdx.maps.tiled.{TiledMapTileLayer, TmxMapLoader}
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.{Gdx, Input}
-
-import java.lang
 
 class GameWindow extends PortableApplication(WINDOW_WIDTH, WINDOW_HEIGHT) {
 
@@ -22,10 +20,6 @@ class GameWindow extends PortableApplication(WINDOW_WIDTH, WINDOW_HEIGHT) {
   var graphicRenderCounter: Int = 0
 
   def resetGame(): Unit = {
-//    new SoundSample("res/sounds/start.mp3").play()
-//
-//    Thread.sleep(3800)
-
 
     selectedEntity = None
 
@@ -71,6 +65,9 @@ class GameWindow extends PortableApplication(WINDOW_WIDTH, WINDOW_HEIGHT) {
 
   override def onInit(): Unit = {
 
+//    new SoundSample("res/sounds/start.mp3").play()
+//    Thread.sleep(3800)
+
     grid.tiledMap = new TmxMapLoader().load("res/sprites/map/map2.tmx")
     Grid.setWalkableArray(grid.tiledMap)
     grid.tiledMapRenderer = new OrthogonalTiledMapRenderer(grid.tiledMap)
@@ -101,9 +98,14 @@ class GameWindow extends PortableApplication(WINDOW_WIDTH, WINDOW_HEIGHT) {
       Entity.updateEntities(gdxGraphics, Gdx.graphics.getDeltaTime)
       gdxGraphics.drawFPS()
       this.graphicRenderCounter += 1
+      println(this.graphicRenderCounter)
+
     }
     else{
-      gdxGraphics.drawStringCentered(WINDOW_HEIGHT / 2f,  "Press enter to play")
+      gdxGraphics.drawPicture(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2, new BitmapImage("res/menu.png"))
+      gdxGraphics.drawAlphaPicture(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2, 1, new BitmapImage("res/menu-text.png"))
+      this.graphicRenderCounter += 1
+      println(this.graphicRenderCounter)
     }
   }
 
