@@ -40,8 +40,6 @@ class Player private {
       entity.spawn(position)
       val entityHandIndex: Int = this.hand.removeEntity(entity)
       this.hand.addEntity(entityHandIndex)
-    }else{
-      println("Not enough elixir")
     }
   }
 
