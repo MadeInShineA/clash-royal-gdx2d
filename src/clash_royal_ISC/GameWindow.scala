@@ -108,7 +108,6 @@ class GameWindow extends PortableApplication(WINDOW_WIDTH, WINDOW_HEIGHT) {
       println(this.graphicRenderCounter)
     }
   }
-
 }
 
 object GameWindow {
