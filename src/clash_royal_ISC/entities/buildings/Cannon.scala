@@ -1,10 +1,11 @@
 package clash_royal_ISC.entities.buildings
 
 import ch.hevs.gdx2d.components.bitmaps.Spritesheet
-import clash_royal_ISC.entities.{Deployable, Entity}
+import clash_royal_ISC.entities.traits.Deployable
+import clash_royal_ISC.entities.{Entity}
 import clash_royal_ISC.{Grid, Player}
 
-class Cannon(player: Player) extends Building(player) with Deployable{
+class Cannon(player: Player) extends Building(player) with Deployable {
 
   override val cost: Int = 4
   override def copy(): Entity with Deployable = new Cannon(this.player)

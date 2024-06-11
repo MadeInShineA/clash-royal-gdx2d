@@ -5,7 +5,7 @@ import ch.hevs.gdx2d.lib.interfaces.DrawableObject
 import clash_royal_ISC.Hand.{HEIGHT, P1_POSITION, P2_POSITION, SIZE, WIDTH, entitiesArray}
 import clash_royal_ISC.Player.playersArray
 import clash_royal_ISC.entities.Entity
-import clash_royal_ISC.entities.minions.{Giant, TestMinion, Wizard}
+import clash_royal_ISC.entities.minions.{Giant, Wizard}
 import clash_royal_ISC.entities.traits.Deployable
 import com.badlogic.gdx.math.Vector2
 

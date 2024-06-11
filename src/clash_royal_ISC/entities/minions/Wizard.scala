@@ -3,7 +3,7 @@ package clash_royal_ISC.entities.minions
 import ch.hevs.gdx2d.components.bitmaps.Spritesheet
 import clash_royal_ISC.{Grid, Player}
 import clash_royal_ISC.entities.Entity
-import clash_royal_ISC.entities.traits.{Deployable, HasProjectile}
+import clash_royal_ISC.entities.traits.{Deployable}
 import clash_royal_ISC.projectiles.Fireball
 
 class Wizard(player: Player) extends Minion(player) {
