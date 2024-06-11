@@ -15,7 +15,7 @@ class Commander(player: Player) extends Building(player) {
 
   override val MAX_HEALTH: Int = 50
   override var health: Int = this.MAX_HEALTH
-  override val range: Int = 4 * Grid.TILE_SIZE
+  override val range: Int = 10 * Grid.TILE_SIZE
   override var textureY: Int = 1
   override val animationFramesAmount: Int = 3
   override val animationFramesWaitAmount: Int = 10
