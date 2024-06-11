@@ -9,12 +9,10 @@ import clash_royal_ISC.entities.buildings.Soldier
 import clash_royal_ISC.entities.minions.{Barbarian, Giant, Princess, Wizard}
 import clash_royal_ISC.entities.traits.Deployable
 import com.badlogic.gdx.math.Vector2
-
 import scala.collection.mutable.ArrayBuffer
-import scala.reflect.runtime.universe.{ClassSymbol, runtimeMirror}
 import scala.util.Random
-import scala.reflect.runtime.universe._
-import scala.reflect.runtime.{universe => ru}
+import ch.hevs.gdx2d.components.bitmaps.BitmapImage
+
 
 class Hand (player: Player) extends DrawableObject{
 
@@ -70,6 +68,12 @@ class Hand (player: Player) extends DrawableObject{
       val xPosition: Float = (index) * (WIDTH / SIZE)
       val yPosition: Float = this.position.y
       entity.drawHandSprite(xPosition, yPosition, gdxGraphics)
+      if(this.player.currentElixir < entity.cost){
+        gdxGraphics.drawPicture(xPosition + Grid.TILE_SIZE / 2, yPosition + Grid.TILE_SIZE / 2, new BitmapImage("res/map/transparentRedFilter.png"))
+      }
+      if(GameWindow.selectedEntity.isDefined && entity == GameWindow.selectedEntity.get){
+        gdxGraphics.drawPicture(xPosition + Grid.TILE_SIZE / 2, yPosition + Grid.TILE_SIZE / 2, new BitmapImage("res/map/transparentFilter.png"))
+      }
     }
   }
 }
