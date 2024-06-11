@@ -21,7 +21,7 @@ abstract class Minion(player: Player) extends Entity(player) with Deployable {
   }
 
   def move(deltaTime: Float): Unit = {
-//    if (path == null || path.isEmpty || this.targetIsInRange()) return
+    //    if (path == null || path.isEmpty || this.targetIsInRange()) return
     if(path.isEmpty){
       this.setPath()
       return
@@ -73,8 +73,9 @@ abstract class Minion(player: Player) extends Entity(player) with Deployable {
 
     val foundPath: List[(Int, Int)] = AStar.findPath((this.position.x.toInt, this.position.y.toInt), (this.target.position.x.toInt, this.target.position.y.toInt), this)
     this.path = foundPath
-//    }
+    //    }
   }
+
 
    def update(deltaTime: Float): Unit = {
     this.update()
