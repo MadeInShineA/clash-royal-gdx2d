@@ -11,7 +11,7 @@ class Tower(player: Player) extends Building(player) {
 
   override val spriteSheet: Spritesheet = new Spritesheet("res/sprites/minions/lumberjack_sheet32.png", this.spriteWidth, this.spriteHeight);
 
-  override val MAX_HEALTH: Int = 1
+  override val MAX_HEALTH: Int = 50
   override var health: Int = this.MAX_HEALTH
   override val range: Int = 4 * Grid.TILE_SIZE
   override var textureY: Int = 1

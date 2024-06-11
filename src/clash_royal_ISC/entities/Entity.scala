@@ -190,14 +190,4 @@ object Entity {
       entityCounter += 1
       }
   }
-
-  def setEntitiesPathAsync(): Unit = {
-    for (entity: Entity <- entitiesArray) {
-      entity match {
-        case minion: Minion =>
-          minion.setPath()
-        case _ =>
-      }
-    }
-  }
 }
