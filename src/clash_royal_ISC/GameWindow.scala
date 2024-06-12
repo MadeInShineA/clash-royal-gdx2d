@@ -1,6 +1,6 @@
 package clash_royal_ISC
 
-import ch.hevs.gdx2d.components.audio.SoundSample
+import ch.hevs.gdx2d.components.audio.{MusicPlayer, SoundSample}
 import ch.hevs.gdx2d.components.bitmaps.BitmapImage
 import ch.hevs.gdx2d.desktop.PortableApplication
 import ch.hevs.gdx2d.lib.GdxGraphics
@@ -21,7 +21,11 @@ class GameWindow extends PortableApplication(WINDOW_WIDTH, WINDOW_HEIGHT) {
 
   var graphicRenderCounter: Int = 0
 
+  var gameMusicPlayer: MusicPlayer = _
+
   def resetGame(): Unit = {
+
+    this.gameMusicPlayer.stop()
 
     selectedEntity = None
 
@@ -69,6 +73,7 @@ class GameWindow extends PortableApplication(WINDOW_WIDTH, WINDOW_HEIGHT) {
   override def onInit(): Unit = {
 
     new SoundSample("res/sounds/start.mp3").play()
+    this.gameMusicPlayer = new MusicPlayer("res/sounds/game.mp3")
 //    Thread.sleep(3800)
 
     grid.tiledMap = new TmxMapLoader().load("res/map/map2.tmx")
@@ -88,6 +93,7 @@ class GameWindow extends PortableApplication(WINDOW_WIDTH, WINDOW_HEIGHT) {
     gdxGraphics.clear()
 
     if(gameIsRunning){
+      this.gameMusicPlayer.loop()
       this.grid.render(gdxGraphics)
 
       for(player: Player <- Player.playersArray) {
