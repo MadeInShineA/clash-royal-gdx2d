@@ -93,7 +93,7 @@ class GameWindow extends PortableApplication(WINDOW_WIDTH, WINDOW_HEIGHT) {
       for(player: Player <- Player.playersArray) {
         player.hand.draw(gdxGraphics)
         if(this.graphicRenderCounter % ELIXIRE_CYCLE_FRAMES == 0 && this.graphicRenderCounter != 0) {
-          player.addElixir(0.5f)
+          player.addElixir(0.05f)
         }
         player.drawElixir(gdxGraphics)
       }
@@ -116,7 +116,7 @@ object GameWindow {
   val WINDOW_WIDTH: Int = 576
   val WINDOW_HEIGHT: Int = 1024
 
-  val ELIXIRE_CYCLE_FRAMES: Int = 30
+  val ELIXIRE_CYCLE_FRAMES: Int = 3
 
   var selectedEntity: Option[Entity with Deployable] = None
 
