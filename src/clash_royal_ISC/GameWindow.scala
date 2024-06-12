@@ -93,6 +93,7 @@ class GameWindow extends PortableApplication(WINDOW_WIDTH, WINDOW_HEIGHT) {
     gdxGraphics.clear()
 
     if(gameIsRunning){
+      this.gameMusicPlayer.setVolume(0.5f)
       this.gameMusicPlayer.loop()
       this.grid.render(gdxGraphics)
 
