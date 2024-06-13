@@ -1,9 +1,7 @@
 package clash_royal_ISC
 
 import ch.hevs.gdx2d.lib.GdxGraphics
-import clash_royal_ISC.Grid.walkableArray
 import clash_royal_ISC.entities.Entity
-import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.maps.MapLayers
 import com.badlogic.gdx.maps.tiled.{TiledMap, TiledMapTile, TiledMapTileLayer, TmxMapLoader}
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer
@@ -19,7 +17,7 @@ class Grid {
     this.tiledMapRenderer.setView(gdxGraphics.getCamera)
     this.tiledMapRenderer.render(Array(0, 1))
     if(GameWindow.selectedEntity.isDefined){
-      val player: Player = GameWindow.selectedEntity.get.player
+      val player: Player = GameWindow.selectedEntity.get.PLAYER
 
       if(player == Player.playersArray(0)){
         this.tiledMapRenderer.render(Array(2))
@@ -35,15 +33,15 @@ object Grid {
   val GRID_WIDTH: Int = 18
   val GRID_HEIGHT: Int = 32
 
-  val walkableArray: Array[Array[Boolean]] = Array.ofDim(GRID_WIDTH, GRID_HEIGHT)
+  val WALKABLE_ARRAY: Array[Array[Boolean]] = Array.ofDim(GRID_WIDTH, GRID_HEIGHT)
 
   def setWalkableArray(tiledMap: TiledMap): Unit = {
     val tiledLayer: TiledMapTileLayer = tiledMap.getLayers.get(0).asInstanceOf[TiledMapTileLayer]
 
-    for (y <- walkableArray(0).indices) {
-      for (x <- walkableArray.indices) {
+    for (y <- WALKABLE_ARRAY(0).indices) {
+      for (x <- WALKABLE_ARRAY.indices) {
         val tile = tiledLayer.getCell(x, y).getTile
-        this.walkableArray(x)(y) = tile.getProperties.get("walkable").toString.toBoolean
+        this.WALKABLE_ARRAY(x)(y) = tile.getProperties.get("walkable").toString.toBoolean
       }
     }
   }
@@ -53,11 +51,11 @@ object Grid {
     val xInGridCell: Int = x.toInt / this.TILE_SIZE
     val yInGridCell: Int = y.toInt / this.TILE_SIZE
 
-    if(xInGridCell >= this.walkableArray.length || yInGridCell >= this.walkableArray(0).length || xInGridCell < 0 || yInGridCell < 0){
+    if(xInGridCell >= this.WALKABLE_ARRAY.length || yInGridCell >= this.WALKABLE_ARRAY(0).length || xInGridCell < 0 || yInGridCell < 0){
       return false
     }
 
-    for(gridEntity: Entity <- Entity.entitiesArray){
+    for(gridEntity: Entity <- Entity.ENTITIES_ARRAY){
       if(gridEntity == entity || gridEntity == entity.target){
 
       }else{
@@ -70,17 +68,17 @@ object Grid {
       }
     }
 
-    this.walkableArray(xInGridCell)(yInGridCell)
+    this.WALKABLE_ARRAY(xInGridCell)(yInGridCell)
   }
 
   def isPixelValidPath(x: Float, y: Float): Boolean = {
     val xInGridCell: Int = x.toInt / this.TILE_SIZE
     val yInGridCell: Int = y.toInt / this.TILE_SIZE
 
-    if(xInGridCell >= this.walkableArray.length || yInGridCell >= this.walkableArray(0).length || xInGridCell < 0 || yInGridCell < 0) {
+    if(xInGridCell >= this.WALKABLE_ARRAY.length || yInGridCell >= this.WALKABLE_ARRAY(0).length || xInGridCell < 0 || yInGridCell < 0) {
       return false
     }
 
-    this.walkableArray(xInGridCell)(yInGridCell)
+    this.WALKABLE_ARRAY(xInGridCell)(yInGridCell)
   }
 }

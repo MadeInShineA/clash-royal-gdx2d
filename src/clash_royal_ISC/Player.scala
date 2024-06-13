@@ -1,6 +1,5 @@
 package clash_royal_ISC
 
-import ch.hevs.gdx2d.components.audio.SoundSample
 import ch.hevs.gdx2d.lib.GdxGraphics
 import clash_royal_ISC.Player.{P1_ELIXIR_POSITION, P1_TOWER_POSITION, P2_ELIXIR_POSITION, P2_TOWER_POSITION, playersArray}
 import clash_royal_ISC.entities.Entity
@@ -16,7 +15,7 @@ import scala.collection.mutable.ArrayBuffer
 class Player private {
 
   val MAX_ELIXIR: Float = 18
-  val elixirPosition: Vector2 = if(playersArray.isEmpty) P1_ELIXIR_POSITION else P2_ELIXIR_POSITION
+  val ELIXIR_POSITION: Vector2 = if(playersArray.isEmpty) P1_ELIXIR_POSITION else P2_ELIXIR_POSITION
 
   var deployableArray: Array[Array[Boolean]] = Array.ofDim(Grid.GRID_WIDTH, Grid.GRID_HEIGHT)
   var hand: Hand = new Hand(this)
@@ -60,8 +59,8 @@ class Player private {
     gdxGraphics.setColor(Color.PINK)
     val elixirBarWidth = Grid.TILE_SIZE * this.currentElixir
     val elixirBarHeight = 1 * Grid.TILE_SIZE
-    val elixirBarX = this.elixirPosition.x - (MAX_ELIXIR * Grid.TILE_SIZE / 2) + (elixirBarWidth / 2)
-    gdxGraphics.drawFilledRectangle(elixirBarX, this.elixirPosition.y, elixirBarWidth, elixirBarHeight, 0)
+    val elixirBarX = this.ELIXIR_POSITION.x - (MAX_ELIXIR * Grid.TILE_SIZE / 2) + (elixirBarWidth / 2)
+    gdxGraphics.drawFilledRectangle(elixirBarX, this.ELIXIR_POSITION.y, elixirBarWidth, elixirBarHeight, 0)
   }
 }
 

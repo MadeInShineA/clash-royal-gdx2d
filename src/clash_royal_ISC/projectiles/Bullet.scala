@@ -8,14 +8,14 @@ class Bullet(attackDamage: Int, position: Vector2, target: Entity) extends Proje
 
   override val moveSpeed: Float = 550
 
-  override val spriteWidth: Int = 32
-  override val spriteHeight: Int = 32
+  override val SPRITE_WIDTH: Int = 32
+  override val SPRITE_HEIGHT: Int = 32
   override var textureY: Int = 0
 
-  override val spriteSheet: Spritesheet = new Spritesheet("res/sprites/projectiles/bullet.png", this.spriteWidth, this.spriteHeight)
+  override val SPRITE_SHEET: Spritesheet = new Spritesheet("res/sprites/projectiles/bullet.png", this.SPRITE_WIDTH, this.SPRITE_HEIGHT)
 
-  override val animationFramesAmount: Int = 4
-  override val animationFramesWaitAmount: Int = 10
+  override val ANIMATION_FRAME_AMOUNT: Int = 4
+  override val ANIMATION_FRAMES_WAIT_AMOUNT: Int = 10
 
   override val spawnSound: SoundSample = new SoundSample("res/sounds/projectiles/bullet/spawn.ogg")
   override val hitSound: SoundSample = new SoundSample("res/sounds/projectiles/bullet/hit.ogg")

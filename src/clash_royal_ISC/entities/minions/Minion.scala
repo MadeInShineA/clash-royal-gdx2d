@@ -1,7 +1,7 @@
 package clash_royal_ISC.entities.minions
 
 import clash_royal_ISC.Player
-import clash_royal_ISC.Utils.AStar
+import clash_royal_ISC.utils.AStar
 import clash_royal_ISC.entities.Entity
 import clash_royal_ISC.entities.traits.Deployable
 import clash_royal_ISC.traits.Movable

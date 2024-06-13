@@ -1,13 +1,12 @@
 package clash_royal_ISC.projectiles
 
-import ch.hevs.gdx2d.components.bitmaps.Spritesheet
 import ch.hevs.gdx2d.lib.GdxGraphics
 import clash_royal_ISC.Grid
-import clash_royal_ISC.Utils.AStar
+import clash_royal_ISC.utils.AStar
 import clash_royal_ISC.entities.Entity
 import Projectile.projectilesArray
 import ch.hevs.gdx2d.components.audio.SoundSample
-import clash_royal_ISC.entities.traits.Drawable
+import clash_royal_ISC.traits.Drawable
 import clash_royal_ISC.traits.Movable
 import com.badlogic.gdx.math.Vector2
 
@@ -15,11 +14,6 @@ import scala.collection.mutable.ArrayBuffer
 
 abstract class Projectile(val attackDamage: Int, var position: Vector2, val target: Entity) extends Drawable with Movable {
 
-  val moveSpeed: Float
-  val spriteSheet: Spritesheet
-  val spriteWidth: Int
-  val spriteHeight: Int
-  var textureY: Int
   val range: Int = 1 * Grid.TILE_SIZE
 
   val spawnSound: SoundSample
@@ -30,8 +24,6 @@ abstract class Projectile(val attackDamage: Int, var position: Vector2, val targ
     super.setPositions(position)
     this.spawnSound.play()
   }
-
-
 
 
   override def canMove(): Boolean = {

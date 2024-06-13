@@ -4,43 +4,42 @@ import ch.hevs.gdx2d.components.audio.SoundSample
 import ch.hevs.gdx2d.components.bitmaps.Spritesheet
 import ch.hevs.gdx2d.lib.GdxGraphics
 import clash_royal_ISC.Player
-import clash_royal_ISC.entities.Entity.entitiesArray
+import clash_royal_ISC.entities.Entity.ENTITIES_ARRAY
 import clash_royal_ISC.entities.minions.Minion
 import com.badlogic.gdx.math.Vector2
-import clash_royal_ISC.entities.traits.Drawable
+import clash_royal_ISC.traits.Drawable
 
 import scala.collection.mutable.ArrayBuffer
 
-abstract class Entity(val player: Player) extends Drawable {
+abstract class Entity(val PLAYER: Player) extends Drawable {
 
   var position: Vector2 = _
 
   val MAX_HEALTH: Int
-  var health: Int
-  val range: Int
-  val attackSpeed: Int
-  val attackDamage: Int
+  val RANGE: Int
+  val ATTACK_SPEED: Int
+  val ATTACK_DAMAGE: Int
 
   val HEALTH_SPRITE_SHEET: Spritesheet = new Spritesheet("res/sprites/minions/health-bar.png", 80, 11)
   val HEALTH_SPRITE_WIDTH: Int = 80
+  var health: Int
 
   var target: Entity = _
-
   var targetInRangeCounter: Int = 0
 
   def spawn(position: Vector2): Unit = {
     this.position = position
-    entitiesArray += this
+    ENTITIES_ARRAY += this
   }
 
   def dies(): Unit = {
-    if(!entitiesArray.contains(this)){
+    if(!ENTITIES_ARRAY.contains(this)){
       return
     }
     new SoundSample("res/sounds/death.mp3").play()
-    entitiesArray -= this
+    ENTITIES_ARRAY -= this
 
-    for(entity: Entity <- entitiesArray){
+    for(entity: Entity <- ENTITIES_ARRAY){
       if(entity.target == this){
         entity.target = null
         entity.setTarget()
@@ -61,7 +60,7 @@ abstract class Entity(val player: Player) extends Drawable {
       return
     }
 
-    val ennemiEntities = entitiesArray.filter(_.player != this.player)
+    val ennemiEntities = ENTITIES_ARRAY.filter(_.PLAYER != this.PLAYER)
 
     assert(ennemiEntities.nonEmpty)
 
@@ -87,12 +86,12 @@ abstract class Entity(val player: Player) extends Drawable {
   }
 
   def targetIsInRange(): Boolean = {
-    this.position.dst(target.position) <= range
+    this.position.dst(target.position) <= RANGE
   }
 
 
   def attack(entity: Entity): Unit = {
-    entity.takeDamage(this.attackDamage)
+    entity.takeDamage(this.ATTACK_DAMAGE)
   }
 
   def update(): Unit = {
@@ -104,7 +103,7 @@ abstract class Entity(val player: Player) extends Drawable {
       this.targetInRangeCounter = 0
     }
 
-    if(this.targetIsInRange() && this.targetInRangeCounter % (100 / this.attackSpeed) == 0){
+    if(this.targetIsInRange() && this.targetInRangeCounter % (100 / this.ATTACK_SPEED) == 0){
       this.attack(this.target)
     }
     this.setDirection(this.target)
@@ -113,18 +112,18 @@ abstract class Entity(val player: Player) extends Drawable {
 }
 
 object Entity {
-  val entitiesArray: ArrayBuffer[Entity] = new ArrayBuffer()
+  val ENTITIES_ARRAY: ArrayBuffer[Entity] = new ArrayBuffer()
 
 
   def updateEntities(gdxGraphics: GdxGraphics, deltaTime: Float): Unit = {
     var entityCounter: Int = 0
-    while (entityCounter < entitiesArray.length){
-      val entity: Entity = entitiesArray(entityCounter)
+    while (entityCounter < ENTITIES_ARRAY.length){
+      val entity: Entity = ENTITIES_ARRAY(entityCounter)
       entity match {
         case minion: Minion =>
           minion.update(deltaTime)
         case entity =>
-          entity.update()
+          entity.update ()
       }
 
       entity.draw(gdxGraphics)

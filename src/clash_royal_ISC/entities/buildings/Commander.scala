@@ -8,24 +8,24 @@ import com.badlogic.gdx.math.Vector2
 
 class Commander(player: Player) extends Building(player) {
 
-  override val spriteWidth: Int = 32
-  override val spriteHeight: Int = 32
+  override val SPRITE_WIDTH: Int = 32
+  override val SPRITE_HEIGHT: Int = 32
 
-  override val spriteSheet: Spritesheet = new Spritesheet("res/sprites/buildings/commander.png", this.spriteWidth, this.spriteHeight);
+  override val SPRITE_SHEET: Spritesheet = new Spritesheet("res/sprites/buildings/commander.png", this.SPRITE_WIDTH, this.SPRITE_HEIGHT);
 
   override val MAX_HEALTH: Int = 50
   override var health: Int = this.MAX_HEALTH
-  override val range: Int = 10 * Grid.TILE_SIZE
+  override val RANGE: Int = 10 * Grid.TILE_SIZE
   override var textureY: Int = 1
-  override val animationFramesAmount: Int = 3
-  override val animationFramesWaitAmount: Int = 10
+  override val ANIMATION_FRAME_AMOUNT: Int = 3
+  override val ANIMATION_FRAMES_WAIT_AMOUNT: Int = 10
 
 
-  override val attackSpeed: Int = 2
-  override val attackDamage: Int = 1
+  override val ATTACK_SPEED: Int = 2
+  override val ATTACK_DAMAGE: Int = 1
 
   override def attack(entity: Entity): Unit = {
-    new Typhoon(this.attackDamage, this.position, this.target).spawn()
+    new Typhoon(this.ATTACK_DAMAGE, this.position, this.target).spawn()
   }
 
   override def dies(): Unit = {

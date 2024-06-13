@@ -1,4 +1,4 @@
-package clash_royal_ISC.entities.traits
+package clash_royal_ISC.traits
 
 import ch.hevs.gdx2d.components.bitmaps.Spritesheet
 import ch.hevs.gdx2d.lib.GdxGraphics
@@ -8,15 +8,15 @@ import com.badlogic.gdx.math.Vector2
 
 trait Drawable extends DrawableObject{
 
-  val spriteSheet: Spritesheet
-  val spriteWidth: Int
-  val spriteHeight: Int
+  val SPRITE_SHEET: Spritesheet
+  val SPRITE_WIDTH: Int
+  val SPRITE_HEIGHT: Int
   var textureY: Int
 
   var animationFramesCount: Int = 0
   var currentAnimationFrame: Int = 0
-  val animationFramesAmount: Int
-  val animationFramesWaitAmount: Int
+  val ANIMATION_FRAME_AMOUNT: Int
+  val ANIMATION_FRAMES_WAIT_AMOUNT: Int
 
   var position: Vector2
 
@@ -62,13 +62,13 @@ trait Drawable extends DrawableObject{
   }
 
   override def draw(gdxGraphics: GdxGraphics): Unit = {
-    if(this.animationFramesCount % this.animationFramesWaitAmount == 0){
-      this.currentAnimationFrame = (this.currentAnimationFrame + 1) % this.animationFramesAmount
+    if(this.animationFramesCount % this.ANIMATION_FRAMES_WAIT_AMOUNT == 0){
+      this.currentAnimationFrame = (this.currentAnimationFrame + 1) % this.ANIMATION_FRAME_AMOUNT
     }
 
     this.animationFramesCount += 1
 
-    gdxGraphics.draw(this.spriteSheet.sprites(this.textureY)(currentAnimationFrame), this.position.x - this.spriteWidth / 2, this.position.y)
+    gdxGraphics.draw(this.SPRITE_SHEET.sprites(this.textureY)(currentAnimationFrame), this.position.x - this.SPRITE_WIDTH / 2, this.position.y)
   }
 
   }

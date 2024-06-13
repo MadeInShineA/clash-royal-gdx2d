@@ -15,7 +15,7 @@ import com.badlogic.gdx.{Gdx, Input}
 
 class GameWindow extends PortableApplication(WINDOW_WIDTH, WINDOW_HEIGHT) {
 
-  val grid: Grid = new Grid
+  val GRID: Grid = new Grid
   var player1: Player = _
   var player2: Player = _
 
@@ -29,18 +29,18 @@ class GameWindow extends PortableApplication(WINDOW_WIDTH, WINDOW_HEIGHT) {
 
     selectedEntity = None
 
-    Entity.entitiesArray.clear()
+    Entity.ENTITIES_ARRAY.clear()
     Projectile.projectilesArray.clear()
-    Hand.entitiesArray.clear()
+    Hand.ENTITIES_ARRAY.clear()
 
     Player.playersArray.clear()
 
     this.player1 = Player.createPlayer()
-    this.player1.setDeployableArray(grid.tiledMap.getLayers.get(2).asInstanceOf[TiledMapTileLayer])
+    this.player1.setDeployableArray(GRID.tiledMap.getLayers.get(2).asInstanceOf[TiledMapTileLayer])
 
 
     this.player2 = Player.createPlayer()
-    this.player2.setDeployableArray(grid.tiledMap.getLayers.get(3).asInstanceOf[TiledMapTileLayer])
+    this.player2.setDeployableArray(GRID.tiledMap.getLayers.get(3).asInstanceOf[TiledMapTileLayer])
 
 
 
@@ -63,9 +63,9 @@ class GameWindow extends PortableApplication(WINDOW_WIDTH, WINDOW_HEIGHT) {
 
     if(selectedEntity.isDefined){
       GameWindow.selectedEntity = Hand.getEntityAtPosition(x, y)
-    }else if(GameWindow.selectedEntity.isDefined &&  GameWindow.selectedEntity.get.player.deployableArray(clickXGridCell)(clickYGridCell) ){
+    }else if(GameWindow.selectedEntity.isDefined &&  GameWindow.selectedEntity.get.PLAYER.deployableArray(clickXGridCell)(clickYGridCell) ){
       val entity: Entity with Deployable = GameWindow.selectedEntity.get
-      entity.player.deployEntity(entity,new Vector2(x, y))
+      entity.PLAYER.deployEntity(entity,new Vector2(x, y))
       GameWindow.selectedEntity = None
     }
   }
@@ -76,16 +76,16 @@ class GameWindow extends PortableApplication(WINDOW_WIDTH, WINDOW_HEIGHT) {
     this.gameMusicPlayer = new MusicPlayer("res/sounds/game.mp3")
 //    Thread.sleep(3800)
 
-    grid.tiledMap = new TmxMapLoader().load("res/map/map2.tmx")
-    Grid.setWalkableArray(grid.tiledMap)
-    grid.tiledMapRenderer = new OrthogonalTiledMapRenderer(grid.tiledMap)
-    grid.tiledLayer = grid.tiledMap.getLayers
+    GRID.tiledMap = new TmxMapLoader().load("res/map/map2.tmx")
+    Grid.setWalkableArray(GRID.tiledMap)
+    GRID.tiledMapRenderer = new OrthogonalTiledMapRenderer(GRID.tiledMap)
+    GRID.tiledLayer = GRID.tiledMap.getLayers
 
     this.player1 = Player.createPlayer()
-    this.player1.setDeployableArray(grid.tiledMap.getLayers.get(2).asInstanceOf[TiledMapTileLayer])
+    this.player1.setDeployableArray(GRID.tiledMap.getLayers.get(2).asInstanceOf[TiledMapTileLayer])
 
     this.player2 = Player.createPlayer()
-    this.player2.setDeployableArray(grid.tiledMap.getLayers.get(3).asInstanceOf[TiledMapTileLayer])
+    this.player2.setDeployableArray(GRID.tiledMap.getLayers.get(3).asInstanceOf[TiledMapTileLayer])
   }
 
   override def onGraphicRender(gdxGraphics: GdxGraphics): Unit = {
@@ -95,7 +95,7 @@ class GameWindow extends PortableApplication(WINDOW_WIDTH, WINDOW_HEIGHT) {
     if(gameIsRunning){
       this.gameMusicPlayer.setVolume(0.5f)
       this.gameMusicPlayer.loop()
-      this.grid.render(gdxGraphics)
+      this.GRID.render(gdxGraphics)
 
       for(player: Player <- Player.playersArray) {
         player.hand.draw(gdxGraphics)

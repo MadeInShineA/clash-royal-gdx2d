@@ -1,4 +1,4 @@
-package clash_royal_ISC.Utils
+package clash_royal_ISC.utils
 
 import clash_royal_ISC.Grid
 import clash_royal_ISC.entities.Entity
