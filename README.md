@@ -13,7 +13,7 @@ Ce projet est une implémentation du jeu "Crash Royale", une reproduction du jeu
 
 ## Vidéo de Démonstration
 
-[Voir la démonstration](./data/images/CrashRoyaleVideo.webm)
+[Voir la démonstration](./data/images/CrashRoyaleVideo.mp4)
 
 
 ## Structure du Code
