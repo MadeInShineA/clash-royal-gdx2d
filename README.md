@@ -1,5 +1,5 @@
 # Crash Royale with GDX2D
-![Image de couverture](./res/menu.png)
+![Image de couverture](./res/menu.jpg)
 ## Description du Projet
 
 Ce projet est une implémentation du jeu "Crash Royale", une reproduction du jeu "Clash Royale", utilisant le framework GDX2D. Le but de ce projet est de mettre en pratique les connaissances acquises en programmation orientée-objet et en structures de données dynamiques.
