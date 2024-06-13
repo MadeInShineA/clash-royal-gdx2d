@@ -33,7 +33,7 @@ Le code est organisé en plusieurs fichiers et classes pour assurer une bonne fl
 
 ## Installation
 
-Pour cloner et exécuter ce projet, vous aurez besoin de [Git](https://git-scm.com) et de [SBT](https://www.scala-sbt.org) installés sur votre machine.
+Pour cloner ce projet, vous aurez besoin de [Git](https://git-scm.com) installé sur votre machine.
 
 ### Cloner le dépôt
 
