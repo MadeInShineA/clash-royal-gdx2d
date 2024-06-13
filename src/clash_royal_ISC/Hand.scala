@@ -3,7 +3,7 @@ package clash_royal_ISC
 import ch.hevs.gdx2d.lib.GdxGraphics
 import ch.hevs.gdx2d.lib.interfaces.DrawableObject
 import clash_royal_ISC.Hand.{P1_POSITION, P2_POSITION, SIZE, WIDTH, ENTITIES_ARRAY}
-import clash_royal_ISC.Player.playersArray
+import clash_royal_ISC.Player.PLAYERS_ARRAY
 import clash_royal_ISC.entities.Entity
 import clash_royal_ISC.entities.buildings.Soldier
 import clash_royal_ISC.entities.minions.{Barbarian, Giant, Princess, Wizard}
@@ -12,7 +12,6 @@ import com.badlogic.gdx.math.Vector2
 import scala.collection.mutable.ArrayBuffer
 import scala.util.Random
 import ch.hevs.gdx2d.components.bitmaps.BitmapImage
-
 
 class Hand (player: Player) extends DrawableObject{
 
@@ -24,8 +23,7 @@ class Hand (player: Player) extends DrawableObject{
     new Princess(this.player)
   )
 
-
-  val POSITION: Vector2 = (if(playersArray.isEmpty) P1_POSITION else P2_POSITION)
+  val POSITION: Vector2 = (if(PLAYERS_ARRAY.isEmpty) P1_POSITION else P2_POSITION)
 
   val ENTITIES: ArrayBuffer[Entity with Deployable] = this.createHand()
 
@@ -42,7 +40,6 @@ class Hand (player: Player) extends DrawableObject{
     }
     res
   }
-
 
   def addEntity(index: Int): Unit = {
     assert(index <= SIZE - 1)
@@ -68,7 +65,7 @@ class Hand (player: Player) extends DrawableObject{
       val xPosition: Float = (index) * (WIDTH / SIZE)
       val yPosition: Float = this.POSITION.y
       entity.drawHandSprite(xPosition, yPosition, gdxGraphics)
-      if(this.player.currentElixir < entity.cost){
+      if(this.player.currentElixir < entity.COST){
         gdxGraphics.drawPicture(xPosition + Grid.TILE_SIZE / 2, yPosition + Grid.TILE_SIZE / 2, new BitmapImage("res/map/transparentRedFilter.png"))
       }
       if(GameWindow.selectedEntity.isDefined && entity == GameWindow.selectedEntity.get){
@@ -79,6 +76,9 @@ class Hand (player: Player) extends DrawableObject{
 }
 
 object Hand {
+
+  val ENTITIES_ARRAY: ArrayBuffer[Entity with Deployable] = new ArrayBuffer()
+
   val SIZE: Int = 5
 
   val P1_POSITION: Vector2 = new Vector2(0, Grid.TILE_SIZE)
@@ -87,7 +87,6 @@ object Hand {
   val HEIGHT: Int = 1 * Grid.TILE_SIZE
   val WIDTH: Int = GameWindow.WINDOW_WIDTH
 
-  val ENTITIES_ARRAY: ArrayBuffer[Entity with Deployable] = new ArrayBuffer()
 
   def getEntityAtPosition(x: Float, y: Float): Option[Entity with Deployable] = {
     for(entity: Entity with Deployable <- ENTITIES_ARRAY){
@@ -97,5 +96,4 @@ object Hand {
     }
     None
   }
-
 }

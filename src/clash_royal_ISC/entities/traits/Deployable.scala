@@ -9,12 +9,11 @@ trait Deployable {
   val HAND_SPRITE_SHEET: Spritesheet
   val HAND_SPRITE_WIDTH: Int = 32
   val HAND_SPRITE_HEIGHT: Int = 32
-  val cost: Int
+  val COST: Int
 
   def drawHandSprite(xPosition: Float,yPosition: Float, gdxGraphics: GdxGraphics) = {
     gdxGraphics.draw(HAND_SPRITE_SHEET.sprites(0)(0), xPosition, yPosition)
   }
 
   def copy(): Entity with Deployable
-
 }

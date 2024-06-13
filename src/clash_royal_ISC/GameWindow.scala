@@ -32,18 +32,13 @@ class GameWindow extends PortableApplication(WINDOW_WIDTH, WINDOW_HEIGHT) {
     Entity.ENTITIES_ARRAY.clear()
     Projectile.projectilesArray.clear()
     Hand.ENTITIES_ARRAY.clear()
-
-    Player.playersArray.clear()
+    Player.PLAYERS_ARRAY.clear()
 
     this.player1 = Player.createPlayer()
     this.player1.setDeployableArray(GRID.tiledMap.getLayers.get(2).asInstanceOf[TiledMapTileLayer])
 
-
     this.player2 = Player.createPlayer()
     this.player2.setDeployableArray(GRID.tiledMap.getLayers.get(3).asInstanceOf[TiledMapTileLayer])
-
-
-
   }
 
   override def onKeyDown(keyCode: Int): Unit = {
@@ -63,7 +58,7 @@ class GameWindow extends PortableApplication(WINDOW_WIDTH, WINDOW_HEIGHT) {
 
     if(selectedEntity.isDefined){
       GameWindow.selectedEntity = Hand.getEntityAtPosition(x, y)
-    }else if(GameWindow.selectedEntity.isDefined &&  GameWindow.selectedEntity.get.PLAYER.deployableArray(clickXGridCell)(clickYGridCell) ){
+    }else if(GameWindow.selectedEntity.isDefined &&  GameWindow.selectedEntity.get.PLAYER.DEPLOYABLE_ARRAY(clickXGridCell)(clickYGridCell) ){
       val entity: Entity with Deployable = GameWindow.selectedEntity.get
       entity.PLAYER.deployEntity(entity,new Vector2(x, y))
       GameWindow.selectedEntity = None
@@ -74,7 +69,6 @@ class GameWindow extends PortableApplication(WINDOW_WIDTH, WINDOW_HEIGHT) {
 
     new SoundSample("res/sounds/start.mp3").play()
     this.gameMusicPlayer = new MusicPlayer("res/sounds/game.mp3")
-//    Thread.sleep(3800)
 
     GRID.tiledMap = new TmxMapLoader().load("res/map/map2.tmx")
     Grid.setWalkableArray(GRID.tiledMap)
@@ -97,8 +91,8 @@ class GameWindow extends PortableApplication(WINDOW_WIDTH, WINDOW_HEIGHT) {
       this.gameMusicPlayer.loop()
       this.GRID.render(gdxGraphics)
 
-      for(player: Player <- Player.playersArray) {
-        player.hand.draw(gdxGraphics)
+      for(player: Player <- Player.PLAYERS_ARRAY) {
+        player.HAND.draw(gdxGraphics)
         if(this.graphicRenderCounter % ELIXIRE_CYCLE_FRAMES == 0 && this.graphicRenderCounter != 0) {
           player.addElixir(0.05f)
         }
@@ -109,9 +103,7 @@ class GameWindow extends PortableApplication(WINDOW_WIDTH, WINDOW_HEIGHT) {
       Projectile.updateProjectiles(gdxGraphics, Gdx.graphics.getDeltaTime )
       gdxGraphics.drawFPS()
       this.graphicRenderCounter += 1
-
-    }
-    else{
+    } else{
       gdxGraphics.drawPicture(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2, new BitmapImage("res/menu.jpg"))
       gdxGraphics.drawAlphaPicture(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2, 1, new BitmapImage("res/menu-text.png"))
       this.graphicRenderCounter += 1
@@ -120,6 +112,7 @@ class GameWindow extends PortableApplication(WINDOW_WIDTH, WINDOW_HEIGHT) {
 }
 
 object GameWindow {
+
   val WINDOW_WIDTH: Int = 576
   val WINDOW_HEIGHT: Int = 1024
 
@@ -136,14 +129,12 @@ object GameWindow {
     assert(this.gameWindowInstance == null)
     this.gameWindowInstance = new GameWindow
   }
+
   def endGame(): Unit = {
     gameIsRunning = false
     new SoundSample("res/sounds/victory.mp3").play()
 
     this.gameWindowInstance.resetGame()
-
   }
-
-
 }
 

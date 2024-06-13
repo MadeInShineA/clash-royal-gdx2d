@@ -9,10 +9,14 @@ import com.badlogic.gdx.math.Vector2
 import scala.collection.mutable.ArrayBuffer
 
 trait OnlyTargetBuilding {
+
   val PLAYER: Player
+
   var target: Entity
   var position: Vector2
+
   def targetIsInRange(): Boolean
+
   def setTarget(): Unit = {
     if(target != null && this.targetIsInRange()){
       return

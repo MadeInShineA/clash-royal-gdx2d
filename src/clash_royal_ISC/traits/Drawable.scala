@@ -9,14 +9,15 @@ import com.badlogic.gdx.math.Vector2
 trait Drawable extends DrawableObject{
 
   val SPRITE_SHEET: Spritesheet
-  val SPRITE_WIDTH: Int
-  val SPRITE_HEIGHT: Int
-  var textureY: Int
+  val SPRITE_WIDTH: Int = 32
+  val SPRITE_HEIGHT: Int = 32
+  var textureY: Int = 1
 
-  var animationFramesCount: Int = 0
-  var currentAnimationFrame: Int = 0
   val ANIMATION_FRAME_AMOUNT: Int
   val ANIMATION_FRAMES_WAIT_AMOUNT: Int
+  var animationFramesCount: Int = 0
+  var currentAnimationFrame: Int = 0
+
 
   var position: Vector2
 
@@ -67,8 +68,6 @@ trait Drawable extends DrawableObject{
     }
 
     this.animationFramesCount += 1
-
     gdxGraphics.draw(this.SPRITE_SHEET.sprites(this.textureY)(currentAnimationFrame), this.position.x - this.SPRITE_WIDTH / 2, this.position.y)
   }
-
-  }
+}

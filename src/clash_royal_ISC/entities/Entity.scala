@@ -13,8 +13,6 @@ import scala.collection.mutable.ArrayBuffer
 
 abstract class Entity(val PLAYER: Player) extends Drawable {
 
-  var position: Vector2 = _
-
   val MAX_HEALTH: Int
   val RANGE: Int
   val ATTACK_SPEED: Int
@@ -22,12 +20,16 @@ abstract class Entity(val PLAYER: Player) extends Drawable {
 
   val HEALTH_SPRITE_SHEET: Spritesheet = new Spritesheet("res/sprites/minions/health-bar.png", 80, 11)
   val HEALTH_SPRITE_WIDTH: Int = 80
-  var health: Int
+
+  var health: Int = 0
+
+  var position: Vector2 = _
 
   var target: Entity = _
   var targetInRangeCounter: Int = 0
 
   def spawn(position: Vector2): Unit = {
+    this.health = this.MAX_HEALTH
     this.position = position
     ENTITIES_ARRAY += this
   }
@@ -65,7 +67,6 @@ abstract class Entity(val PLAYER: Player) extends Drawable {
     assert(ennemiEntities.nonEmpty)
 
     this.target = ennemiEntities.minBy(_.position.dst(this.position))
-
   }
 
   override def draw(gdxGraphics: GdxGraphics): Unit = {
@@ -108,12 +109,11 @@ abstract class Entity(val PLAYER: Player) extends Drawable {
     }
     this.setDirection(this.target)
   }
-
 }
 
 object Entity {
-  val ENTITIES_ARRAY: ArrayBuffer[Entity] = new ArrayBuffer()
 
+  val ENTITIES_ARRAY: ArrayBuffer[Entity] = new ArrayBuffer()
 
   def updateEntities(gdxGraphics: GdxGraphics, deltaTime: Float): Unit = {
     var entityCounter: Int = 0

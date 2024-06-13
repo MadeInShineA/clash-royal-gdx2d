@@ -14,17 +14,16 @@ import scala.collection.mutable.ArrayBuffer
 
 abstract class Projectile(val attackDamage: Int, var position: Vector2, val target: Entity) extends Drawable with Movable {
 
-  val range: Int = 1 * Grid.TILE_SIZE
+  val RANGE: Int = 1 * Grid.TILE_SIZE
 
-  val spawnSound: SoundSample
-  val hitSound: SoundSample
+  val SPAWN_SOUND: SoundSample
+  val HIT_SOUND: SoundSample
 
   def spawn(): Unit = {
     projectilesArray += this
-    super.setPositions(position)
-    this.spawnSound.play()
+    super[Movable].setPositions(position)
+    this.SPAWN_SOUND.play()
   }
-
 
   override def canMove(): Boolean = {
     true
@@ -37,20 +36,17 @@ abstract class Projectile(val attackDamage: Int, var position: Vector2, val targ
   }
 
   def hasReachedTarget(): Boolean = {
-    this.position.dst(this.target.position) <= this.range ||  this.path.isEmpty
+    this.position.dst(this.target.position) <= this.RANGE ||  this.path.isEmpty
   }
 
   override def update(deltaTime: Float): Unit = {
-    super.update(deltaTime)
+    super[Movable].update(deltaTime)
     setDirection(this.target)
   }
-
-
 }
 
-
-
 object Projectile {
+
   val projectilesArray: ArrayBuffer[Projectile] = new ArrayBuffer()
 
   def updateProjectiles(gdxGraphics: GdxGraphics, deltaTime: Float): Unit = {
@@ -62,7 +58,7 @@ object Projectile {
       if(projectile.hasReachedTarget()){
         this.projectilesArray.remove(projectileCounter)
         projectile.target.takeDamage(projectile.attackDamage)
-        projectile.hitSound.play()
+        projectile.HIT_SOUND.play()
       }
       projectileCounter += 1
     }

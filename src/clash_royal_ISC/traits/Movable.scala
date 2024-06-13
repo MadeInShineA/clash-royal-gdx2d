@@ -4,7 +4,7 @@ import com.badlogic.gdx.math.Vector2
 
 trait Movable extends {
 
-  val moveSpeed: Float
+  val MOVE_SPEED: Float
   var path: List[(Int, Int)] = _
 
   var dt: Float = 0
@@ -20,10 +20,6 @@ trait Movable extends {
     this.lastPosition = position
     this.newPosition = position
   }
-
-
-
-
 
   def move(deltaTime: Float): Unit = {
     if(path.isEmpty){
@@ -53,7 +49,7 @@ trait Movable extends {
     }
 
     // Calculer la distance maximale que l'entité peut parcourir pendant cette frame
-    val maxDistancePerFrame = this.moveSpeed * this.dt
+    val maxDistancePerFrame = this.MOVE_SPEED * this.dt
 
     // Calculer la distance entre lastPosition et newPosition
     val distance = this.lastPosition.dst(this.newPosition)
@@ -67,17 +63,13 @@ trait Movable extends {
       val alpha = Math.min(maxDistancePerFrame / distance, 1.0f)
       this.position = this.lastPosition.lerp(this.newPosition, alpha)
     }
-
     this.setPath()
-
   }
 
   def update(deltaTime: Float): Unit = {
     if (this.path == null) {
       this.setPath()
     }
-
     this.move(deltaTime)
   }
-
 }
