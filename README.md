@@ -11,6 +11,11 @@ Ce projet est une implémentation du jeu "Crash Royale", une reproduction du jeu
 - Pathfinding avec l'algorithme A*.
 - Combat 1V1.
 
+## Vidéo de Démonstration
+
+[Voir la démonstration](./data/images/CrashRoyaleVideo.webm)
+
+
 ## Structure du Code
 
 Le code est organisé en plusieurs fichiers et classes pour assurer une bonne flexibilité. Voici une brève description des principaux composants :
