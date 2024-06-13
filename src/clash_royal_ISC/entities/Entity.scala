@@ -81,7 +81,7 @@ abstract class Entity(val PLAYER: Player) extends Drawable {
       case _ => 3
     }
 
-    gdxGraphics.drawString(this.position.x, this.position.y + 80, this.health.toString)
+    gdxGraphics.drawString(this.position.x - this.health.toString.length * 4.5f, this.position.y + 80, this.health.toString)
 
     gdxGraphics.draw(this.HEALTH_SPRITE_SHEET.sprites(healthSprite)(0), this.position.x - HEALTH_SPRITE_WIDTH / 2, this.position.y + 50)
   }
