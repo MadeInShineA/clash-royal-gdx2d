@@ -42,11 +42,6 @@ git clone https://github.com/votre_nom_utilisateur/clash-royale-scala.git
 cd clash-royale-scala
 ```
 
-### Exécuter le projet
-
-```bash
-sbt run
-```
 <p align="right">
   <img src="./data/images/ISC_logo.png" alt="Description de l'image" width="200"/>
 </p>
