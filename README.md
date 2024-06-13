@@ -1,7 +1,34 @@
-# Hello `gdx2d` for Scala !
+# Crash Royale with GDX2D
 
-Desktop bootstrap project based on the latest `gdx2d` library. The project is ready to use in _IntelliJ_. It uses the `gdx2d-desktop` library version `1.2.1`.
+## Description du Projet
 
-The `gdx2d` sources are available in the library Jar file (in the `libs` folder). The Javadoc API of the library can be found [here](https://hevs-isi.github.io/gdx2d/javadoc/).
+Ce projet est une implémentation du jeu "Crash Royale", une reproduction du jeu "Clash Royale", utilisant le framework GDX2D. Le but de ce projet est de mettre en pratique les connaissances acquises en programmation orientée-objet et en structures de données dynamiques.
 
-Java 11 or higher is required to run this project. An `Ant` build script is provided to export the project as a runnable Jar (available in the `dist` folder).
+## Fonctionnalités
+
+- Gestion de l'affichage graphique et des entités en temps réel.
+- Système de déploiement des différentes entités.
+- Pathfinding avec l'algorithme A*.
+- Combat 1V1.
+
+## Structure du Code
+
+Le code est organisé en plusieurs fichiers et classes pour assurer une bonne flexibilité. Voici une brève description des principaux composants :
+
+### Classes Principales
+
+- `GameWindow` : Gère la fenêtre de jeu et le rendu graphique.
+- `Player` : Représente un joueur et gère ses unités et bâtiments.
+- `Entity` : Classe abstraite représentant une entité du jeu (minion ou bâtiment).
+- `Minion` : Classe dérivée de `Entity` représentant une unité déployable.
+- `Building` : Classe dérivée de `Entity` représentant un bâtiment.
+
+## Installation
+
+Pour cloner et exécuter ce projet, vous aurez besoin de [Git](https://git-scm.com) et de [SBT](https://www.scala-sbt.org) installés sur votre machine.
+
+### Cloner le dépôt
+
+```bash
+git clone https://github.com/votre_nom_utilisateur/clash-royale-scala.git
+cd clash-royale-scala
