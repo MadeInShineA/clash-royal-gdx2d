@@ -1,5 +1,8 @@
 # Crash Royale with GDX2D
-![Image de couverture](./res/menu.jpg)
+<p align="center">
+  <img src="./res/menu.jpg" alt="Description de l'image" width="600"/>
+</p>
+
 ## Description du Projet
 
 Ce projet est une implémentation du jeu "Crash Royale", une reproduction du jeu "Clash Royale", utilisant le framework GDX2D. Le but de ce projet est de mettre en pratique les connaissances acquises en programmation orientée-objet et en structures de données dynamiques.
@@ -37,3 +40,13 @@ Pour cloner et exécuter ce projet, vous aurez besoin de [Git](https://git-scm.c
 ```bash
 git clone https://github.com/votre_nom_utilisateur/clash-royale-scala.git
 cd clash-royale-scala
+```
+
+### Exécuter le projet
+
+```bash
+sbt run
+```
+<p align="right">
+  <img src="./data/images/ISC_logo.png" alt="Description de l'image" width="200"/>
+</p>
